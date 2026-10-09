@@ -107,7 +107,7 @@ body{
     display:grid;
 
     grid-template-columns:
-        repeat(5,1fr);
+        repeat(3,1fr);
 
     gap:15px;
 
@@ -803,6 +803,13 @@ tbody tr:hover{
 
 }
 
+
+.stock-title{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.stock-toggle{padding:7px 11px;font-size:18px;line-height:1;}
+#stokDetail{margin-top:4px;}
+.btn-upload{background:#00897b;color:white;}
+#uploadExcelInput{display:none;}
+
 </style>
 
 </head>
@@ -854,22 +861,6 @@ tbody tr:hover{
     <div class="dashboard-card">
 
         <h3>
-            TOTAL KODE BARANG
-        </h3>
-
-        <div
-            class="value"
-            id="totalKode"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <div class="dashboard-card">
-
-        <h3>
             TOTAL BARANG MASUK
         </h3>
 
@@ -915,20 +906,6 @@ tbody tr:hover{
     </div>
 
 
-    <div class="dashboard-card">
-
-        <h3>
-            TOTAL TRANSAKSI
-        </h3>
-
-        <div
-            class="value"
-            id="totalTransaksi"
-        >
-            0
-        </div>
-
-    </div>
 
 
 </div>
@@ -1105,11 +1082,13 @@ tbody tr:hover{
 <div class="card">
 
 
-    <div class="card-title">
-         Sisa Stok
+    <div class="card-title stock-title">
+         <span>Sisa Stok</span>
+         <button type="button" class="btn-print stock-toggle" id="toggleStokBtn" onclick="toggleTampilanStok()" aria-label="Tampilkan sisa stok" title="Klik untuk melihat sisa stok">🔍</button>
     </div>
 
 
+    <div id="stokDetail" style="display:none;">
     <div class="toolbar">
 
         <div class="search-area">
@@ -1172,7 +1151,7 @@ tbody tr:hover{
         </table>
 
     </div>
-
+    </div>
 
 </div>
 
@@ -1230,6 +1209,14 @@ tbody tr:hover{
             style="margin-top:0;"
         >
 
+
+            <button
+                class="btn-upload"
+                onclick="document.getElementById('uploadExcelInput').click()"
+            >
+                UPLOAD EXCEL
+            </button>
+            <input type="file" id="uploadExcelInput" accept=".xlsx,.xls" onchange="importExcel(event)">
 
             <button
                 class="btn-excel"
@@ -2675,6 +2662,95 @@ function resetForm(){
    RENDER STOK
 ========================================================= */
 
+function toggleTampilanStok(){
+    const detail = document.getElementById("stokDetail");
+    const button = document.getElementById("toggleStokBtn");
+    const sedangTampil = detail.style.display !== "none";
+    detail.style.display = sedangTampil ? "none" : "block";
+    button.textContent = sedangTampil ? "🔍" : "✕";
+    button.title = sedangTampil ? "Klik untuk melihat sisa stok" : "Tutup tampilan sisa stok";
+    button.setAttribute("aria-label", sedangTampil ? "Tampilkan sisa stok" : "Sembunyikan sisa stok");
+}
+
+/* =========================================================
+   IMPORT EXCEL: Jenis | Kode Barang | Nama Barang | Warna | Jumlah
+========================================================= */
+function importExcel(event){
+    const file = event.target.files && event.target.files[0];
+    if(!file) return;
+    if(typeof XLSX === "undefined"){
+        alert("Library Excel belum berhasil dimuat. Pastikan koneksi internet aktif.");
+        event.target.value = "";
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e){
+        try{
+            const workbook = XLSX.read(e.target.result, {type:"array"});
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const rows = XLSX.utils.sheet_to_json(sheet, {defval:"", raw:false});
+            if(!rows.length) throw new Error("File Excel tidak berisi data.");
+            const normalizeHeader = value => String(value ?? "").trim().toLowerCase().replace(/\s+/g," ");
+            const required = ["jenis","kode barang","nama barang","warna","jumlah"];
+            const headers = Object.keys(rows[0]).map(normalizeHeader);
+            const missing = required.filter(h => !headers.includes(h));
+            if(missing.length) throw new Error("Kolom Excel tidak sesuai. Wajib ada: Jenis, Kode Barang, Nama Barang, Warna, Jumlah.");
+            const staged = [];
+            rows.forEach((row,i) => {
+                const values = {};
+                Object.keys(row).forEach(k => values[normalizeHeader(k)] = row[k]);
+                const rawJenis = String(values["jenis"] ?? "").trim().toLowerCase();
+                let jenis;
+                if(["masuk","barang masuk","in"].includes(rawJenis)) jenis = "masuk";
+                else if(["keluar","barang keluar","out"].includes(rawJenis)) jenis = "keluar";
+                else throw new Error(`Baris ${i+2}: Jenis harus Barang Masuk atau Barang Keluar.`);
+                const kode = normalizeKode(values["kode barang"]);
+                const nama = String(values["nama barang"] ?? "").trim();
+                const warna = String(values["warna"] ?? "").trim();
+                const jumlahRaw = String(values["jumlah"] ?? "").trim().replace(/\./g, "").replace(",", ".");
+                const jumlah = Number(jumlahRaw);
+                if(!kode || !nama || !warna) throw new Error(`Baris ${i+2}: Kode Barang, Nama Barang, dan Warna wajib diisi.`);
+                if(!Number.isFinite(jumlah) || jumlah <= 0 || !Number.isInteger(jumlah)) throw new Error(`Baris ${i+2}: Jumlah harus bilangan bulat lebih dari 0.`);
+                staged.push({jenis,kode,nama,warna,jumlah});
+            });
+            // Validasi stok keluar terhadap stok awal dan baris impor sebelumnya.
+            const saldo = {};
+            Object.entries(hitungSemuaStok()).forEach(([key,item]) => saldo[key] = Number(item.stok || 0));
+            staged.forEach((item,i) => {
+                const key = getStockKey(item.kode,item.warna);
+                if(saldo[key] === undefined) saldo[key] = 0;
+                if(item.jenis === "keluar" && item.jumlah > saldo[key]){
+                    throw new Error(`Baris Excel ${i+2}: stok tidak mencukupi untuk ${item.kode} warna ${item.warna}. Stok tersedia: ${formatAngka(saldo[key])}, jumlah keluar: ${formatAngka(item.jumlah)}.`);
+                }
+                saldo[key] += item.jenis === "masuk" ? item.jumlah : -item.jumlah;
+            });
+            const now = getCurrentDateTime();
+            staged.forEach((item,i) => {
+                const d = new Date();
+                d.setSeconds(d.getSeconds()+i);
+                const waktu = getCurrentDateTimeFromDate(d);
+                transaksi.push({id:Date.now()+"-excel-"+i+"-"+Math.random().toString(36).slice(2,7),tanggal:waktu.tanggal,jam:waktu.jam,jenis:item.jenis,kode:item.kode,nama:item.nama,warna:item.warna,jumlah:item.jumlah});
+            });
+            saveData();
+            renderSemua();
+            alert(`${staged.length} baris data Excel berhasil diimpor.`);
+        }catch(error){
+            alert("Upload Excel gagal.\n\n" + (error.message || "Periksa kembali format file."));
+        }finally{
+            event.target.value = "";
+        }
+    };
+    reader.onerror = function(){ alert("File Excel tidak dapat dibaca."); event.target.value = ""; };
+    reader.readAsArrayBuffer(file);
+}
+
+function getCurrentDateTimeFromDate(date){
+    return {
+        tanggal: date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate()),
+        jam: pad(date.getHours())+":"+pad(date.getMinutes())+":"+pad(date.getSeconds())
+    };
+}
+
 function renderStok(){
 
     const stok =
@@ -3706,14 +3782,6 @@ function updateDashboard(){
 
 
     document.getElementById(
-        "totalKode"
-    ).textContent =
-        formatAngka(
-            dataStok.length
-        );
-
-
-    document.getElementById(
         "totalMasuk"
     ).textContent =
         formatAngka(
@@ -3736,13 +3804,6 @@ function updateDashboard(){
             totalStok
         );
 
-
-    document.getElementById(
-        "totalTransaksi"
-    ).textContent =
-        formatAngka(
-            transaksi.length
-        );
 
 }
 
