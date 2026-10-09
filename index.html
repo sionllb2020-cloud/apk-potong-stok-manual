@@ -617,6 +617,9 @@ tbody tr:hover { background: var(--table-hover); }
         <button class="tab-btn active" id="tabInputBtn" onclick="switchPage('inputPage')">
             Input Transaksi
         </button>
+        <button class="tab-btn" id="tabPenjualanBtn" onclick="switchPage('penjualanPage')">
+            Penjualan
+        </button>
         <button class="tab-btn" id="tabStokBtn" onclick="switchPage('stokPage')">
             Sisa Stok Barang
         </button>
@@ -657,6 +660,12 @@ tbody tr:hover { background: var(--table-hover); }
                     </select>
                 </div>
 
+                <!-- INPUT NAMA CUSTOMER (TAMPIL HANYA PADA BARANG KELUAR) -->
+                <div class="form-group" id="containerCustomer" style="display:none;">
+                    <label>Nama Customer</label>
+                    <input type="text" id="customer" placeholder="Masukkan Nama Customer" autocomplete="off">
+                </div>
+
                 <!-- SEARCHABLE DATALIST BARANG KELUAR -->
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok" style="display:none;">
                     <label>Cari Barang Stok (Tersedia)</label>
@@ -689,6 +698,40 @@ tbody tr:hover { background: var(--table-hover); }
             <div class="button-area">
                 <button class="btn-save" onclick="simpanTransaksi()">SAVE FORM</button>
                 <button class="btn-reset" onclick="resetForm()">RESET FORM</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+         HALAMAN PENJUALAN (BARANG KELUAR / PENJUALAN)
+    ========================================================= -->
+    <div class="page" id="penjualanPage">
+        
+        <div class="card">
+            <div class="card-title">
+                <span>Data Penjualan Barang</span>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-area">
+                    <input type="text" id="searchPenjualan" placeholder="Cari tanggal, nama customer, atau barang..." oninput="renderPenjualan()">
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
+                            <th>Nama Customer</th>
+                            <th class="text-right">Jumlah Barang yang di beli</th>
+                        </tr>
+                    </thead>
+                    <tbody id="penjualanBody"></tbody>
+                </table>
             </div>
         </div>
 
@@ -762,7 +805,7 @@ tbody tr:hover { background: var(--table-hover); }
 
             <div class="toolbar">
                 <div class="search-area">
-                    <input type="text" id="searchTransaksi" placeholder="Cari kode, nama, warna, atau tanggal..." oninput="renderTransaksi()">
+                    <input type="text" id="searchTransaksi" placeholder="Cari kode, nama, warna, customer, atau tanggal..." oninput="renderTransaksi()">
                     <select id="filterJenis" onchange="renderTransaksi()">
                         <option value="semua">Semua Transaksi</option>
                         <option value="masuk">Barang Masuk</option>
@@ -790,6 +833,7 @@ tbody tr:hover { background: var(--table-hover); }
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Warna</th>
+                            <th>Customer</th>
                             <th class="text-right">Jumlah Barang</th>
                             <th class="text-center">Edit / Hapus</th>
                         </tr>
@@ -879,6 +923,10 @@ tbody tr:hover { background: var(--table-hover); }
                         <option value="masuk">Barang Masuk</option>
                         <option value="keluar">Barang Keluar</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>Nama Customer</label>
+                    <input type="text" id="editCustomer" placeholder="-">
                 </div>
                 <div class="form-group">
                     <label>Kode Barang</label>
@@ -1034,6 +1082,9 @@ function switchPage(pageId) {
 
     if (pageId === 'inputPage') {
         document.getElementById('tabInputBtn').classList.add('active');
+    } else if (pageId === 'penjualanPage') {
+        document.getElementById('tabPenjualanBtn').classList.add('active');
+        renderPenjualan();
     } else if (pageId === 'stokPage') {
         document.getElementById('tabStokBtn').classList.add('active');
         updateDashboard();
@@ -1156,18 +1207,21 @@ function updateDashboard() {
 function handleJenisChange() {
     const jenis = document.getElementById('jenis').value;
     const containerPilih = document.getElementById('containerPilihStok');
+    const containerCustomer = document.getElementById('containerCustomer');
     const inputKode = document.getElementById('kode');
     const inputNama = document.getElementById('nama');
     const inputWarna = document.getElementById('warna');
 
     if (jenis === 'keluar') {
         containerPilih.style.display = 'flex';
+        containerCustomer.style.display = 'flex';
         inputKode.readOnly = true;
         inputNama.readOnly = true;
         inputWarna.readOnly = true;
         populateDatalistStok();
     } else {
         containerPilih.style.display = 'none';
+        containerCustomer.style.display = 'none';
         inputKode.readOnly = false;
         inputNama.readOnly = false;
         inputWarna.readOnly = false;
@@ -1218,6 +1272,7 @@ function simpanTransaksi() {
     const kode = normalizeKode(document.getElementById('kode').value);
     const nama = document.getElementById('nama').value.trim();
     const warna = document.getElementById('warna').value.trim();
+    const customer = document.getElementById('customer') ? document.getElementById('customer').value.trim() : '';
     const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
 
     if (!kode || !nama || !warna || jumlah <= 0) {
@@ -1226,6 +1281,10 @@ function simpanTransaksi() {
     }
 
     if (jenis === 'keluar') {
+        if (!customer) {
+            alert("Mohon isi Nama Customer untuk Barang Keluar!");
+            return;
+        }
         const mapStok = hitungStokPerBarang();
         const key = getStockKey(kode, warna);
         const stokSaatIni = mapStok[key] ? mapStok[key].sisa : 0;
@@ -1244,6 +1303,7 @@ function simpanTransaksi() {
         kode: kode,
         nama: nama,
         warna: warna,
+        customer: jenis === 'keluar' ? customer : '-',
         jumlah: jumlah
     });
 
@@ -1255,6 +1315,7 @@ function simpanTransaksi() {
 
 function resetFormInput() {
     if (document.getElementById('searchBarangKeluar')) document.getElementById('searchBarangKeluar').value = '';
+    if (document.getElementById('customer')) document.getElementById('customer').value = '';
     if (document.getElementById('kode')) document.getElementById('kode').value = '';
     if (document.getElementById('nama')) document.getElementById('nama').value = '';
     if (document.getElementById('warna')) document.getElementById('warna').value = '';
@@ -1268,7 +1329,40 @@ function resetForm() {
     resetFormInput();
 }
 
-/* 9. RENDERING TABEL STOK (ANGKA TEBAL DALAM KOTAK) & TRANSAKSI */
+/* 9. RENDERING TABEL PENJUALAN, STOK & TRANSAKSI */
+function renderPenjualan() {
+    const tbody = document.getElementById('penjualanBody');
+    if (!tbody) return;
+    const query = (document.getElementById('searchPenjualan').value || '').toLowerCase();
+
+    tbody.innerHTML = '';
+    const filtered = transaksi.filter(item => {
+        if (item.jenis !== 'keluar') return false;
+        const matchQuery = (item.customer || '').toLowerCase().includes(query) ||
+                           item.tanggal.includes(query) ||
+                           item.nama.toLowerCase().includes(query) ||
+                           item.kode.toLowerCase().includes(query);
+        return matchQuery;
+    });
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="empty">Belum ada data penjualan Recorded.</td></tr>`;
+        return;
+    }
+
+    filtered.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="text-center">${index + 1}</td>
+            <td>${escapeHTML(item.tanggal)}</td>
+            <td>${escapeHTML(item.jam)}</td>
+            <td><strong>${escapeHTML(item.customer || '-')}</strong></td>
+            <td class="text-right">${formatAngka(item.jumlah)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
 function renderStok() {
     const tbody = document.getElementById('stokBody');
     if (!tbody) return;
@@ -1312,13 +1406,14 @@ function renderTransaksi() {
         const matchQuery = item.kode.toLowerCase().includes(query) ||
                            item.nama.toLowerCase().includes(query) ||
                            item.warna.toLowerCase().includes(query) ||
+                           (item.customer || '').toLowerCase().includes(query) ||
                            item.tanggal.includes(query);
         const matchJenis = (filterJenis === 'semua') || (item.jenis === filterJenis);
         return matchQuery && matchJenis;
     });
 
     if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" class="empty">Belum ada riwayat transaksi recorded.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="10" class="empty">Belum ada riwayat transaksi recorded.</td></tr>`;
         return;
     }
 
@@ -1336,6 +1431,7 @@ function renderTransaksi() {
             <td><strong>${escapeHTML(item.kode)}</strong></td>
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
+            <td>${escapeHTML(item.customer || '-')}</td>
             <td class="text-right">${formatAngka(item.jumlah)}</td>
             <td class="text-center">
                 <button class="btn-edit" onclick="bukaEdit(${realIndex})">Edit</button>
@@ -1354,6 +1450,7 @@ function bukaEdit(index) {
     document.getElementById('editTanggal').value = item.tanggal;
     document.getElementById('editJam').value = item.jam;
     document.getElementById('editJenis').value = item.jenis;
+    document.getElementById('editCustomer').value = item.customer || '';
     document.getElementById('editKode').value = item.kode;
     document.getElementById('editNama').value = item.nama;
     document.getElementById('editWarna').value = item.warna;
@@ -1371,6 +1468,7 @@ function simpanEdit() {
     if (editIndex === null) return;
 
     const jenis = document.getElementById('editJenis').value;
+    const customer = document.getElementById('editCustomer').value.trim();
     const kode = normalizeKode(document.getElementById('editKode').value);
     const nama = document.getElementById('editNama').value.trim();
     const warna = document.getElementById('editWarna').value.trim();
@@ -1383,7 +1481,7 @@ function simpanEdit() {
 
     transaksi[editIndex] = {
         ...transaksi[editIndex],
-        jenis, kode, nama, warna, jumlah
+        jenis, kode, nama, warna, customer: jenis === 'keluar' ? customer : '-', jumlah
     };
 
     saveData();
@@ -1412,6 +1510,7 @@ function exportExcel() {
         "Tanggal": item.tanggal,
         "Jam": item.jam,
         "Jenis": item.jenis === 'masuk' ? 'Barang Masuk' : 'Barang Keluar',
+        "Nama Customer": item.customer || '-',
         "Kode Barang": item.kode,
         "Nama Barang": item.nama,
         "Warna": item.warna,
@@ -1441,6 +1540,7 @@ function importExcel(event) {
                 const kode = normalizeKode(row["Kode Barang"] || row["kode"] || "");
                 const nama = String(row["Nama Barang"] || row["nama"] || "").trim();
                 const warna = String(row["Warna"] || row["warna"] || "").trim();
+                const customer = String(row["Nama Customer"] || row["customer"] || "-").trim();
                 const jumlah = parseInt(row["Jumlah"] || row["jumlah"] || 0);
                 const jenisRaw = String(row["Jenis"] || row["jenis"] || "").toLowerCase();
                 const jenis = jenisRaw.includes('keluar') ? 'keluar' : 'masuk';
@@ -1450,7 +1550,7 @@ function importExcel(event) {
                     transaksi.unshift({
                         tanggal: row["Tanggal"] || time.tanggal,
                         jam: row["Jam"] || time.jam,
-                        jenis, kode, nama, warna, jumlah
+                        jenis, kode, nama, warna, customer, jumlah
                     });
                     counter++;
                 }
@@ -1485,6 +1585,9 @@ function backupJSON() {
 function updateApp() {
     updateDashboard();
     
+    if (document.getElementById('penjualanPage').classList.contains('active')) {
+        renderPenjualan();
+    }
     if (document.getElementById('stokPage').classList.contains('active')) {
         renderStok();
     }
