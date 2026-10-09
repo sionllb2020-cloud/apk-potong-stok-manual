@@ -499,7 +499,7 @@ tbody tr:hover { background: var(--table-hover); }
 .badge-masuk { background: var(--success-light); color: var(--success); }
 .badge-keluar { background: var(--danger-light); color: var(--danger); }
 
-/* BADGE KOTAK TEBAL UNTUK SISA STOK */
+/* BADGE KOTAK TEBAL UNTUK SISA STOK & JUMLAH BARANG PENJUALAN */
 .stok-box {
     display: inline-block;
     padding: 5px 12px;
@@ -727,7 +727,7 @@ tbody tr:hover { background: var(--table-hover); }
                             <th>Tanggal</th>
                             <th>Jam</th>
                             <th>Nama Customer</th>
-                            <th class="text-right">Jumlah Barang</th>
+                            <th class="text-right">Jumlah Barang yang di beli</th>
                         </tr>
                     </thead>
                     <tbody id="penjualanBody"></tbody>
@@ -1357,7 +1357,7 @@ function renderPenjualan() {
             <td>${escapeHTML(item.tanggal)}</td>
             <td>${escapeHTML(item.jam)}</td>
             <td><strong>${escapeHTML(item.customer || '-')}</strong></td>
-            <td class="text-right">${formatAngka(item.jumlah)}</td>
+            <td class="text-right"><span class="stok-box">${formatAngka(item.jumlah)}</span></td>
         `;
         tbody.appendChild(tr);
     });
@@ -1607,6 +1607,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setInterval(updateClock, 1000);
     updateApp();
 });
+   
 </script>
 </body>
 </html>
