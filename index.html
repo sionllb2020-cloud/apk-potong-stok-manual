@@ -621,7 +621,7 @@ tbody tr:hover { background: var(--table-hover); }
             Sisa Stok Barang
         </button>
         <button class="tab-btn" id="tabTransaksiBtn" onclick="tryAccessTransaksi()">
-            Riwayat Transaksi (Terproteksi)
+            🔒︎ Riwayat Transaksi
         </button>
     </div>
 </header>
@@ -809,15 +809,15 @@ tbody tr:hover { background: var(--table-hover); }
 <div class="modal" id="pinModal">
     <div class="modal-box" style="max-width: 420px;">
         <div class="modal-header">
-            <h2>Verifikasi Akses Masuk</h2>
+            <h2>🔒︎ Verifikasi Akses Masuk</h2>
             <button class="close-modal" onclick="tutupModalPin()">×</button>
         </div>
         <div class="modal-body">
             <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">
-                Halaman ini dilindungi. Masukkan Kode PIN khusus untuk melihat atau mengedit riwayat transaksi.
+                Masukkan Kode PIN khusus untuk melihat atau mengedit riwayat transaksi.
             </p>
             <div class="form-group">
-                <label>PIN Akses (Default: 1234)</label>
+                <label>PIN Akses</label>
                 <input type="password" id="inputPinAkses" placeholder="Masukkan 4 Digit PIN" maxlength="10" autocomplete="off" onkeyup="if(event.key==='Enter') verifikasiPin()">
             </div>
         </div>
@@ -984,7 +984,7 @@ function tutupModalPin() {
 
 function kunciAkses() {
     isAuthorized = false;
-    document.getElementById('tabTransaksiBtn').innerHTML = "Riwayat Transaksi (Terproteksi)";
+    document.getElementById('tabTransaksiBtn').innerHTML = "🔒︎ Riwayat Transaksi";
     switchPage('inputPage');
     alert("Akses ke halaman Riwayat Transaksi berhasil dikunci kembali.");
 }
