@@ -255,7 +255,7 @@ body.theme-dark .tab-btn.active {
 }
 
 /* =========================================================
-   4. DASHBOARD CARDS
+   4. DASHBOARD CARDS (DIPERKECIL)
 ========================================================= */
 .dashboard {
     display: grid;
@@ -499,19 +499,16 @@ tbody tr:hover { background: var(--table-hover); }
 .badge-masuk { background: var(--success-light); color: var(--success); }
 .badge-keluar { background: var(--danger-light); color: var(--danger); }
 
-/* BADGE KOTAK BOLD & JUSTIFY UNTUK SISA STOK */
+/* BADGE KOTAK TEBAL UNTUK SISA STOK */
 .stok-box {
     display: inline-block;
-    padding: 6px 14px;
+    padding: 5px 12px;
     background: var(--primary-light);
     color: var(--primary);
     border: 1px solid var(--primary);
     border-radius: 6px;
     font-weight: 700;
     font-size: 13px;
-    text-align: center;
-    min-width: 75px;
-    box-sizing: border-box;
 }
 
 /* =========================================================
@@ -698,7 +695,7 @@ tbody tr:hover { background: var(--table-hover); }
     </div>
 
     <!-- =========================================================
-         HALAMAN 2: SISA STOK BARANG & DASHBOARD (BOLD & JUSTIFY)
+         HALAMAN 2: SISA STOK BARANG & DASHBOARD (DIPERKECIL + BOX STOK)
     ========================================================= -->
     <div class="page" id="stokPage">
         
@@ -1271,7 +1268,7 @@ function resetForm() {
     resetFormInput();
 }
 
-/* 9. RENDERING TABEL STOK (ANGKA TEBAL & JUSTIFY BOLD KOTAK) & TRANSAKSI */
+/* 9. RENDERING TABEL STOK (ANGKA TEBAL DALAM KOTAK) & TRANSAKSI */
 function renderStok() {
     const tbody = document.getElementById('stokBody');
     if (!tbody) return;
@@ -1298,7 +1295,7 @@ function renderStok() {
             <td>${escapeHTML(item.warna)}</td>
             <td class="text-right">${formatAngka(item.masuk)}</td>
             <td class="text-right">${formatAngka(item.keluar)}</td>
-            <td class="text-right"><span class="stok-box"><strong>${formatAngka(item.sisa)}</strong></span></td>
+            <td class="text-right"><span class="stok-box">${formatAngka(item.sisa)}</span></td>
         `;
         tbody.appendChild(tr);
     });
