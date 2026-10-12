@@ -1899,7 +1899,7 @@ input[type="reset"]:disabled,
                     <input type="file" id="uploadExcelInput" accept=".xlsx,.xls" onchange="importExcel(event)">
                     <button class="btn-excel" onclick="exportExcel()">EXPORT EXCEL</button>
                     <button class="btn-backup" onclick="backupJSON()">BACKUP DATA</button>
-                    <button class="btn-clear-all" onclick="konfirmasiHapusSemuaTransaksi()">HAPUS TRANSAKSI</button>
+                    <button class="btn-clear-all" onclick="konfirmasiHapusSemuaTransaksi()">DELETE TRANSACTION</button>
                 </div>
             </div>
 
@@ -3182,7 +3182,7 @@ function renderKeranjang() {
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
             <td class="text-center"><span class="stok-box">${formatAngka(item.jumlah)} Roll</span></td>
-            <td class="text-center"><button class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusItemKeranjang(${index})">🗑️</button></td>
+            <td class="text-center"><button class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusItemKeranjang(${index})">Hapus</button></td>
         `;
         tbody.appendChild(tr);
     });
@@ -3655,7 +3655,7 @@ function renderTransaksi() {
                 <td>-</td>
                 <td class="text-center">
                     <button class="btn-edit" onclick="bukaEditSingle(${rowObj.originalIndex})">Edit</button>
-                    <button class="btn-delete" onclick="konfirmasiHapusPin(${rowObj.originalIndex})">🗑️</button>
+                    <button class="btn-delete" onclick="konfirmasiHapusPin(${rowObj.originalIndex})">Hapus</button>
                 </td>
             `;
         } else {
@@ -3688,7 +3688,7 @@ function renderTransaksi() {
                 <td><strong>${escapeHTML(rowObj.customer)}</strong></td>
                 <td class="text-center">
                     <button class="btn-edit" onclick="bukaEditGroup('${safeGroupKey}')">Edit</button>
-                    <button class="btn-delete" onclick="konfirmasiHapusGrup('${safeGroupKey}')">🗑️</button>
+                    <button class="btn-delete" onclick="konfirmasiHapusGrup('${safeGroupKey}')">Hapus</button>
                 </td>
             `;
         }
@@ -3917,7 +3917,7 @@ function renderEditKeranjang() {
                 <input type="number" min="1" value="${item.jumlah}" style="width: 110px; padding: 4px; text-align: center; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-dark);" onchange="updateEditJumlahItem(${idx}, this.value)">
             </td>
             <td class="text-center">
-                <button type="button" class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">🗑️</button>
+                <button type="button" class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">Hapus</button>
             </td>
         `;
         tbody.appendChild(tr);
