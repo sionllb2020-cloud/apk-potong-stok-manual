@@ -2121,7 +2121,7 @@ input[type="reset"]:disabled,
 </div>
 
 <div class="footer">
-    Copyright © 2026 Nicholas Sulistio. All Rights Reserved. Manual Stock Management System
+    <strong>Copyright © 2026 Nicholas Sulistio. All Rights Reserved. Manual Stock Management System</strong>
 </div>
 
 </div>
@@ -3114,7 +3114,7 @@ function renderKeranjang() {
     if (!tbody) return;
 
     if (keranjangBelanja.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty">Belum ada barang ditambahkan ke keranjang pembelian</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="empty"><strong>Belum ada barang ditambahkan ke keranjang pembelian</strong></td></tr>`;
         return;
     }
 
@@ -3336,7 +3336,7 @@ function renderPenjualan() {
     });
 
     if (filteredKeluar.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty">Tidak ada data penjualan yang cocok.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="empty">Tidak ada data penjualan.</td></tr>`;
         return;
     }
 
@@ -3361,7 +3361,7 @@ function renderPenjualan() {
     const groupList = Object.values(groupedMap);
 
     if (groupList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty">Tidak ada data penjualan yang cocok.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="empty">Tidak ada data penjualan.</td></tr>`;
         return;
     }
 
@@ -3465,7 +3465,7 @@ function renderStok() {
     }
 
     if (listStok.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="empty">Tidak ada data stock barang.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="empty"><strong>Tidak ada data stock barang.</strong></td></tr>`;
         return;
     }
 
@@ -3583,7 +3583,7 @@ function renderTransaksi() {
     });
 
     if (displayList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="empty">Belum ada riwayat transaksi.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="empty"><strong>Belum ada riwayat transaksi.</strong></td></tr>`;
         return;
     }
 
