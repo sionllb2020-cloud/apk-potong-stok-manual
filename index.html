@@ -1839,7 +1839,7 @@ input[type="reset"]:disabled,
                 <div class="search-area">
                     <input type="text" id="searchStok" placeholder="Cari bebas (kode, nama barang, atau warna)..." oninput="renderStok()">
                     <select id="filterKodeStok" onchange="renderStok()" style="max-width: 220px;">
-                        <option value="">-- Semua Kode Barang --</option>
+                        <option value="">Semua Kode Barang</option>
                     </select>
                 </div>
                 <div class="button-area" style="margin-top:0;">
@@ -1880,7 +1880,7 @@ input[type="reset"]:disabled,
                 <div class="search-area">
                     <input type="text" id="searchTransaksi" placeholder="Cari kode, nama, warna, atau customer..." oninput="renderTransaksi()">
                     <select id="filterJenis" onchange="renderTransaksi()">
-                        <option value="semua">Semua Transaksi</option>
+                        <option value="semua">All Transaction</option>
                         <option value="masuk">Barang Masuk</option>
                         <option value="keluar">Barang Keluar</option>
                     </select>
@@ -3302,7 +3302,7 @@ function populateFilterCustomerDropdown() {
     const select = document.getElementById('filterCustomerPenjualan');
     if (!select) return;
     const currentVal = select.value;
-    select.innerHTML = '<option value="">-- Semua Customer --</option>';
+    select.innerHTML = '<option value="">Semua Customer</option>';
     
     const customers = [...new Set(transaksi.filter(i => i.jenis === 'keluar' && i.customer && i.customer !== '-').map(i => i.customer.trim()))];
     customers.sort((a, b) => a.localeCompare(b, 'id', { sensitivity: 'base' }));
