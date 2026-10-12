@@ -3182,7 +3182,7 @@ function renderKeranjang() {
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
             <td class="text-center"><span class="stok-box">${formatAngka(item.jumlah)} Roll</span></td>
-            <td class="text-center"><button class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusItemKeranjang(${index})">🗑</button></td>
+            <td class="text-center"><button class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusItemKeranjang(${index})">🗑️</button></td>
         `;
         tbody.appendChild(tr);
     });
@@ -3655,7 +3655,7 @@ function renderTransaksi() {
                 <td>-</td>
                 <td class="text-center">
                     <button class="btn-edit" onclick="bukaEditSingle(${rowObj.originalIndex})">Edit</button>
-                    <button class="btn-delete" onclick="konfirmasiHapusPin(${rowObj.originalIndex})">🗑</button>
+                    <button class="btn-delete" onclick="konfirmasiHapusPin(${rowObj.originalIndex})">🗑️</button>
                 </td>
             `;
         } else {
@@ -3688,7 +3688,7 @@ function renderTransaksi() {
                 <td><strong>${escapeHTML(rowObj.customer)}</strong></td>
                 <td class="text-center">
                     <button class="btn-edit" onclick="bukaEditGroup('${safeGroupKey}')">Edit</button>
-                    <button class="btn-delete" onclick="konfirmasiHapusGrup('${safeGroupKey}')">🗑</button>
+                    <button class="btn-delete" onclick="konfirmasiHapusGrup('${safeGroupKey}')">🗑️</button>
                 </td>
             `;
         }
@@ -3917,7 +3917,7 @@ function renderEditKeranjang() {
                 <input type="number" min="1" value="${item.jumlah}" style="width: 110px; padding: 4px; text-align: center; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-dark);" onchange="updateEditJumlahItem(${idx}, this.value)">
             </td>
             <td class="text-center">
-                <button type="button" class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">🗑</button>
+                <button type="button" class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">🗑️</button>
             </td>
         `;
         tbody.appendChild(tr);
