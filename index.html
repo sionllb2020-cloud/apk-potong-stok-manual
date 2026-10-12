@@ -2780,7 +2780,7 @@ function eksekusiCetakKartuStock() {
     
     document.getElementById('printHeaderDate').textContent = formatHeaderDate(now) + " " + pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
     document.getElementById('printHeaderUser').textContent = userLog;
-    document.getElementById('printHeaderSubTitle').textContent = `Manual Stock Management System (Semua Barang)`;
+    document.getElementById('printHeaderSubTitle').textContent = `Manual Stock Management System`;
 
     document.body.classList.remove('printing-surat-jalan');
     window.print();
