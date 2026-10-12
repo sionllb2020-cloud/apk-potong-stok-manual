@@ -4180,7 +4180,21 @@ function exportExcel() {
         alert("Tidak ada data!");
         return;
     }
-    const dataExcel = transaksi.map((item, idx) => ({
+
+    const filterJenis = document.getElementById('filterJenis').value;
+    
+    // Filter data sesuai pilihan dropdown jenis transaksi
+    const filteredData = transaksi.filter(item => {
+        if (filterJenis === 'semua') return true;
+        return item.jenis === filterJenis;
+    });
+
+    if (filteredData.length === 0) {
+        alert(`Tidak ada data untuk kategori "${filterJenis === 'masuk' ? 'Barang Masuk' : 'Barang Keluar'}"!`);
+        return;
+    }
+
+    const dataExcel = filteredData.map((item, idx) => ({
         "No": idx + 1,
         "Tanggal": formatTanggalIndonesia(item.tanggal),
         "Jam": item.jam,
@@ -4196,7 +4210,12 @@ function exportExcel() {
     const worksheet = XLSX.utils.json_to_sheet(dataExcel);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Riwayat Stok");
-    XLSX.writeFile(workbook, `Report_Stock_Barang_${new Date().toISOString().slice(0, 10)}.xlsx`);
+    
+    let filenameSuffix = "Semua_Transaksi";
+    if (filterJenis === 'masuk') filenameSuffix = "Barang_Masuk";
+    if (filterJenis === 'keluar') filenameSuffix = "Barang_Keluar";
+
+    XLSX.writeFile(workbook, `Report_Stock_${filenameSuffix}_${new Date().toISOString().slice(0, 10)}.xlsx`);
 }
 
 function importExcel(event) {
