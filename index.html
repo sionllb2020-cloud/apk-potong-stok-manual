@@ -438,7 +438,7 @@ body {
 
 .header-time strong {
     font-size: 15px;
-    margin-left: 5px;
+    margin-left: 0px;
 }
 
 .theme-select {
@@ -1573,7 +1573,7 @@ input[type="reset"]:disabled,
 
         <div class="header-controls-bottom">
             <div class="header-time">
-                Tanggal:<strong id="headerDate">-</strong>
+                <strong id="headerDate">-</strong>
             </div>
             <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
                 <option value="light">Light</option>
@@ -2121,7 +2121,7 @@ input[type="reset"]:disabled,
 </div>
 
 <div class="footer">
-    Manual Stock Management System &bull; by Nicholas Sulistio
+    Copyright © 2026 Nicholas Sulistio. All Rights Reserved. Manual Stock Management System
 </div>
 
 </div>
@@ -2152,6 +2152,10 @@ let editKeranjangTemp = [];
 let deleteTargetIndex = null;
 let isAuthorized = false;
 let forgotTargetUser = null;
+
+const namaHari = [
+    "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+];
 
 const namaBulan = [
     "Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -2682,7 +2686,11 @@ function resetFilterTanggal(tipe) {
 }
 
 function formatHeaderDate(date) {
-    return date.getDate() + " " + namaBulan[date.getMonth()] + " " + date.getFullYear();
+    const hari = namaHari[date.getDay()];
+    const tgl = date.getDate();
+    const bulan = namaBulan[date.getMonth()];
+    const tahun = date.getFullYear();
+    return `${hari}, ${tgl} ${bulan} ${tahun}`;
 }
 
 function getCurrentDateTime() {
@@ -3457,7 +3465,7 @@ function renderStok() {
     }
 
     if (listStok.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="empty">Tidak ada data stock barang yang cocok.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="empty">Tidak ada data stock barang.</td></tr>`;
         return;
     }
 
