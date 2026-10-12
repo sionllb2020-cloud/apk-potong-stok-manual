@@ -1763,7 +1763,7 @@ input[type="reset"]:disabled,
                                 <th>Nama Barang</th>
                                 <th>Warna</th>
                                 <th class="text-center">Jumlah</th>
-                                <th class="text-center">Hapus dari Keranjang</th>
+                                <th class="text-center">Delete dari Keranjang</th>
                             </tr>
                         </thead>
                         <tbody id="keranjangBody">
@@ -1914,7 +1914,7 @@ input[type="reset"]:disabled,
                             <th style="width: 12%;">No Surat Jalan</th>
                             <th style="width: 30%;">Rincian Penjualan</th>
                             <th style="width: 14%;">Customer</th>
-                            <th class="text-center" style="width: 10%;">Edit / Hapus</th>
+                            <th class="text-center" style="width: 10%;">Edit / Delete</th>
                         </tr>
                     </thead>
                     <tbody id="transaksiBody"></tbody>
@@ -1971,7 +1971,7 @@ input[type="reset"]:disabled,
         </div>
         <div class="modal-footer">
             <button class="btn-reset" onclick="tutupModalDeletePin()">BATAL</button>
-            <button class="btn-delete" style="padding: 10px 18px; font-size: 13px;" onclick="eksekusiHapusDenganPin()">HAPUS TRANSAKSI</button>
+            <button class="btn-delete" style="padding: 10px 18px; font-size: 13px;" onclick="eksekusiHapusDenganPin()">DELETE ALL TRANSACTIONS</button>
         </div>
     </div>
 </div>
@@ -3182,7 +3182,7 @@ function renderKeranjang() {
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
             <td class="text-center"><span class="stok-box">${formatAngka(item.jumlah)} Roll</span></td>
-            <td class="text-center"><button class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusItemKeranjang(${index})">Hapus</button></td>
+            <td class="text-center"><button class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusItemKeranjang(${index})">Delete</button></td>
         `;
         tbody.appendChild(tr);
     });
@@ -3655,7 +3655,7 @@ function renderTransaksi() {
                 <td>-</td>
                 <td class="text-center">
                     <button class="btn-edit" onclick="bukaEditSingle(${rowObj.originalIndex})">Edit</button>
-                    <button class="btn-delete" onclick="konfirmasiHapusPin(${rowObj.originalIndex})">Hapus</button>
+                    <button class="btn-delete" onclick="konfirmasiHapusPin(${rowObj.originalIndex})">Delete</button>
                 </td>
             `;
         } else {
@@ -3688,7 +3688,7 @@ function renderTransaksi() {
                 <td><strong>${escapeHTML(rowObj.customer)}</strong></td>
                 <td class="text-center">
                     <button class="btn-edit" onclick="bukaEditGroup('${safeGroupKey}')">Edit</button>
-                    <button class="btn-delete" onclick="konfirmasiHapusGrup('${safeGroupKey}')">Hapus</button>
+                    <button class="btn-delete" onclick="konfirmasiHapusGrup('${safeGroupKey}')">Delete</button>
                 </td>
             `;
         }
@@ -3917,7 +3917,7 @@ function renderEditKeranjang() {
                 <input type="number" min="1" value="${item.jumlah}" style="width: 110px; padding: 4px; text-align: center; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-dark);" onchange="updateEditJumlahItem(${idx}, this.value)">
             </td>
             <td class="text-center">
-                <button type="button" class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">Hapus</button>
+                <button type="button" class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">Delete</button>
             </td>
         `;
         tbody.appendChild(tr);
