@@ -3320,7 +3320,7 @@ function populateFilterStokDropdown() {
     const select = document.getElementById('filterKodeStok');
     if (!select) return;
     const currentVal = select.value;
-    select.innerHTML = '<option value="">-- Semua Kode Barang --</option>';
+    select.innerHTML = '<option value="">Semua Kode Barang</option>';
     
     const mapStok = hitungStokPerBarang();
     const kodes = [...new Set(Object.values(mapStok).map(i => i.kode))];
