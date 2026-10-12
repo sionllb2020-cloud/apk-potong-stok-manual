@@ -2046,8 +2046,8 @@ input[type="reset"]:disabled,
         <div class="modal-body">
             <div class="form-grid" style="margin-bottom: 16px;">
                 <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="text" id="editTanggal" readonly>
+                    <label>Tanggal Transaksi</label>
+                    <input type="date" id="editTanggalInput">
                 </div>
                 <div class="form-group">
                     <label>Jam</label>
@@ -2681,6 +2681,38 @@ function formatTanggalIndonesia(strTanggal) {
         }
     }
     return strTanggal;
+}
+
+function convertToYYYYMMDD(strTanggal) {
+    if (!strTanggal) return new Date().toISOString().slice(0, 10);
+    const parts = strTanggal.split('-');
+    if (parts.length === 3) {
+        return `${parts[2]}-${pad(parts[1])}-${pad(parts[0])}`;
+    }
+    const words = strTanggal.split(' ');
+    if (words.length === 3) {
+        const tgl = pad(parseInt(words[0], 10));
+        const blnIndex = namaBulan.findIndex(b => b.toLowerCase() === words[1].toLowerCase());
+        const thn = words[2];
+        if (blnIndex !== -1) {
+            return `${thn}-${pad(blnIndex + 1)}-${tgl}`;
+        }
+    }
+    return new Date().toISOString().slice(0, 10);
+}
+
+function convertFromYYYYMMDD(strYYYYMMDD) {
+    if (!strYYYYMMDD) return '';
+    const parts = strYYYYMMDD.split('-');
+    if (parts.length === 3) {
+        const thn = parts[0];
+        const blnIndex = parseInt(parts[1], 10) - 1;
+        const tgl = parseInt(parts[2], 10);
+        if (blnIndex >= 0 && blnIndex < 12) {
+            return `${tgl} ${namaBulan[blnIndex]} ${thn}`;
+        }
+    }
+    return strYYYYMMDD;
 }
 
 function parseDateDDMMYYYY(str) {
@@ -3670,7 +3702,7 @@ function bukaEditSingle(index) {
     const item = transaksi[index];
 
     document.getElementById('editModalTitle').textContent = 'Edit Data Barang Masuk';
-    document.getElementById('editTanggal').value = formatTanggalIndonesia(item.tanggal);
+    document.getElementById('editTanggalInput').value = convertToYYYYMMDD(item.tanggal);
     document.getElementById('editJam').value = item.jam;
     document.getElementById('editJenis').value = item.jenis;
     document.getElementById('editJenisDisplay').value = 'Barang Masuk';
@@ -3702,7 +3734,7 @@ function bukaEditGroup(groupKey) {
     const first = groupItems[0];
 
     document.getElementById('editModalTitle').textContent = 'Edit Data Barang Keluar (Penjualan)';
-    document.getElementById('editTanggal').value = formatTanggalIndonesia(first.tanggal);
+    document.getElementById('editTanggalInput').value = convertToYYYYMMDD(first.tanggal);
     document.getElementById('editJam').value = first.jam;
     document.getElementById('editJenis').value = first.jenis;
     document.getElementById('editJenisDisplay').value = 'Barang Keluar';
@@ -3936,6 +3968,14 @@ function tutupEdit() {
 }
 
 function simpanEdit() {
+    const rawNewDate = document.getElementById('editTanggalInput').value;
+    const newTanggalFormatted = convertFromYYYYMMDD(rawNewDate);
+
+    if (!newTanggalFormatted) {
+        alert("Mohon pilih tanggal yang valid!");
+        return;
+    }
+
     if (editSingleIndex !== null) {
         const item = transaksi[editSingleIndex];
         const kode = normalizeKode(document.getElementById('editSingleKode').value);
@@ -3950,6 +3990,7 @@ function simpanEdit() {
 
         transaksi[editSingleIndex] = {
             ...item,
+            tanggal: newTanggalFormatted,
             kode, nama, warna, jumlah
         };
 
@@ -3988,7 +4029,6 @@ function simpanEdit() {
         });
 
         const first = existingGroupItems[0] || {};
-        const targetTanggal = first.tanggal || getCurrentDateTime().tanggal;
         const targetJam = first.jam || getCurrentDateTime().jam;
 
         transaksi = transaksi.filter(item => {
@@ -4004,7 +4044,7 @@ function simpanEdit() {
 
         editKeranjangTemp.forEach((editedItem) => {
             transaksi.unshift({
-                tanggal: targetTanggal,
+                tanggal: newTanggalFormatted,
                 jam: targetJam,
                 jenis: 'keluar',
                 noSuratJalan: noSuratJalan,
