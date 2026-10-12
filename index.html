@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Manual Stock Management System</title>
 
+<!-- META & WEB APP INSTALL (MENU CAST, SAVE, AND SHARE) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Manual Stock System">
+<meta name="application-name" content="Manual Stock System">
+<meta name="theme-color" content="#1e88e5">
+
 <!-- LIBRARY EXPORT & IMPORT EXCEL (XLSX) -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
@@ -193,15 +200,17 @@ body {
 }
 
 .auth-brand .brand-icon {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     background: linear-gradient(135deg, #1e88e5, #0d47a1);
     color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
     box-shadow: 0 4px 12px rgba(30, 136, 229, 0.35);
 }
 
@@ -974,7 +983,7 @@ body.theme-dark #transaksiBody tr {
 }
 
 /* =========================================================
-   DESAIN CETAK: KARTU STOCK (OTOMATIS LANDSCAPE & RAPI)
+   DESAIN CETAK: KARTU STOCK (LANDSCAPE)
 ========================================================= */
 @media print {
     @page {
@@ -1002,9 +1011,20 @@ body.theme-dark #transaksiBody tr {
         display: none !important;
     }
 
+    /* KHUSUS SURAT JALAN: UKURAN LETTER & MENYESUAIKAN BERAPAPUN JUMLAH BARANGNYA */
+    @page surat_jalan_page {
+        size: letter portrait;
+        margin: 10mm 12mm;
+    }
+
+    body.printing-surat-jalan {
+        page: surat_jalan_page;
+    }
+
     body.printing-surat-jalan .surat-jalan-print-area {
         display: block !important;
         width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     body:not(.printing-surat-jalan) .header,
@@ -1107,16 +1127,18 @@ body.theme-dark #transaksiBody tr {
 }
 
 /* =========================================================
-   LAYOUT SURAT JALAN (SIMPLE & LANDSCAPE)
+   LAYOUT SURAT JALAN (LETTER SIZE, AUTO ADAPTIVE ITEMS)
 ========================================================= */
 .sj-container {
     background: #ffffff;
     color: #000000;
-    padding: 25px 35px;
+    padding: 15px 20px;
     border: 1px solid #000000;
-    max-width: 900px;
+    width: 100%;
+    max-width: 100%;
     margin: auto;
     font-family: 'Segoe UI', Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .sj-header {
@@ -1124,12 +1146,12 @@ body.theme-dark #transaksiBody tr {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #000;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .sj-company h2 {
-    font-size: 38px;
+    font-size: 32px;
     font-weight: 900;
     text-transform: uppercase;
     margin: 0;
@@ -1142,7 +1164,7 @@ body.theme-dark #transaksiBody tr {
 }
 
 .sj-title-box h1 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     text-transform: uppercase;
     margin: 0;
@@ -1150,24 +1172,24 @@ body.theme-dark #transaksiBody tr {
 }
 
 .sj-title-box p {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 700;
-    margin-top: 3px;
+    margin-top: 2px;
     color: #111;
 }
 
 .sj-info-grid {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     font-size: 12px;
-    gap: 15px;
+    gap: 12px;
 }
 
 .sj-info-item {
     flex: 1;
     background: #fbfbfb;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -1176,21 +1198,23 @@ body.theme-dark #transaksiBody tr {
     display: block;
     margin-bottom: 2px;
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 9px;
     color: #666;
 }
 
 .sj-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    table-layout: fixed;
 }
 
 .sj-table th, .sj-table td {
     border: 1px solid #000;
-    padding: 7px 10px;
-    font-size: 12px;
+    padding: 6px 8px;
+    font-size: 11px;
     text-align: left;
+    word-wrap: break-word;
 }
 
 .sj-table th {
@@ -1202,14 +1226,15 @@ body.theme-dark #transaksiBody tr {
 .sj-signatures {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 30px;
+    gap: 15px;
+    margin-top: 20px;
     text-align: center;
     font-size: 11px;
+    page-break-inside: avoid;
 }
 
 .sj-sig-box {
-    height: 70px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1217,7 +1242,7 @@ body.theme-dark #transaksiBody tr {
 
 .sj-sig-box .line {
     border-bottom: 1px solid #000;
-    margin-top: 45px;
+    margin-top: 35px;
 }
 
 .nav-tabs {
@@ -1440,7 +1465,7 @@ input[type="reset"]:disabled,
 
     <div class="auth-card" id="registerCard" style="display: none;">
         <div class="auth-brand">
-            <div class="brand-icon">📝</div>
+            <div class="brand-icon">NS</div>
         </div>
         <div class="auth-header">
             <h2>Buat Akun Baru</h2>
@@ -1486,7 +1511,7 @@ input[type="reset"]:disabled,
 
     <div class="auth-card" id="forgotCard" style="display: none;">
         <div class="auth-brand">
-            <div class="brand-icon">🔑</div>
+            <div class="brand-icon">NS</div>
         </div>
         <div class="auth-header">
             <h2>Lupa Password</h2>
@@ -1621,22 +1646,22 @@ input[type="reset"]:disabled,
             <div class="sj-info-grid">
                 <div class="sj-info-item">
                     <strong>KEPADA YTH:</strong>
-                    <span id="sjPrintCustomer" style="font-size: 14px; font-weight: 700;">-</span>
+                    <span id="sjPrintCustomer" style="font-size: 13px; font-weight: 700;">-</span>
                 </div>
                 <div class="sj-info-item">
                     <strong>Tanggal Transaksi:</strong>
-                    <span id="sjPrintTanggal" style="font-size: 13px; font-weight: 700;">-</span>
+                    <span id="sjPrintTanggal" style="font-size: 12px; font-weight: 700;">-</span>
                 </div>
             </div>
 
             <table class="sj-table">
                 <thead>
                     <tr>
-                        <th style="width: 8%; text-align: center;">No</th>
+                        <th style="width: 7%; text-align: center;">No</th>
                         <th style="width: 25%;">Kode Barang</th>
-                        <th style="width: 42%;">Nama Barang</th>
-                        <th style="width: 15%;">Warna</th>
-                        <th style="width: 10%; text-align: center;">Jumlah</th>
+                        <th style="width: 46%;">Nama Barang</th>
+                        <th style="width: 14%;">Warna</th>
+                        <th style="width: 8%; text-align: center;">Jumlah</th>
                     </tr>
                 </thead>
                 <tbody id="sjPrintTableBody"></tbody>
@@ -1799,7 +1824,7 @@ input[type="reset"]:disabled,
     </div>
 
     <!-- =========================================================
-         HALAMAN 2: SISA STOK BARANG (DENGAN TOTAL MENYESUAIKAN FILTER & KODE)
+         HALAMAN 2: SISA STOK BARANG
     ========================================================= -->
     <div class="page" id="stokPage">
         <div class="card">
@@ -2067,7 +2092,6 @@ input[type="reset"]:disabled,
             <div id="containerEditItemMulti" style="display:none;">
                 <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--primary);">Daftar Barang Keluar (Penjualan)</h3>
                 
-                <!-- KOTAK INPUT/PILIH BARANG DENGAN DATALIST SEPERTI PENJUALAN ASLI -->
                 <div style="margin-bottom: 14px; background: var(--thead-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
                     <div class="form-group pilih-stok-highlight" style="margin-bottom: 8px;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--primary);">Cari Stock Barang Tersedia</label>
@@ -3575,7 +3599,6 @@ function renderTransaksi() {
         }
     });
 
-    // PENGURUTAN Transaction History: Data terbaru (index terbesar atau waktu terbaru) tampil paling atas secara presisi
     displayList.sort((a, b) => {
         const idxA = a.type === 'group_keluar' ? Math.max(...a.items.map(i => i.originalIndex)) : a.originalIndex;
         const idxB = b.type === 'group_keluar' ? Math.max(...b.items.map(i => i.originalIndex)) : b.originalIndex;
