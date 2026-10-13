@@ -1930,7 +1930,7 @@ input[type="reset"]:disabled,
                 <div class="search-area">
                     <input type="text" id="searchPenjualan" placeholder="Cari nama customer, barang, warna, atau surat jalan" oninput="renderPenjualan()">
                     <select id="filterCustomerPenjualan" onchange="renderPenjualan()" style="max-width: 220px;">
-                        <option value="">-- Semua Customer --</option>
+                        <option value="">Semua Customer</option>
                     </select>
                    
                     <div class="date-filter-group">
@@ -3401,7 +3401,7 @@ function simpanTransaksi() {
         saveData();
         resetFormInput();
         updateApp();
-        showCustomPopup('success', 'Form Berhasil Disimpan!');
+        showCustomPopup('success', 'Form Berhasil Disimpan');
 
     } else {
         const kode = normalizeKode(document.getElementById('kode').value);
@@ -3429,7 +3429,7 @@ function simpanTransaksi() {
         saveData();
         resetFormInput();
         updateApp();
-        showCustomPopup('success', 'Form Berhasil Disimpan!');
+        showCustomPopup('success', 'Form Berhasil Disimpan');
     }
 }
 
@@ -4172,7 +4172,7 @@ function simpanEdit() {
         saveData();
         tutupEdit();
         updateApp();
-        showCustomPopup('success', 'Perubahan Disimpan!');
+        showCustomPopup('success', 'Perubahan Disimpan');
 
     } else if (editGroupKey !== null) {
         const customer = document.getElementById('editCustomer').value.trim();
@@ -4234,7 +4234,7 @@ function simpanEdit() {
         saveData();
         tutupEdit();
         updateApp();
-        showCustomPopup('success', 'Perubahan Disimpan!');
+        showCustomPopup('success', 'Perubahan Disimpan');
     }
 }
 
@@ -4305,7 +4305,7 @@ function eksekusiHapusDenganPin() {
         saveData();
         updateApp();
         tutupModalDeletePin();
-        showCustomPopup('danger', 'Data Berhasil Dihapus!');
+        showCustomPopup('danger', 'Data Berhasil Dihapus');
     } else {
         alert("Kode PIN salah!");
         document.getElementById('inputPinDelete').value = '';
@@ -4343,7 +4343,7 @@ function eksekusiHapusSemuaDenganPin() {
         saveData();
         updateApp();
         tutupModalClearAll();
-        showCustomPopup('danger', 'Semua Data Dihapus!');
+        showCustomPopup('danger', 'Semua Data Dihapus');
     } else {
         alert("Kode PIN salah!");
         document.getElementById('inputPinClearAll').value = '';
@@ -4428,7 +4428,7 @@ function importExcel(event) {
 
             saveData();
             updateApp();
-            showCustomPopup('success', `Berhasil Impor ${counter} Data!`);
+            showCustomPopup('success', `Berhasil Upload ${counter} Data`);
         } catch (err) {
             alert("Gagal membaca file Excel!");
         }
