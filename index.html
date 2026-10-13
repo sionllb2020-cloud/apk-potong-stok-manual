@@ -3700,13 +3700,13 @@ function renderStok() {
 
     const displayElement = document.getElementById('displayTotalStok');
     if (displayElement) {
-        let labelKeterangan = "Grand Total Stock All Goods→";
+        let labelKeterangan = "Grand Total Stock All Goods →";
         if (selectedKode) {
-            labelKeterangan = `Grand Total Stock ${selectedKode.toUpperCase()}→`;
+            labelKeterangan = `Grand Total Stock ${selectedKode.toUpperCase()} →`;
         } else if (query) {
             labelKeterangan = `Total Stock (Filter: "${query}")`;
         }
-        displayElement.innerHTML = `${labelKeterangan} <strong>${formatAngka(totalFilteredSisa)} Roll</strong>`;
+        displayElement.innerHTML = `${labelKeterangan}<strong>${formatAngka(totalFilteredSisa)} Roll</strong>`;
     }
 
     if (listStok.length === 0) {
