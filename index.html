@@ -771,10 +771,12 @@ button:hover {
 }
 
 /* =========================================================
-   6. TABLES & BADGES
+   6. TABLES & BADGES (STICKY HEADER & INTERNAL VERTICAL SCROLL)
 ========================================================= */
 .table-wrapper {
     width: 100%;
+    max-height: 480px;
+    overflow-y: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border: 1px solid var(--border-color);
@@ -791,6 +793,9 @@ table {
 thead {
     background: var(--thead-bg);
     border-bottom: 2px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 th, td {
@@ -801,7 +806,7 @@ th, td {
     color: var(--text-dark);
 }
 
-th { font-weight: 600; }
+th { font-weight: 600; background: var(--thead-bg); }
 
 tbody tr {
     border-bottom: 1px solid var(--border-color);
@@ -959,7 +964,7 @@ body.theme-dark #transaksiBody tr {
     .user-badge-top-right { align-self: flex-start; }
     .header-title h1 { font-size: 20px; }
     .header-title p { font-size: 12px; }
-    
+   
     .header-bottom-row { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 15px; }
     .header-controls-bottom { justify-content: space-between; margin-bottom: 0; flex-wrap: wrap; }
     .nav-tabs { width: 100%; padding-bottom: 4px; }
@@ -968,12 +973,12 @@ body.theme-dark #transaksiBody tr {
     .container { padding: 14px 10px; }
     .card { padding: 16px; border-radius: 12px; margin-bottom: 16px; }
     .form-grid { grid-template-columns: 1fr; gap: 12px; }
-    
+   
     .search-area, .button-area { flex-direction: column; width: 100%; }
     .search-area input, .search-area select, .button-area button { width: 100%; }
     .date-filter-group { width: 100%; justify-content: space-between; }
     .date-filter-group input[type="date"] { flex: 1; }
-    
+   
     .modal { padding: 10px; }
     .modal-box { max-height: 95vh; }
     .modal-header { padding: 14px 16px; }
@@ -1088,10 +1093,20 @@ body.theme-dark #transaksiBody tr {
         background: transparent !important;
     }
 
+    .table-wrapper {
+        max-height: none !important;
+        overflow: visible !important;
+        border: none !important;
+    }
+
     table {
         width: 100% !important;
         min-width: 100% !important;
         border-collapse: collapse !important;
+    }
+
+    thead {
+        position: static !important;
     }
 
     th {
@@ -1494,7 +1509,7 @@ input[type="reset"]:disabled,
                 <select id="regSecurityQuestion">
                     <option value="Apa kota kelahiran ibu kandung Anda?">Apa kota kelahiran ibu kandung Anda?</option>
                     <option value="Apa makanan favorit Anda?">Apa makanan favorit Anda?</option>
-                    <option value="Apa merek handphone Anda?">Apa merek handphone Anda?</option> 
+                    <option value="Apa merek handphone Anda?">Apa merek handphone Anda?</option>
                 </select>
             </div>
             <div class="form-group">
@@ -1517,7 +1532,7 @@ input[type="reset"]:disabled,
             <h2>Lupa Password</h2>
             <p>Reset password akun Anda melalui verifikasi keamanan</p>
         </div>
-        
+       
         <form class="auth-form" id="forgotStep1" onsubmit="event.preventDefault(); verifikasiUsernameLupa();">
             <div class="form-group">
                 <label>Username Anda</label>
@@ -1572,7 +1587,7 @@ input[type="reset"]:disabled,
             <h1>Manual Stock Management System</h1>
             <p>Sistem Pencatatan & Operasional Stock Barang</p>
         </div>
-        
+       
         <div class="user-badge-top-right">
             <img id="userAvatarImg" class="user-avatar-img" src="" alt="Avatar" onclick="gantiAvatarRandom()" title="Klik untuk acak foto profil">
             <span id="displayLoggedInUser">-</span>
@@ -1795,7 +1810,7 @@ input[type="reset"]:disabled,
                     <select id="filterCustomerPenjualan" onchange="renderPenjualan()" style="max-width: 220px;">
                         <option value="">-- Semua Customer --</option>
                     </select>
-                    
+                   
                     <div class="date-filter-group">
                         <label>Dari:</label>
                         <input type="date" id="tglAwalPenjualan" onchange="renderPenjualan()">
@@ -2091,7 +2106,7 @@ input[type="reset"]:disabled,
 
             <div id="containerEditItemMulti" style="display:none;">
                 <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--primary);">Daftar Barang Keluar</h3>
-                
+               
                 <div style="margin-bottom: 14px; background: var(--thead-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
                     <div class="form-group pilih-stok-highlight" style="margin-bottom: 8px;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--primary);">Cari Stock Barang Tersedia</label>
@@ -2217,10 +2232,10 @@ function getFallbackAvatarUrl(username) {
 function setupAvatarImages(username) {
     const avatarUrl = getUserAvatarUrl(username);
     const fallbackUrl = getFallbackAvatarUrl(username);
-    
+   
     const userAvatarImg = document.getElementById('userAvatarImg');
     const printUserAvatarImg = document.getElementById('printUserAvatarImg');
-    
+   
     if (userAvatarImg) {
         userAvatarImg.src = avatarUrl;
         userAvatarImg.onerror = function() { this.src = fallbackUrl; };
@@ -2444,12 +2459,12 @@ function checkSession() {
         authContainer.style.display = 'none';
         mainApp.style.display = 'block';
         document.getElementById('displayLoggedInUser').textContent = loggedUser;
-        
+       
         setupAvatarImages(loggedUser);
         initTheme();
         loadData();
         updateClock();
-        
+       
         if (sessionStorage.getItem(AUTH_STATUS_KEY) === 'true') {
             isAuthorized = true;
             document.getElementById('tabTransaksiBtn').innerHTML = "Transaction History";
@@ -2769,7 +2784,7 @@ function updateClock() {
 function eksekusiCetakKartuStock() {
     const mapStok = hitungStokPerBarang();
     const uniqueKodes = [...new Set(Object.values(mapStok).map(item => item.kode))];
-    
+   
     if (uniqueKodes.length === 0) {
         alert("Tidak ada data stock barang untuk dicetak!");
         return;
@@ -2777,7 +2792,7 @@ function eksekusiCetakKartuStock() {
 
     const now = new Date();
     const userLog = localStorage.getItem(CURRENT_USER_KEY) || '-';
-    
+   
     document.getElementById('printHeaderDate').textContent = formatHeaderDate(now) + " " + pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
     document.getElementById('printHeaderUser').textContent = userLog;
     document.getElementById('printHeaderSubTitle').textContent = `Manual Stock Management System`;
@@ -2788,7 +2803,7 @@ function eksekusiCetakKartuStock() {
 
 function printSuratJalan(tanggal, customer, jam) {
     const groupItems = transaksi.filter(item => item.jenis === 'keluar' && item.tanggal === tanggal && item.jam === jam && (item.customer || '-').trim() === customer);
-    
+   
     if (groupItems.length === 0) {
         alert("Data transaksi customer tidak ditemukan!");
         return;
@@ -2799,7 +2814,7 @@ function printSuratJalan(tanggal, customer, jam) {
         alert("No Surat Jalan harus diisi terlebih dahulu sebelum print.");
         return;
     }
-    
+   
     document.getElementById('sjPrintNo').textContent = "No Surat Jalan : " + sjNo;
     document.getElementById('sjPrintCustomer').textContent = customer;
     document.getElementById('sjPrintTanggal').textContent = formatTanggalIndonesia(tanggal);
@@ -2846,7 +2861,7 @@ function printSuratJalan(tanggal, customer, jam) {
 
 function updateNoSuratJalanBaris(tanggal, customer, jam, newNoSJ) {
     const cleanNewSJ = newNoSJ.trim();
-    
+   
     if (cleanNewSJ !== "") {
         const isDuplicate = transaksi.some(item => {
             const itemGroupKey = `${item.tanggal}___${(item.customer || '-').trim()}___${item.jam}`;
@@ -3263,7 +3278,7 @@ function resetFormInput() {
     const jenis = document.getElementById('jenis') ? document.getElementById('jenis').value : 'masuk';
     if (document.getElementById('searchBarangKeluar')) document.getElementById('searchBarangKeluar').value = '';
     if (document.getElementById('customer')) document.getElementById('customer').value = '';
-    
+   
     const inputKode = document.getElementById('kode');
     const inputNama = document.getElementById('nama');
     const inputWarna = document.getElementById('warna');
@@ -3303,7 +3318,7 @@ function populateFilterCustomerDropdown() {
     if (!select) return;
     const currentVal = select.value;
     select.innerHTML = '<option value="">Semua Customer</option>';
-    
+   
     const customers = [...new Set(transaksi.filter(i => i.jenis === 'keluar' && i.customer && i.customer !== '-').map(i => i.customer.trim()))];
     customers.sort((a, b) => a.localeCompare(b, 'id', { sensitivity: 'base' }));
 
@@ -3321,7 +3336,7 @@ function populateFilterStokDropdown() {
     if (!select) return;
     const currentVal = select.value;
     select.innerHTML = '<option value="">Semua Kode Barang</option>';
-    
+   
     const mapStok = hitungStokPerBarang();
     const kodes = [...new Set(Object.values(mapStok).map(i => i.kode))];
     kodes.sort((a, b) => a.localeCompare(b, 'id', { sensitivity: 'base' }));
@@ -3340,10 +3355,10 @@ function renderPenjualan() {
     if (!tbody) return;
     const query = (document.getElementById('searchPenjualan').value || '').toLowerCase().trim();
     const selectedCustomer = document.getElementById('filterCustomerPenjualan').value.toLowerCase().trim();
-    
+   
     const tglAwalVal = document.getElementById('tglAwalPenjualan').value;
     const tglAkhirVal = document.getElementById('tglAkhirPenjualan').value;
-    
+   
     let tglAwal = null;
     let tglAkhir = null;
 
@@ -3362,7 +3377,7 @@ function renderPenjualan() {
         if (item.jenis !== 'keluar') return false;
 
         const custName = (item.customer || '').trim();
-        
+       
         if (selectedCustomer && custName.toLowerCase() !== selectedCustomer) {
             return false;
         }
@@ -3429,12 +3444,12 @@ function renderPenjualan() {
         });
 
         const tr = document.createElement('tr');
-        
+       
         let subTableHtml = `
             <table class="penjualan-items-table">
                 <tbody>
         `;
-        
+       
         group.items.forEach(it => {
             subTableHtml += `
                 <tr>
@@ -3443,7 +3458,7 @@ function renderPenjualan() {
                 </tr>
             `;
         });
-        
+       
         subTableHtml += `
                 </tbody>
             </table>
@@ -3477,7 +3492,7 @@ function renderStok() {
     const mapStok = hitungStokPerBarang();
 
     tbody.innerHTML = '';
-    
+   
     const listStok = Object.values(mapStok)
         .filter(item => {
             if (selectedKode && item.kode.toLowerCase() !== selectedKode) {
@@ -3528,8 +3543,8 @@ function renderStok() {
     listStok.forEach(item => {
         const tr = document.createElement('tr');
         const sisaValue = formatAngka(item.sisa);
-        const sisaStokHtml = item.sisa <= 0 
-            ? `<span class="stok-habis-box">0</span>` 
+        const sisaStokHtml = item.sisa <= 0
+            ? `<span class="stok-habis-box">0</span>`
             : `<span class="stok-box">${sisaValue}</span>`;
 
         tr.innerHTML = `
@@ -3550,7 +3565,7 @@ function renderTransaksi() {
 
     const tglAwalVal = document.getElementById('tglAwalTransaksi').value;
     const tglAkhirVal = document.getElementById('tglAkhirTransaksi').value;
-    
+   
     let tglAwal = null;
     let tglAkhir = null;
 
@@ -3625,7 +3640,7 @@ function renderTransaksi() {
         const matchGroupQuery = query === '' || group.customer.toLowerCase().includes(query) ||
             group.noSuratJalan.toLowerCase().includes(query) ||
             group.items.some(it => it.kode.toLowerCase().includes(query) || it.nama.toLowerCase().includes(query) || it.warna.toLowerCase().includes(query));
-        
+       
         if (matchGroupQuery) {
             displayList.push(group);
         }
@@ -3818,7 +3833,7 @@ function handleEditBarangKeluarSelect(selectedVal) {
         const fullString = `${item.kode} - ${item.nama} (${item.warna}) [Sisa: ${item.sisa}]`;
         const isAlreadyInCart = editKeranjangTemp.some(k => getStockKey(k.kode, k.warna) === getStockKey(item.kode, item.warna));
         return item.sisa > 0 && !isAlreadyInCart && (
-            fullString.toLowerCase() === selectedVal.toLowerCase() || 
+            fullString.toLowerCase() === selectedVal.toLowerCase() ||
             item.kode.toLowerCase() === selectedVal.toLowerCase() ||
             selectedVal.toLowerCase().startsWith(item.kode.toLowerCase())
         );
@@ -3935,7 +3950,7 @@ function updateEditJumlahItem(idx, val) {
     const item = editKeranjangTemp[idx];
     const mapStok = hitungStokPerBarang(editGroupKey);
     const key = getStockKey(item.kode, item.warna);
-    
+   
     let stokTersedia = mapStok[key] ? mapStok[key].sisa : 0;
     if (item.originalIndex !== null && transaksi[item.originalIndex]) {
         stokTersedia += parseInt(transaksi[item.originalIndex].jumlah) || 0;
@@ -4182,8 +4197,7 @@ function exportExcel() {
     }
 
     const filterJenis = document.getElementById('filterJenis').value;
-    
-    // Filter data sesuai pilihan dropdown jenis transaksi
+   
     const filteredData = transaksi.filter(item => {
         if (filterJenis === 'semua') return true;
         return item.jenis === filterJenis;
@@ -4210,7 +4224,7 @@ function exportExcel() {
     const worksheet = XLSX.utils.json_to_sheet(dataExcel);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Riwayat Stok");
-    
+   
     let filenameSuffix = "Semua_Transaksi";
     if (filterJenis === 'masuk') filenameSuffix = "Barang_Masuk";
     if (filterJenis === 'keluar') filenameSuffix = "Barang_Keluar";
@@ -4284,7 +4298,7 @@ function updateApp() {
     if (document.getElementById('penjualanPage').classList.contains('active')) renderPenjualan();
     if (document.getElementById('stokPage').classList.contains('active')) renderStok();
     if (document.getElementById('transaksiPage').classList.contains('active')) renderTransaksi();
-    
+   
     const jenis = document.getElementById('jenis') ? document.getElementById('jenis').value : 'masuk';
     if (jenis === 'keluar') {
         populateDatalistStok();
