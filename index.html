@@ -1027,6 +1027,10 @@ body.theme-dark #transaksiBody tr {
     display: none;
 }
 
+.print-all-sj-area {
+    display: none;
+}
+
 @media(max-width: 1024px) {
     .form-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1087,11 +1091,25 @@ body.theme-dark #transaksiBody tr {
     body.printing-surat-jalan .footer,
     body.printing-surat-jalan .auth-wrapper,
     body.printing-surat-jalan .container > *:not(.surat-jalan-print-area),
-    body.printing-surat-jalan .print-only-header {
+    body.printing-surat-jalan .print-only-header,
+    body.printing-surat-jalan .print-all-sj-area {
         display: none !important;
     }
 
-    /* KHUSUS SURAT JALAN: UKURAN LETTER & MENYESUAIKAN BERAPAPUN JUMLAH BARANGNYA */
+    body.printing-all-sj .header,
+    body.printing-all-sj .nav-container-wrapper,
+    body.printing-all-sj .button-area,
+    body.printing-all-sj .toolbar,
+    body.printing-all-sj .modal,
+    body.printing-all-sj .footer,
+    body.printing-all-sj .auth-wrapper,
+    body.printing-all-sj .container > *:not(.print-all-sj-area),
+    body.printing-all-sj .print-only-header,
+    body.printing-all-sj .surat-jalan-print-area {
+        display: none !important;
+    }
+
+    /* KHUSUS SURAT JALAN & PRINT ALL SJ: UKURAN LETTER */
     @page surat_jalan_page {
         size: letter portrait;
         margin: 10mm 12mm;
@@ -1101,20 +1119,42 @@ body.theme-dark #transaksiBody tr {
         page: surat_jalan_page;
     }
 
+    body.printing-all-sj {
+        page: surat_jalan_page;
+    }
+
     body.printing-surat-jalan .surat-jalan-print-area {
         display: block !important;
         width: 100% !important;
         box-sizing: border-box !important;
     }
 
-    body:not(.printing-surat-jalan) .header,
-    body:not(.printing-surat-jalan) .nav-container-wrapper,
-    body:not(.printing-surat-jalan) .button-area,
-    body:not(.printing-surat-jalan) .toolbar,
-    body:not(.printing-surat-jalan) .modal,
-    body:not(.printing-surat-jalan) .footer,
-    body:not(.printing-surat-jalan) .auth-wrapper,
-    body:not(.printing-surat-jalan) .surat-jalan-print-area {
+    body.printing-all-sj .print-all-sj-area {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .single-sj-page-wrap {
+        page-break-after: always;
+        break-after: page;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .single-sj-page-wrap:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .header,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .nav-container-wrapper,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .button-area,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .toolbar,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .modal,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .footer,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .auth-wrapper,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .surat-jalan-print-area,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .print-all-sj-area {
         display: none !important;
     }
 
@@ -1225,8 +1265,8 @@ body.theme-dark #transaksiBody tr {
         word-break: break-word;
     }
 
-    body:not(.printing-surat-jalan) .stok-box,
-    body:not(.printing-surat-jalan) .stok-habis-box {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .stok-box,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .stok-habis-box {
         background: transparent !important;
         border: none !important;
         padding: 0 !important;
@@ -1722,7 +1762,7 @@ body.is-resizing-table-column * {
        
         <div class="header-right-controls">
             <div class="header-time">
-                <strong id="headerDate">-</strong>
+                <strong id="headerDate">-</strong> | <strong id="headerClock">-</strong>
             </div>
             <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
                 <option value="light">Light</option>
@@ -1777,7 +1817,7 @@ body.is-resizing-table-column * {
         </div>
     </div>
 
-    <!-- AREA CETAK SURAT JALAN -->
+    <!-- AREA CETAK SURAT JALAN TUNGGAL -->
     <div class="surat-jalan-print-area" id="suratJalanPrintArea">
         <div class="sj-container">
             <div class="sj-header">
@@ -1834,6 +1874,9 @@ body.is-resizing-table-column * {
             </div>
         </div>
     </div>
+
+    <!-- AREA CETAK SEMUA SURAT JALAN -->
+    <div class="print-all-sj-area" id="printAllSjArea"></div>
 
     <!-- =========================================================
          HALAMAN 1: INPUT TRANSAKSI
@@ -1910,11 +1953,11 @@ body.is-resizing-table-column * {
                                 <th>Nama Barang</th>
                                 <th>Warna</th>
                                 <th class="text-center">Jumlah</th>
-                                <th class="text-center">Delete dari Keranjang</th>
+                                <th class="text-center">Delete Pembelian</th>
                             </tr>
                         </thead>
                         <tbody id="keranjangBody">
-                            <tr><td colspan="5" class="empty">Belum ada barang ditambahkan ke keranjang pembelian</td></tr>
+                            <tr><td colspan="5" class="empty">Belum ada barang ditambahkan ke pembelian</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1950,6 +1993,9 @@ body.is-resizing-table-column * {
                         <input type="date" id="tglAkhirPenjualan" onchange="renderPenjualan()">
                         <button class="btn-reset" style="padding: 6px 12px; font-size: 11px;" onclick="resetFilterTanggal('Penjualan')">Reset Tanggal</button>
                     </div>
+                </div>
+                <div class="button-area" style="margin-top:0;">
+                    <button class="btn-print" onclick="eksekusiCetakAllSuratJalan()">PRINT ALL SURAT JALAN</button>
                 </div>
             </div>
 
@@ -2055,13 +2101,13 @@ body.is-resizing-table-column * {
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 5%;">No</th>
-                            <th style="width: 12%;">Tanggal</th>
+                            <th style="width: 11%;">Tanggal</th>
                             <th style="width: 8%;">Jam</th>
-                            <th style="width: 12%;">Jenis Barang</th>
+                            <th style="width: 11%;">Jenis</th>
                             <th style="width: 12%;">No Surat Jalan</th>
                             <th style="width: 30%;">Rincian Transaction</th>
-                            <th style="width: 14%;">Customer</th>
-                            <th class="text-center" style="width: 10%;">Edit / Delete</th>
+                            <th style="width: 13%;">Customer</th>
+                            <th class="text-center" style="width: 10%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transaksiBody"></tbody>
@@ -2948,6 +2994,7 @@ function getCurrentDateTime() {
 function updateClock() {
     const now = new Date();
     if (document.getElementById("headerDate")) document.getElementById("headerDate").textContent = formatHeaderDate(now);
+    if (document.getElementById("headerClock")) document.getElementById("headerClock").textContent = pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
    
     const dt = getCurrentDateTime();
     if (document.getElementById("tanggal")) document.getElementById("tanggal").value = dt.tanggal;
@@ -2971,6 +3018,7 @@ function eksekusiCetakKartuStock() {
     document.getElementById('printHeaderSubTitle').textContent = `Manual Stock Management System`;
 
     document.body.classList.remove('printing-surat-jalan');
+    document.body.classList.remove('printing-all-sj');
     window.print();
 }
 
@@ -3025,10 +3073,188 @@ function printSuratJalan(tanggal, customer, jam) {
     `;
     tbody.appendChild(trTotal);
 
+    document.body.classList.remove('printing-all-sj');
     document.body.classList.add('printing-surat-jalan');
     window.print();
     setTimeout(() => {
         document.body.classList.remove('printing-surat-jalan');
+    }, 1000);
+}
+
+function eksekusiCetakAllSuratJalan() {
+    const query = (document.getElementById('searchPenjualan').value || '').toLowerCase().trim();
+    const selectedCustomer = document.getElementById('filterCustomerPenjualan').value.toLowerCase().trim();
+   
+    const tglAwalVal = document.getElementById('tglAwalPenjualan').value;
+    const tglAkhirVal = document.getElementById('tglAkhirPenjualan').value;
+   
+    let tglAwal = null;
+    let tglAkhir = null;
+
+    if (tglAwalVal) {
+        const p = tglAwalVal.split('-');
+        tglAwal = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]), 0, 0, 0, 0);
+    }
+    if (tglAkhirVal) {
+        const p = tglAkhirVal.split('-');
+        tglAkhir = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]), 23, 59, 59, 999);
+    }
+
+    const filteredKeluar = transaksi.filter(item => {
+        if (item.jenis !== 'keluar') return false;
+        const custName = (item.customer || '').trim();
+        if (selectedCustomer && custName.toLowerCase() !== selectedCustomer) return false;
+
+        if (query) {
+            const matchCust = custName.toLowerCase().includes(query);
+            const matchSJ = (item.noSuratJalan || '').toLowerCase().includes(query);
+            const matchNama = item.nama.toLowerCase().includes(query);
+            const matchKode = item.kode.toLowerCase().includes(query);
+            const matchWarna = item.warna.toLowerCase().includes(query);
+            const matchTgl = formatTanggalIndonesia(item.tanggal).toLowerCase().includes(query);
+            if (!matchCust && !matchSJ && !matchNama && !matchKode && !matchWarna && !matchTgl) return false;
+        }
+
+        let matchDate = true;
+        const itemDate = parseDateDDMMYYYY(item.tanggal);
+        if (itemDate) {
+            if (tglAwal && itemDate < tglAwal) matchDate = false;
+            if (tglAkhir && itemDate > tglAkhir) matchDate = false;
+        }
+        return matchDate;
+    });
+
+    if (filteredKeluar.length === 0) {
+        alert("Tidak ada data penjualan untuk dicetak!");
+        return;
+    }
+
+    const groupedMap = {};
+    filteredKeluar.forEach(item => {
+        const custName = (item.customer || '-').trim();
+        const tglStr = item.tanggal;
+        const groupKey = `${tglStr}___${custName}___${item.jam}`;
+
+        if (!groupedMap[groupKey]) {
+            groupedMap[groupKey] = {
+                tanggal: tglStr,
+                customer: custName,
+                jam: item.jam,
+                noSuratJalan: item.noSuratJalan || '',
+                items: []
+            };
+        }
+        groupedMap[groupKey].items.push(item);
+    });
+
+    const groupList = Object.values(groupedMap);
+    if (groupList.length === 0) {
+        alert("Tidak ada data Surat Jalan yang tersedia!");
+        return;
+    }
+
+    const printArea = document.getElementById('printAllSjArea');
+    printArea.innerHTML = '';
+
+    groupList.forEach(group => {
+        const sjNo = (group.noSuratJalan || "").trim() || "-";
+        const customer = group.customer;
+        const tanggalStr = formatTanggalIndonesia(group.tanggal);
+
+        group.items.sort((a, b) => {
+            let compKode = (a.kode || "").localeCompare(b.kode || "", 'id', { sensitivity: 'base' });
+            if (compKode !== 0) return compKode;
+            return (a.warna || "").localeCompare(b.warna || "", 'id', { sensitivity: 'base' });
+        });
+
+        let rowsHtml = '';
+        let totalQty = 0;
+        group.items.forEach((it, idx) => {
+            const qty = parseInt(it.jumlah) || 0;
+            totalQty += qty;
+            rowsHtml += `
+                <tr>
+                    <td style="text-align: center;">${idx + 1}</td>
+                    <td><strong>${escapeHTML(it.kode)}</strong></td>
+                    <td>${escapeHTML(it.nama)}</td>
+                    <td>${escapeHTML(it.warna)}</td>
+                    <td style="text-align: center; font-weight: 700;">${formatAngka(qty)}</td>
+                </tr>
+            `;
+        });
+
+        const wrapDiv = document.createElement('div');
+        wrapDiv.className = 'single-sj-page-wrap';
+        wrapDiv.innerHTML = `
+            <div class="sj-container" style="margin-bottom: 20px;">
+                <div class="sj-header">
+                    <div class="sj-company">
+                        <h2>NS</h2>
+                    </div>
+                    <div class="sj-title-box">
+                        <h1>Surat Jalan</h1>
+                        <p>No Surat Jalan : ${escapeHTML(sjNo)}</p>
+                    </div>
+                </div>
+
+                <div class="sj-info-grid">
+                    <div class="sj-info-item">
+                        <strong>KEPADA YTH:</strong>
+                        <span style="font-size: 13px; font-weight: 700;">${escapeHTML(customer)}</span>
+                    </div>
+                    <div class="sj-info-item">
+                        <strong>Tanggal Pembelian:</strong>
+                        <span style="font-size: 12px; font-weight: 700;">${escapeHTML(tanggalStr)}</span>
+                    </div>
+                </div>
+
+                <table class="sj-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 7%; text-align: center;">No</th>
+                            <th style="width: 25%;">Kode Barang</th>
+                            <th style="width: 46%;">Nama Barang</th>
+                            <th style="width: 14%;">Warna</th>
+                            <th style="width: 8%; text-align: center;">Roll</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rowsHtml}
+                        <tr>
+                            <td colspan="4" style="text-align: center; font-weight: 700; background: #eaeaea;">Total Beli Barang</td>
+                            <td style="text-align: center; font-weight: 800; background: #eaeaea;">${formatAngka(totalQty)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="sj-signatures">
+                    <div class="sj-sig-box">
+                        <strong>Penerima</strong>
+                        <div class="line"></div>
+                    </div>
+                    <div class="sj-sig-box">
+                        <strong>Admin</strong>
+                        <div class="line"></div>
+                    </div>
+                    <div class="sj-sig-box">
+                        <strong>Mandor</strong>
+                        <div class="line"></div>
+                    </div>
+                    <div class="sj-sig-box">
+                        <strong>Supir</strong>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+        printArea.appendChild(wrapDiv);
+    });
+
+    document.body.classList.remove('printing-surat-jalan');
+    document.body.classList.add('printing-all-sj');
+    window.print();
+    setTimeout(() => {
+        document.body.classList.remove('printing-all-sj');
     }, 1000);
 }
 
@@ -3358,7 +3584,7 @@ function renderKeranjang() {
     if (!tbody) return;
 
     if (keranjangBelanja.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty"><strong>Belum ada barang ditambahkan ke keranjang pembelian</strong></td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="empty"><strong>Belum ada barang ditambahkan ke pembelian</strong></td></tr>`;
         return;
     }
 
@@ -3835,14 +4061,14 @@ function renderTransaksi() {
         const tr = document.createElement('tr');
         if (rowObj.type === 'single_masuk') {
             tr.innerHTML = `
-                <td class="text-center">${index + 1}</td>
-                <td>${escapeHTML(formatTanggalIndonesia(rowObj.tanggal))}</td>
-                <td>${escapeHTML(rowObj.jam)}</td>
-                <td><span class="badge badge-masuk">Masuk</span></td>
-                <td>${escapeHTML(rowObj.noSuratJalan)}</td>
-                <td><strong>${escapeHTML(rowObj.kode)}</strong> → ${escapeHTML(rowObj.nama)} (${escapeHTML(rowObj.warna)}) : <strong>${formatAngka(rowObj.jumlah)} Roll</strong></td>
-                <td>-</td>
-                <td class="text-center">
+                <td class="text-center" style="white-space: nowrap;">${index + 1}</td>
+                <td style="white-space: nowrap;">${escapeHTML(formatTanggalIndonesia(rowObj.tanggal))}</td>
+                <td style="white-space: nowrap;">${escapeHTML(rowObj.jam)}</td>
+                <td style="white-space: nowrap;"><span class="badge badge-masuk">Masuk</span></td>
+                <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;" title="${escapeHTML(rowObj.noSuratJalan)}">${escapeHTML(rowObj.noSuratJalan)}</td>
+                <td style="word-break: break-word; white-space: normal;"><strong>${escapeHTML(rowObj.kode)}</strong> → ${escapeHTML(rowObj.nama)} (${escapeHTML(rowObj.warna)}) : <strong>${formatAngka(rowObj.jumlah)} Roll</strong></td>
+                <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;">-</td>
+                <td class="text-center" style="white-space: nowrap;">
                     <button class="btn-edit" onclick="bukaEditSingle(${rowObj.originalIndex})">Edit</button>
                     <button class="btn-delete" onclick="konfirmasiHapusPin(${rowObj.originalIndex})">Delete</button>
                 </td>
@@ -3858,8 +4084,8 @@ function renderTransaksi() {
             rowObj.items.forEach(it => {
                 subTableHtml += `
                     <tr>
-                        <td><strong>${escapeHTML(it.kode)}</strong> → ${escapeHTML(it.nama)} (${escapeHTML(it.warna)})</td>
-                        <td style="text-align: right; font-weight: 700; width: 90px;">${formatAngka(it.jumlah)} Roll</td>
+                        <td style="word-break: break-word; white-space: normal;"><strong>${escapeHTML(it.kode)}</strong> → ${escapeHTML(it.nama)} (${escapeHTML(it.warna)})</td>
+                        <td style="text-align: right; font-weight: 700; width: 90px; white-space: nowrap;">${formatAngka(it.jumlah)} Roll</td>
                     </tr>
                 `;
             });
@@ -3868,14 +4094,14 @@ function renderTransaksi() {
             const safeGroupKey = escapeHTML(rowObj.groupKey);
 
             tr.innerHTML = `
-                <td class="text-center">${index + 1}</td>
-                <td>${escapeHTML(formatTanggalIndonesia(rowObj.tanggal))}</td>
-                <td>${escapeHTML(rowObj.jam)}</td>
-                <td><span class="badge badge-keluar">Keluar</span></td>
-                <td>${escapeHTML(rowObj.noSuratJalan || '-')}</td>
-                <td style="padding: 4px 8px;">${subTableHtml}</td>
-                <td><strong>${escapeHTML(rowObj.customer)}</strong></td>
-                <td class="text-center">
+                <td class="text-center" style="white-space: nowrap;">${index + 1}</td>
+                <td style="white-space: nowrap;">${escapeHTML(formatTanggalIndonesia(rowObj.tanggal))}</td>
+                <td style="white-space: nowrap;">${escapeHTML(rowObj.jam)}</td>
+                <td style="white-space: nowrap;"><span class="badge badge-keluar">Keluar</span></td>
+                <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;" title="${escapeHTML(rowObj.noSuratJalan || '-')}">${escapeHTML(rowObj.noSuratJalan || '-')}</td>
+                <td style="padding: 4px 8px; white-space: normal;">${subTableHtml}</td>
+                <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px;" title="${escapeHTML(rowObj.customer)}"><strong>${escapeHTML(rowObj.customer)}</strong></td>
+                <td class="text-center" style="white-space: nowrap;">
                     <button class="btn-edit" onclick="bukaEditGroup('${safeGroupKey}')">Edit</button>
                     <button class="btn-delete" onclick="konfirmasiHapusGrup('${safeGroupKey}')">Delete</button>
                 </td>
@@ -4005,11 +4231,11 @@ function handleEditBarangKeluarSelect(selectedVal) {
     const mapStok = hitungStokPerBarang(editGroupKey);
     const barangFound = Object.values(mapStok).find(item => {
         const fullString = `${item.kode} - ${item.nama} (${item.warna}) [Sisa: ${item.sisa}]`;
+        const simpleString = `${item.kode} - ${item.nama} (${item.warna})`;
         const isAlreadyInCart = editKeranjangTemp.some(k => getStockKey(k.kode, k.warna) === getStockKey(item.kode, item.warna));
         return item.sisa > 0 && !isAlreadyInCart && (
             fullString.toLowerCase() === selectedVal.toLowerCase() ||
-            item.kode.toLowerCase() === selectedVal.toLowerCase() ||
-            selectedVal.toLowerCase().startsWith(item.kode.toLowerCase())
+            simpleString.toLowerCase() === selectedVal.toLowerCase()
         );
     });
 
@@ -4017,7 +4243,7 @@ function handleEditBarangKeluarSelect(selectedVal) {
         inputKode.value = barangFound.kode;
         inputNama.value = barangFound.nama;
         inputWarna.value = barangFound.warna;
-        inputJumlah.placeholder = `Maks: ${barangFound.sisa}`;
+        inputJumlah.placeholder = `${barangFound.sisa}`;
         inputJumlah.setAttribute('max', barangFound.sisa);
         if (parseInt(inputJumlah.value) > barangFound.sisa) {
             inputJumlah.value = barangFound.sisa;
