@@ -10,51 +10,56 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Manual Stock System">
 <meta name="application-name" content="Manual Stock System">
-<meta name="theme-color" content="#1e88e5">
+<meta name="theme-color" content="#3b82f6">
 
 <!-- LIBRARY EXPORT & IMPORT EXCEL (XLSX) -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
+<!-- GOOGLE FONTS: Plus Jakarta Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 /* =========================================================
-   1. RESET & VARIABLE CSS (SISTEM MULTI TEMA)
+   1. RESET & VARIABLE CSS (SISTEM MULTI TEMA MODERN)
 ========================================================= */
 :root {
-    --primary: #1e88e5;
-    --primary-dark: #1565c0;
-    --primary-light: #e3f2fd;
-    --success: #2e7d32;
-    --success-light: #e8f5e9;
-    --danger: #d32f2f;
-    --danger-light: #ffebee;
-    --warning: #f57c00;
-    --text-dark: #2c3e50;
-    --text-muted: #7f8c8d;
-    --bg-main: #f4f7f9;
+    --primary: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+    --success: #10b981;
+    --success-light: #ecfdf5;
+    --danger: #ef4444;
+    --danger-light: #fef2f2;
+    --warning: #f59e0b;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --bg-main: #f8fafc;
     --card-bg: #ffffff;
     --border-color: #e2e8f0;
     --input-bg: #ffffff;
-    --readonly-bg: #edf2f7;
-    --table-hover: #f1f5f9;
-    --thead-bg: #f8fafc;
-    --header-grad: linear-gradient(135deg, #0d47a1, #1e88e5);
-    --radius-lg: 16px;
-    --radius-md: 10px;
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --readonly-bg: #f1f5f9;
+    --table-hover: #f8fafc;
+    --thead-bg: #f1f5f9;
+    --header-grad: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.08);
 }
 
 /* 1. TEMA MALAM (DARK) */
 body.theme-dark {
-    --primary: #42a5f5;
-    --primary-dark: #1e88e5;
-    --primary-light: #1e3a5f;
-    --success: #4caf50;
-    --success-light: #1b3e20;
-    --danger: #ef5350;
-    --danger-light: #4c1d1d;
-    --warning: #ffb74d;
-    --text-dark: #e2e8f0;
+    --primary: #60a5fa;
+    --primary-dark: #3b82f6;
+    --primary-light: #1e3a8a;
+    --success: #34d399;
+    --success-light: #064e3b;
+    --danger: #f87171;
+    --danger-light: #7f1d1d;
+    --warning: #fbbf24;
+    --text-dark: #f1f5f9;
     --text-muted: #94a3b8;
     --bg-main: #0f172a;
     --card-bg: #1e293b;
@@ -63,7 +68,7 @@ body.theme-dark {
     --readonly-bg: #334155;
     --table-hover: #334155;
     --thead-bg: #0f172a;
-    --header-grad: linear-gradient(135deg, #020617, #0f172a);
+    --header-grad: linear-gradient(135deg, #020617, #1e293b);
 }
 
 /* 2. TEMA OCEAN BLUE */
@@ -118,14 +123,14 @@ body.theme-slate {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 body {
     background-color: var(--bg-main);
     color: var(--text-dark);
-    line-height: 1.4;
-    padding-bottom: 40px;
+    line-height: 1.5;
+    padding-bottom: 50px;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -139,7 +144,7 @@ body {
     height: 100vh;
     height: 100dvh;
     width: 100vw;
-    padding: 10px;
+    padding: 16px;
     background: radial-gradient(circle at top left, #1e3a8a, #0f172a 60%, #0284c7);
     position: fixed;
     top: 0;
@@ -153,25 +158,25 @@ body {
     content: '';
     position: absolute;
     border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.45;
+    filter: blur(100px);
+    opacity: 0.5;
     z-index: 0;
 }
 
 .auth-wrapper::before {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     background: #3b82f6;
-    top: -40px;
-    left: -40px;
+    top: -50px;
+    left: -50px;
 }
 
 .auth-wrapper::after {
-    width: 340px;
-    height: 340px;
+    width: 400px;
+    height: 400px;
     background: #8b5cf6;
-    bottom: -50px;
-    right: -50px;
+    bottom: -60px;
+    right: -60px;
 }
 
 .auth-card {
@@ -180,80 +185,80 @@ body {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: 16px;
-    padding: 16px 20px;
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
     width: 100%;
-    max-width: 380px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    animation: authFadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 420px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    animation: authFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes authFadeUp {
-    from { opacity: 0; transform: translateY(15px) scale(0.98); }
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .auth-brand {
     text-align: center;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
 }
 
 .auth-brand .brand-icon {
-    width: 42px;
-    height: 42px;
-    background: linear-gradient(135deg, #1e88e5, #0d47a1);
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
     color: white;
-    border-radius: 12px;
+    border-radius: 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 19px;
+    font-size: 22px;
     font-weight: 800;
     letter-spacing: -0.5px;
-    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.35);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.35);
 }
 
 .auth-header {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .auth-header h2 {
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 800;
     color: #0f172a;
     letter-spacing: -0.3px;
-    margin-bottom: 1px;
+    margin-bottom: 4px;
 }
 
 .auth-header p {
-    font-size: 11px;
+    font-size: 13px;
     color: #64748b;
 }
 
 .auth-form .form-group {
-    margin-bottom: 8px;
+    margin-bottom: 14px;
 }
 
 .auth-form label {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #334155;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
     display: block;
 }
 
 .auth-form input,
 .auth-form select {
     width: 100%;
-    padding: 7px 11px;
+    padding: 11px 14px;
     border: 1.5px solid #cbd5e1;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     outline: none;
-    font-size: 12px;
+    font-size: 13px;
     background: #f8fafc;
     color: #0f172a;
     transition: all 0.25s ease;
@@ -261,96 +266,101 @@ body {
 
 .auth-form input:focus,
 .auth-form select:focus {
-    border-color: #1e88e5;
+    border-color: #3b82f6;
     background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
 .auth-form .btn-primary {
     width: 100%;
-    padding: 9px;
-    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    padding: 12px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
     color: white;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
-    margin-top: 4px;
+    margin-top: 6px;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
     transition: all 0.25s ease;
 }
 
 .auth-form .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(30, 136, 229, 0.4);
-    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.45);
+    background: linear-gradient(135deg, #2563eb, #1e40af);
 }
 
 .auth-links {
-    margin-top: 8px;
+    margin-top: 14px;
     text-align: center;
-    font-size: 11px;
+    font-size: 12px;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
-    padding-top: 8px;
+    padding-top: 12px;
 }
 
 .auth-links a {
-    color: #1e88e5;
+    color: #3b82f6;
     text-decoration: none;
     font-weight: 700;
     transition: color 0.2s;
 }
 
 .auth-links a:hover {
-    color: #0d47a1;
+    color: #1d4ed8;
     text-decoration: underline;
 }
 
 .password-requirements {
-    font-size: 10px;
-    margin-top: 4px;
+    font-size: 11px;
+    margin-top: 6px;
     background: #f1f5f9;
-    padding: 6px 8px;
-    border-radius: 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
     border: 1px solid #e2e8f0;
 }
 .password-requirements div {
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
-.req-invalid { color: #d32f2f; }
-.req-valid { color: #2e7d32; font-weight: 600; }
+.req-invalid { color: #ef4444; }
+.req-valid { color: #10b981; font-weight: 600; }
 
 .user-badge-top-right {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
-    padding: 4px 10px 4px 6px;
+    padding: 6px 14px 6px 8px;
     border-radius: var(--radius-md);
     font-size: 13px;
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 8px;
-    backdrop-filter: blur(8px);
+    gap: 10px;
+    backdrop-filter: blur(12px);
     white-space: nowrap;
     z-index: 15;
 }
 
 .user-avatar-img {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1.5px solid #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.user-avatar-img:hover {
+    transform: scale(1.08);
 }
 
 .print-user-avatar-img {
@@ -367,31 +377,43 @@ body {
 .btn-logout {
     background: var(--danger);
     color: white;
-    padding: 4px 8px;
+    padding: 6px 12px;
     font-size: 11px;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     border: none;
-    font-weight: 600;
+    font-weight: 700;
     transition: background 0.2s;
-    margin-left: 2px;
+    margin-left: 4px;
 }
 
 .btn-logout:hover {
-    background: #b71c1c;
+    background: #dc2626;
 }
 
 /* =========================================================
-   2. HEADER & NAVIGATION
+   2. HEADER & NAVIGATION (NEW ULTRA-MODERN DESIGN)
 ========================================================= */
 .header {
     background: var(--header-grad);
     color: white;
-    padding: 24px 20px 0 20px;
+    padding: 30px 24px 0 24px;
     box-shadow: var(--shadow-md);
     transition: background 0.3s;
     position: relative;
     overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .header-content {
@@ -399,32 +421,32 @@ body {
     margin: auto;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     position: relative;
     z-index: 12;
 }
 
 .header-title h1 {
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 800;
     letter-spacing: -0.5px;
 }
 
 .header-title p {
-    font-size: 13px;
+    font-size: 14px;
     opacity: 0.9;
     margin-top: 4px;
 }
 
 .header-bottom-row {
     max-width: 1400px;
-    margin: 20px auto 0 auto;
+    margin: 24px auto 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 15px;
+    align-items: flex-end;
+    gap: 16px;
     flex-wrap: wrap;
     position: relative;
     z-index: 12;
@@ -434,32 +456,44 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 2px;
+    padding-bottom: 10px;
 }
 
 .header-time {
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    padding: 8px 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 18px;
     border-radius: var(--radius-md);
     font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .header-time strong {
-    font-size: 15px;
-    margin-left: 0px;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .theme-select {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.18);
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 16px;
     border-radius: var(--radius-md);
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     outline: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.25s ease;
+}
+
+.theme-select:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
 }
 
 .theme-select option {
@@ -467,6 +501,7 @@ body {
     color: white;
 }
 
+/* Navigasi / Tab Menu Keren & Estetik */
 .nav-tabs {
     display: flex;
     gap: 8px;
@@ -475,42 +510,89 @@ body {
     scrollbar-width: none;
     cursor: grab;
     user-select: none;
+    padding: 10px 12px 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-bottom: none;
+    border-radius: 18px 18px 0 0;
+    background: rgba(8, 25, 55, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.1);
+    scroll-behavior: smooth;
 }
-.nav-tabs:active {
-    cursor: grabbing;
-}
-.nav-tabs::-webkit-scrollbar {
-    display: none;
-}
+.nav-tabs:active { cursor: grabbing; }
+.nav-tabs::-webkit-scrollbar { display: none; }
 
 .tab-btn {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border: none;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    flex: 0 0 auto;
+    min-height: 48px;
     padding: 12px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px 14px 0 0;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 14px;
-    font-weight: 600;
-    border-radius: 12px 12px 0 0;
+    font-weight: 700;
+    letter-spacing: 0.2px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     white-space: nowrap;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.tab-btn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.02));
+    opacity: 0;
+    transition: opacity 0.25s ease;
 }
 
 .tab-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(2, 12, 35, 0.2);
 }
 
+.tab-btn:hover::before { opacity: 1; }
+
 .tab-btn.active {
-    background: var(--bg-main);
     color: var(--primary-dark);
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+    background: var(--bg-main);
+    border-color: rgba(255, 255, 255, 0.7);
+    border-bottom-color: var(--bg-main);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.12), inset 0 2px 0 rgba(255, 255, 255, 0.9);
+    transform: translateY(0);
+}
+
+.tab-btn.active::after {
+    content: "";
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    bottom: -1px;
+    height: 4px;
+    border-radius: 4px 4px 0 0;
+    background: var(--primary);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--primary) 60%, transparent);
 }
 
 body.theme-dark .tab-btn.active {
     color: var(--primary);
+    border-color: rgba(148, 163, 184, 0.25);
+    border-bottom-color: var(--bg-main);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.25), inset 0 2px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* =========================================================
@@ -519,12 +601,12 @@ body.theme-dark .tab-btn.active {
 .container {
     max-width: 1400px;
     margin: auto;
-    padding: 24px 20px;
+    padding: 28px 24px;
 }
 
 .page {
     display: none;
-    animation: fadeIn 0.25s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .page.active {
@@ -532,7 +614,7 @@ body.theme-dark .tab-btn.active {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -542,28 +624,35 @@ body.theme-dark .tab-btn.active {
 .card {
     background: var(--card-bg);
     border-radius: var(--radius-lg);
-    padding: 24px;
-    margin-bottom: 24px;
+    padding: 28px;
+    margin-bottom: 28px;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
 }
 
 .card-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 24px;
     color: var(--text-dark);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 14px;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    gap: 20px;
 }
 
 .form-group {
@@ -572,46 +661,50 @@ body.theme-dark .tab-btn.active {
 }
 
 .form-group label {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
     color: var(--text-dark);
 }
 
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 10px 14px;
-    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border: 1.5px solid var(--border-color);
     border-radius: var(--radius-md);
     outline: none;
     font-size: 14px;
     background: var(--input-bg);
     color: var(--text-dark);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.25s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.12);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
 .form-group input[readonly] {
     background: var(--readonly-bg);
     color: var(--text-muted);
     cursor: not-allowed;
+    border-color: var(--border-color);
 }
 
 .form-help {
-    font-size: 11px;
-    margin-top: 4px;
+    font-size: 12px;
+    margin-top: 6px;
     color: var(--text-muted);
 }
 
 .pilih-stok-highlight input {
     border: 2px solid var(--primary);
     background-color: var(--primary-light);
+    font-weight: 600;
 }
 
 .password-wrapper {
@@ -621,21 +714,22 @@ body.theme-dark .tab-btn.active {
 }
 
 .password-wrapper input {
-    padding-right: 42px !important;
+    padding-right: 46px !important;
 }
 
 .toggle-password {
     position: absolute;
-    right: 10px;
+    right: 12px;
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    padding: 4px 6px;
+    font-size: 18px;
+    padding: 6px;
     color: var(--text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.2s;
 }
 
 .toggle-password:hover {
@@ -647,13 +741,14 @@ body.theme-dark .tab-btn.active {
 .badge-total-stok {
     background: var(--primary);
     color: white;
-    padding: 6px 14px;
+    padding: 8px 16px;
     font-size: 13px;
     border-radius: var(--radius-md);
     font-weight: 700;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
 
 /* =========================================================
@@ -662,67 +757,72 @@ body.theme-dark .tab-btn.active {
 .button-area {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 24px;
 }
 
 button {
     border: none;
     border-radius: var(--radius-md);
-    padding: 10px 18px;
-    font-size: 13px;
-    font-weight: 600;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
 }
 
 button:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+button:active {
+    transform: translateY(1px);
 }
 
 .btn-save { background: var(--primary); color: white; }
 .btn-save:hover { background: var(--primary-dark); }
 
-.btn-reset { background: var(--readonly-bg); color: var(--text-dark); }
-.btn-reset:hover { filter: brightness(0.9); }
+.btn-reset { background: var(--readonly-bg); color: var(--text-dark); border: 1px solid var(--border-color); }
+.btn-reset:hover { background: var(--border-color); }
 
 .btn-excel { background: var(--success); color: white; }
-.btn-upload { background: #00897b; color: white; }
-.btn-print { background: #34495e; color: white; }
-.btn-backup { background: #8e44ad; color: white; }
-.btn-edit { background: var(--warning); color: white; padding: 6px 12px; font-size: 12px; }
-.btn-delete { background: var(--danger); color: white; padding: 6px 12px; font-size: 12px; }
-.btn-clear-all { background: #b71c1c; color: white; }
-.btn-clear-all:hover { background: #880e4f; }
-.btn-lock { background: #475569; color: white; }
+.btn-upload { background: #0d9488; color: white; }
+.btn-print { background: #475569; color: white; }
+.btn-backup { background: #9333ea; color: white; }
+.btn-edit { background: var(--warning); color: white; padding: 7px 14px; font-size: 12px; }
+.btn-delete { background: var(--danger); color: white; padding: 7px 14px; font-size: 12px; }
+.btn-clear-all { background: #dc2626; color: white; }
+.btn-clear-all:hover { background: #b91c1c; }
+.btn-lock { background: #334155; color: white; }
 
 .btn-surat-jalan {
-    background: #00897b;
+    background: #0d9488;
     color: white;
-    padding: 6px 12px;
+    padding: 7px 14px;
     font-size: 12px;
 }
 .btn-surat-jalan:hover {
-    background: #00695c;
+    background: #0f766e;
 }
 
 .toolbar {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 18px;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .search-area {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex: 1;
     flex-wrap: wrap;
     align-items: center;
@@ -730,42 +830,49 @@ button:hover {
 
 .search-area input,
 .search-area select {
-    padding: 10px 14px;
-    border: 1px solid var(--border-color);
+    padding: 11px 16px;
+    border: 1.5px solid var(--border-color);
     border-radius: var(--radius-md);
     outline: none;
     font-size: 13px;
     background: var(--input-bg);
     color: var(--text-dark);
+    transition: all 0.2s;
+}
+
+.search-area input:focus,
+.search-area select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
 .search-area input[type="text"] {
     flex: 1;
-    min-width: 200px;
+    min-width: 240px;
 }
 
 .date-filter-group {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: var(--thead-bg);
-    padding: 6px 12px;
+    padding: 8px 14px;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
+    border: 1.5px solid var(--border-color);
     flex-wrap: wrap;
 }
 
 .date-filter-group label {
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-muted);
 }
 
 .date-filter-group input[type="date"] {
-    padding: 6px 10px;
+    padding: 7px 10px;
     font-size: 12px;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--input-bg);
     color: var(--text-dark);
 }
@@ -775,18 +882,19 @@ button:hover {
 ========================================================= */
 .table-wrapper {
     width: 100%;
-    max-height: 480px;
+    max-height: 520px;
     overflow-y: auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    border: 1px solid var(--border-color);
+    border: 1.5px solid var(--border-color);
     border-radius: var(--radius-md);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 850px;
+    min-width: 900px;
     background: var(--card-bg);
 }
 
@@ -799,14 +907,14 @@ thead {
 }
 
 th, td {
-    padding: 12px 14px;
+    padding: 14px 16px;
     text-align: left;
     font-size: 13px;
     white-space: nowrap;
     color: var(--text-dark);
 }
 
-th { font-weight: 600; background: var(--thead-bg); }
+th { font-weight: 700; background: var(--thead-bg); letter-spacing: 0.3px; }
 
 tbody tr {
     border-bottom: 1px solid var(--border-color);
@@ -817,11 +925,11 @@ tbody tr:hover { background: var(--table-hover); }
 
 #penjualanBody tr,
 #transaksiBody tr {
-    border-bottom: 1px solid #cbd5e1;
+    border-bottom: 1.5px solid #cbd5e1;
 }
 body.theme-dark #penjualanBody tr,
 body.theme-dark #transaksiBody tr {
-    border-bottom: 1px solid #334155;
+    border-bottom: 1.5px solid #334155;
 }
 
 .text-center { text-align: center; }
@@ -829,10 +937,11 @@ body.theme-dark #transaksiBody tr {
 
 .badge {
     display: inline-block;
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: 20px;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: 0.3px;
 }
 
 .badge-masuk { background: var(--success-light); color: var(--success); }
@@ -842,13 +951,13 @@ body.theme-dark #transaksiBody tr {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 60px;
-    padding: 5px 12px;
+    min-width: 70px;
+    padding: 6px 14px;
     background: var(--primary-light);
     color: var(--primary);
-    border: 1px solid var(--primary);
-    border-radius: 6px;
-    font-weight: 700;
+    border: 1.5px solid var(--primary);
+    border-radius: 8px;
+    font-weight: 800;
     font-size: 13px;
     text-align: center;
 }
@@ -857,13 +966,13 @@ body.theme-dark #transaksiBody tr {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 60px;
-    padding: 5px 12px;
+    min-width: 70px;
+    padding: 6px 14px;
     background: var(--danger-light);
     color: var(--danger);
-    border: 1px solid var(--danger);
-    border-radius: 6px;
-    font-weight: 700;
+    border: 1.5px solid var(--danger);
+    border-radius: 8px;
+    font-weight: 800;
     font-size: 13px;
     text-align: center;
 }
@@ -882,7 +991,7 @@ body.theme-dark #transaksiBody tr {
 
 .penjualan-items-table th,
 .penjualan-items-table td {
-    padding: 6px 8px !important;
+    padding: 8px 10px !important;
     font-size: 12px !important;
     border: none !important;
     background: transparent !important;
@@ -896,8 +1005,9 @@ body.theme-dark #transaksiBody tr {
     position: fixed;
     z-index: 9999;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(3px);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 20px;
 }
 
@@ -909,10 +1019,10 @@ body.theme-dark #transaksiBody tr {
 
 .modal-box {
     width: 100%;
-    max-width: 750px;
+    max-width: 780px;
     background: var(--card-bg);
     border-radius: var(--radius-lg);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
     overflow: hidden;
     border: 1px solid var(--border-color);
     max-height: 90vh;
@@ -923,13 +1033,13 @@ body.theme-dark #transaksiBody tr {
 .modal-header {
     background: var(--primary);
     color: white;
-    padding: 18px 24px;
+    padding: 20px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.modal-header h2 { font-size: 18px; font-weight: 600; }
+.modal-header h2 { font-size: 18px; font-weight: 700; }
 .close-modal { background: transparent; color: white; font-size: 24px; cursor: pointer; padding: 0; border: none; }
 .modal-body { padding: 24px; overflow-y: auto; flex: 1; }
 .modal-footer {
@@ -938,12 +1048,12 @@ body.theme-dark #transaksiBody tr {
     border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
-.empty { padding: 40px; text-align: center; color: var(--text-muted); }
-.footer { text-align: center; padding: 20px; color: var(--text-muted); font-size: 12px; }
+.empty { padding: 48px; text-align: center; color: var(--text-muted); font-weight: 600; }
+.footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 13px; font-weight: 500; }
 #uploadExcelInput { display: none; }
 
 .print-only-header {
@@ -959,31 +1069,31 @@ body.theme-dark #transaksiBody tr {
 }
 
 @media(max-width: 768px) {
-    .header { padding: 16px 12px 0 12px; }
-    .header-content { flex-direction: column; align-items: stretch; gap: 10px; }
+    .header { padding: 20px 16px 0 16px; }
+    .header-content { flex-direction: column; align-items: stretch; gap: 14px; }
     .user-badge-top-right { align-self: flex-start; }
-    .header-title h1 { font-size: 20px; }
+    .header-title h1 { font-size: 22px; }
     .header-title p { font-size: 12px; }
    
-    .header-bottom-row { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 15px; }
+    .header-bottom-row { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 16px; }
     .header-controls-bottom { justify-content: space-between; margin-bottom: 0; flex-wrap: wrap; }
-    .nav-tabs { width: 100%; padding-bottom: 4px; }
-    .tab-btn { padding: 10px 16px; font-size: 13px; }
+    .nav-tabs { width: 100%; padding-bottom: 6px; }
+    .tab-btn { padding: 12px 18px; font-size: 13px; }
 
-    .container { padding: 14px 10px; }
-    .card { padding: 16px; border-radius: 12px; margin-bottom: 16px; }
-    .form-grid { grid-template-columns: 1fr; gap: 12px; }
+    .container { padding: 16px 12px; }
+    .card { padding: 20px 16px; border-radius: 16px; margin-bottom: 20px; }
+    .form-grid { grid-template-columns: 1fr; gap: 14px; }
    
     .search-area, .button-area { flex-direction: column; width: 100%; }
     .search-area input, .search-area select, .button-area button { width: 100%; }
     .date-filter-group { width: 100%; justify-content: space-between; }
     .date-filter-group input[type="date"] { flex: 1; }
    
-    .modal { padding: 10px; }
+    .modal { padding: 12px; }
     .modal-box { max-height: 95vh; }
-    .modal-header { padding: 14px 16px; }
-    .modal-body { padding: 16px; }
-    .modal-footer { padding: 12px 16px; }
+    .modal-header { padding: 16px 18px; }
+    .modal-body { padding: 18px; }
+    .modal-footer { padding: 14px 18px; }
     .modal-footer button { width: 100%; }
 }
 
@@ -999,7 +1109,7 @@ body.theme-dark #transaksiBody tr {
     body {
         background: #ffffff !important;
         color: #000000 !important;
-        font-family: 'Segoe UI', Arial, sans-serif !important;
+        font-family: 'Plus Jakarta Sans', Arial, sans-serif !important;
         padding: 0 !important;
         margin: 0 !important;
         -webkit-print-color-adjust: exact;
@@ -1048,9 +1158,9 @@ body.theme-dark #transaksiBody tr {
     /* KARTU STOCK PRINT HEADER DESIGN */
     .print-only-header {
         display: block !important;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         border-bottom: 2.5px solid #000000;
-        padding-bottom: 8px;
+        padding-bottom: 10px;
         width: 100%;
     }
 
@@ -1062,7 +1172,7 @@ body.theme-dark #transaksiBody tr {
     }
 
     .print-header-brand h1 {
-        font-size: 20px;
+        font-size: 22px;
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.8px;
@@ -1107,7 +1217,6 @@ body.theme-dark #transaksiBody tr {
         width: 100% !important;
     }
 
-    /* MEMASTIKAN TABEL KARTU STOCK CETAK MENGISI PENUH LEBAR HALAMAN SECARA RAPI */
     table {
         width: 100% !important;
         min-width: 100% !important;
@@ -1120,7 +1229,6 @@ body.theme-dark #transaksiBody tr {
         display: table-header-group !important;
     }
 
-    /* PENGATURAN LEBAR KOLOM KARTU STOCK SAAT DICETAK AGAR PAS & PROPOSIONAL */
     #stokPage table th:nth-child(1),
     #stokPage table td:nth-child(1) { width: 22% !important; }
     
@@ -1138,7 +1246,7 @@ body.theme-dark #transaksiBody tr {
         color: #000000 !important;
         font-weight: 700 !important;
         border: 1px solid #1e293b !important;
-        padding: 7px 10px !important;
+        padding: 8px 10px !important;
         font-size: 11px !important;
         text-transform: uppercase;
         letter-spacing: 0.3px;
@@ -1148,7 +1256,7 @@ body.theme-dark #transaksiBody tr {
 
     td {
         border: 1px solid #475569 !important;
-        padding: 6px 10px !important;
+        padding: 7px 10px !important;
         font-size: 11px !important;
         color: #000000 !important;
         word-break: break-word;
@@ -1180,12 +1288,12 @@ body.theme-dark #transaksiBody tr {
 .sj-container {
     background: #ffffff;
     color: #000000;
-    padding: 15px 20px;
+    padding: 16px 22px;
     border: 1px solid #000000;
     width: 100%;
     max-width: 100%;
     margin: auto;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
     box-sizing: border-box;
 }
 
@@ -1194,8 +1302,8 @@ body.theme-dark #transaksiBody tr {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #000;
-    padding-bottom: 8px;
-    margin-bottom: 12px;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
 }
 
 .sj-company h2 {
@@ -1229,7 +1337,7 @@ body.theme-dark #transaksiBody tr {
 .sj-info-grid {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-size: 12px;
     gap: 12px;
 }
@@ -1237,7 +1345,7 @@ body.theme-dark #transaksiBody tr {
 .sj-info-item {
     flex: 1;
     background: #fbfbfb;
-    padding: 6px 10px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -1253,13 +1361,13 @@ body.theme-dark #transaksiBody tr {
 .sj-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     table-layout: fixed;
 }
 
 .sj-table th, .sj-table td {
     border: 1px solid #000;
-    padding: 6px 8px;
+    padding: 7px 10px;
     font-size: 11px;
     text-align: left;
     word-wrap: break-word;
@@ -1275,7 +1383,7 @@ body.theme-dark #transaksiBody tr {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 24px;
     text-align: center;
     font-size: 11px;
     page-break-inside: avoid;
@@ -1290,188 +1398,7 @@ body.theme-dark #transaksiBody tr {
 
 .sj-sig-box .line {
     border-bottom: 1px solid #000;
-    margin-top: 35px;
-}
-
-.nav-tabs {
-    gap: 9px;
-    padding: 7px;
-    border: 1px solid rgba(255,255,255,.22);
-    border-radius: 18px 18px 0 0;
-    background: rgba(8, 25, 55, .18);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    align-items: stretch;
-    scroll-behavior: smooth;
-}
-.tab-btn {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    flex: 0 0 auto;
-    min-height: 44px;
-    padding: 11px 19px;
-    border: 1px solid transparent;
-    border-radius: 12px;
-    background: rgba(255,255,255,.105);
-    color: rgba(255,255,255,.94);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .15px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-    transition: background .22s ease, color .22s ease, transform .22s ease,
-                box-shadow .22s ease, border-color .22s ease;
-}
-.tab-btn::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(255,255,255,.24), rgba(255,255,255,.02));
-    opacity: 0;
-    transition: opacity .22s ease;
-}
-.tab-btn:hover {
-    color: #fff;
-    background: rgba(255,255,255,.22);
-    border-color: rgba(255,255,255,.2);
-    transform: translateY(-2px);
-    box-shadow: 0 7px 18px rgba(2, 12, 35, .16);
-}
-.tab-btn:hover::before { opacity: 1; }
-.tab-btn.active {
-    color: var(--primary-dark);
-    background: var(--bg-main);
-    border-color: rgba(255,255,255,.7);
-    border-radius: 12px 12px 0 0;
-    box-shadow: 0 -3px 14px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.8);
-    transform: translateY(0);
-}
-.tab-btn.active::after {
-    content: "";
-    position: absolute;
-    left: 18%;
-    right: 18%;
-    bottom: 0;
-    height: 3px;
-    border-radius: 4px 4px 0 0;
-    background: var(--primary);
-    box-shadow: 0 0 10px color-mix(in srgb, var(--primary) 45%, transparent);
-}
-body.theme-dark .tab-btn.active {
-    color: var(--primary);
-    border-color: rgba(148,163,184,.18);
-    box-shadow: 0 -3px 14px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.05);
-}
-.tab-btn:focus-visible {
-    outline: 3px solid rgba(255,255,255,.85);
-    outline-offset: 2px;
-}
-.header-bottom-row {
-    align-items: flex-end;
-}
-.header-controls-bottom {
-    padding-bottom: 7px;
-}
-.header-time,
-.theme-select {
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,.24);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-    transition: background .2s ease, border-color .2s ease;
-}
-.theme-select:hover { background: rgba(255,255,255,.28); }
-
-@keyframes buttonAppearSmooth {
-  0%   { opacity: 0; transform: translateY(9px) scale(.975); }
-  70%  { opacity: 1; transform: translateY(-1px) scale(1.005); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes buttonAttention {
-  0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
-  50%  { box-shadow: 0 0 0 4px rgba(59,130,246,.12); }
-  100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
-}
-
-button,
-.btn,
-.tab-btn,
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
-[role="button"] {
-  transition:
-    transform .2s cubic-bezier(.2,.8,.2,1),
-    box-shadow .22s ease,
-    filter .22s ease,
-    background-color .22s ease,
-    border-color .22s ease,
-    color .22s ease;
-  transform-origin: center;
-  -webkit-tap-highlight-color: transparent;
-  animation: buttonAppearSmooth .48s cubic-bezier(.2,.8,.2,1) both;
-  will-change: transform;
-}
-
-button:hover:not(:disabled),
-.btn:hover:not(:disabled),
-.tab-btn:hover:not(:disabled),
-input[type="button"]:hover:not(:disabled),
-input[type="submit"]:hover:not(:disabled),
-input[type="reset"]:hover:not(:disabled),
-[role="button"]:hover:not([aria-disabled="true"]) {
-  transform: translateY(-3px) scale(1.015);
-  filter: brightness(1.045) saturate(1.04);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, .15);
-}
-
-button:active:not(:disabled),
-.btn:active:not(:disabled),
-.tab-btn:active:not(:disabled),
-input[type="button"]:active:not(:disabled),
-input[type="submit"]:active:not(:disabled),
-input[type="reset"]:active:not(:disabled),
-[role="button"]:active:not([aria-disabled="true"]) {
-  transform: translateY(1px) scale(.965);
-  filter: brightness(.98);
-  box-shadow: 0 2px 6px rgba(15, 23, 42, .12);
-  transition-duration: .08s;
-}
-
-button:focus-visible,
-.btn:focus-visible,
-.tab-btn:focus-visible,
-input[type="button"]:focus-visible,
-input[type="submit"]:focus-visible,
-input[type="reset"]:focus-visible,
-[role="button"]:focus-visible {
-  outline: 3px solid rgba(59,130,246,.5);
-  outline-offset: 3px;
-  animation: buttonAttention .7s ease-out;
-}
-
-button:disabled,
-.btn:disabled,
-.tab-btn:disabled,
-input[type="button"]:disabled,
-input[type="submit"]:disabled,
-input[type="reset"]:disabled,
-[role="button"][aria-disabled="true"] {
-  cursor: not-allowed;
-  transform: none;
-  filter: saturate(.72);
-  box-shadow: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  button, .btn, .tab-btn,
-  input[type="button"], input[type="submit"], input[type="reset"],
-  [role="button"] {
-    animation: none !important;
-    transition: none !important;
-    will-change: auto;
-  }
+    margin-top: 40px;
 }
 
 /* =========================================================
@@ -1484,9 +1411,9 @@ input[type="reset"]:disabled,
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     animation: overlayFadeIn 0.2s ease forwards;
 }
 
@@ -1498,17 +1425,17 @@ input[type="reset"]:disabled,
 .custom-popup-box {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 32px 44px;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
     transform: scale(0.8);
     animation: popupScaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    max-width: 320px;
+    max-width: 340px;
     width: 90%;
 }
 
@@ -1516,22 +1443,21 @@ input[type="reset"]:disabled,
     to { transform: scale(1); }
 }
 
-/* Animasi Ceklis Hijau */
 .success-anim-icon {
-    width: 70px;
-    height: 70px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: var(--success);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.35);
     animation: iconBounce 0.5s ease;
 }
 
 .success-anim-icon svg {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     stroke: #ffffff;
     stroke-width: 3.5;
     stroke-linecap: round;
@@ -1546,22 +1472,21 @@ input[type="reset"]:disabled,
     to { stroke-dashoffset: 0; }
 }
 
-/* Animasi Silang Merah */
 .danger-anim-icon {
-    width: 70px;
-    height: 70px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: var(--danger);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+    box-shadow: 0 10px 20px rgba(239, 68, 68, 0.35);
     animation: iconBounce 0.5s ease;
 }
 
 .danger-anim-icon svg {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     stroke: #ffffff;
     stroke-width: 3.5;
     stroke-linecap: round;
@@ -1583,15 +1508,13 @@ input[type="reset"]:disabled,
 
 .custom-popup-text {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-dark);
     letter-spacing: -0.2px;
 }
 
 /* =========================================================
-   RESIZABLE TABLE COLUMNS: REPORT PENJUALAN, REPORT STOCK,
-   DAN TRANSACTION HISTORY
-   Hanya mengubah lebar kolom; alur sistem dan posisi tombol tetap.
+   RESIZABLE TABLE COLUMNS
 ========================================================= */
 #penjualanPage .table-wrapper table,
 #stokPage .table-wrapper table,
@@ -1601,7 +1524,6 @@ input[type="reset"]:disabled,
     border-spacing: 0;
 }
 
-/* Garis pemisah vertikal jelas dari header sampai seluruh baris data. */
 #penjualanPage .table-wrapper table th,
 #penjualanPage .table-wrapper table td,
 #stokPage .table-wrapper table th,
@@ -1679,7 +1601,6 @@ body.is-resizing-table-column * {
     cursor: col-resize !important;
     user-select: none !important;
 }
-
 </style>
 </head>
 
@@ -1703,7 +1624,7 @@ body.is-resizing-table-column * {
         </div>
         <div class="auth-header">
             <h2>Selamat Datang</h2>
-            <p>Manual Stock System</p>
+            <p>Manual Stock Management System</p>
         </div>
         <form class="auth-form" onsubmit="event.preventDefault(); prosesLogin();">
             <div class="form-group">
@@ -1721,7 +1642,7 @@ body.is-resizing-table-column * {
         </form>
         <div class="auth-links">
             <p>Belum Punya Akun?</p>
-            <p style="margin-top: 4px;"><a href="javascript:void(0)" onclick="showAuthCard('registerCard')">Buat Akun Baru</a></p>
+            <p style="margin-top: 6px;"><a href="javascript:void(0)" onclick="showAuthCard('registerCard')">Buat Akun Baru</a></p>
             <p style="margin-top: 10px;"><a href="javascript:void(0)" onclick="showAuthCard('forgotCard')">Lupa Password</a></p>
         </div>
     </div>
@@ -1792,7 +1713,7 @@ body.is-resizing-table-column * {
         <form class="auth-form" id="forgotStep2" style="display: none;" onsubmit="event.preventDefault(); verifikasiJawabanKeamanan();">
             <div class="form-group">
                 <label>Pertanyaan Keamanan Anda:</label>
-                <p id="displaySecurityQuestion" style="font-size: 12px; font-weight: 700; color: #1e88e5; background: #e3f2fd; padding: 8px; border-radius: 8px; margin-bottom: 8px;"></p>
+                <p id="displaySecurityQuestion" style="font-size: 13px; font-weight: 700; color: #3b82f6; background: #eff6ff; padding: 10px; border-radius: 8px; margin-bottom: 8px;"></p>
             </div>
             <div class="form-group">
                 <label>Jawaban Keamanan</label>
@@ -2016,8 +1937,8 @@ body.is-resizing-table-column * {
                 <button class="btn-save" type="button" onclick="tambahItemKeKeranjang()" style="background: #0284c7;">+ Tambah Barang ke Pembelian Customer</button>
             </div>
 
-            <div id="containerKeranjang" style="display:none; margin-top: 24px;">
-                <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--primary);">Daftar Barang Pembelian Customer</h3>
+            <div id="containerKeranjang" style="display:none; margin-top: 28px;">
+                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--primary);">Daftar Barang Pembelian Customer</h3>
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -2055,7 +1976,7 @@ body.is-resizing-table-column * {
             <div class="toolbar">
                 <div class="search-area">
                     <input type="text" id="searchPenjualan" placeholder="Cari nama customer, barang, warna, atau surat jalan" oninput="renderPenjualan()">
-                    <select id="filterCustomerPenjualan" onchange="renderPenjualan()" style="max-width: 220px;">
+                    <select id="filterCustomerPenjualan" onchange="renderPenjualan()" style="max-width: 240px;">
                         <option value="">Semua Customer</option>
                     </select>
                    
@@ -2064,7 +1985,7 @@ body.is-resizing-table-column * {
                         <input type="date" id="tglAwalPenjualan" onchange="renderPenjualan()">
                         <label>S/D:</label>
                         <input type="date" id="tglAkhirPenjualan" onchange="renderPenjualan()">
-                        <button class="btn-reset" style="padding: 5px 10px; font-size: 11px;" onclick="resetFilterTanggal('Penjualan')">Reset Tanggal</button>
+                        <button class="btn-reset" style="padding: 6px 12px; font-size: 11px;" onclick="resetFilterTanggal('Penjualan')">Reset Tanggal</button>
                     </div>
                 </div>
             </div>
@@ -2101,7 +2022,7 @@ body.is-resizing-table-column * {
             <div class="toolbar">
                 <div class="search-area">
                     <input type="text" id="searchStok" placeholder="Cari kode, nama barang, atau warna" oninput="renderStok()">
-                    <select id="filterKodeStok" onchange="renderStok()" style="max-width: 220px;">
+                    <select id="filterKodeStok" onchange="renderStok()" style="max-width: 240px;">
                         <option value="">Semua Kode Barang</option>
                     </select>
                 </div>
@@ -2133,7 +2054,7 @@ body.is-resizing-table-column * {
         <div class="card">
             <div class="card-title">
                 <span>Transaction History Barang</span>
-                <div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button class="btn-reset" onclick="bukaModalUbahPin()" style="font-size:12px;">Change PIN Access</button>
                     <button class="btn-lock" onclick="kunciAkses()" style="font-size:12px;">Lock Transaction History</button>
                 </div>
@@ -2153,7 +2074,7 @@ body.is-resizing-table-column * {
                         <input type="date" id="tglAwalTransaksi" onchange="renderTransaksi()">
                         <label>S/D:</label>
                         <input type="date" id="tglAkhirTransaksi" onchange="renderTransaksi()">
-                        <button class="btn-reset" style="padding: 5px 10px; font-size: 11px;" onclick="resetFilterTanggal('Transaksi')">Reset Tanggal</button>
+                        <button class="btn-reset" style="padding: 6px 12px; font-size: 11px;" onclick="resetFilterTanggal('Transaksi')">Reset Tanggal</button>
                     </div>
                 </div>
 
@@ -2196,7 +2117,7 @@ body.is-resizing-table-column * {
             <button class="close-modal" onclick="tutupModalPin()">⛌</button>
         </div>
         <div class="modal-body">
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
                 Masukkan Kode PIN khusus untuk melihat atau mengedit Transaction History.
             </p>
             <div class="form-group">
@@ -2221,7 +2142,7 @@ body.is-resizing-table-column * {
             <button class="close-modal" onclick="tutupModalDeletePin()">⛌</button>
         </div>
         <div class="modal-body">
-            <p style="font-size:13px; color:var(--text-dark); margin-bottom:12px; font-weight: 600;">
+            <p style="font-size:13px; color:var(--text-dark); margin-bottom:14px; font-weight: 700;">
                 Are you sure you want to delete this data?
             </p>
             <div class="form-group">
@@ -2241,13 +2162,13 @@ body.is-resizing-table-column * {
 
 <div class="modal" id="clearAllModal">
     <div class="modal-box" style="max-width: 440px;">
-        <div class="modal-header" style="background: #b71c1c;">
+        <div class="modal-header" style="background: #dc2626;">
             <h2>⚠️ DELETE ALL TRANSACTIONS</h2>
             <button class="close-modal" onclick="tutupModalClearAll()">⛌</button>
         </div>
         <div class="modal-body">
-            <p style="font-size:13px; color:#b71c1c; margin-bottom:10px; font-weight: 700;">VERY IMPORTANT WARNING</p>
-            <p style="font-size:12px; color:var(--text-dark); margin-bottom:15px;">This action will permanently delete the entire Transaction History.</p>
+            <p style="font-size:13px; color:#dc2626; margin-bottom:10px; font-weight: 800;">VERY IMPORTANT WARNING</p>
+            <p style="font-size:13px; color:var(--text-dark); margin-bottom:16px;">This action will permanently delete the entire Transaction History.</p>
             <div class="form-group">
                 <label>PIN Access</label>
                 <div class="password-wrapper">
@@ -2270,14 +2191,14 @@ body.is-resizing-table-column * {
             <button class="close-modal" onclick="tutupModalUbahPin()">⛌</button>
         </div>
         <div class="modal-body">
-            <div class="form-group" style="margin-bottom:12px;">
+            <div class="form-group" style="margin-bottom:14px;">
                 <label>PIN Lama</label>
                 <div class="password-wrapper">
                     <input type="password" id="pinLama" placeholder="Masukkan PIN Lama">
                     <button type="button" class="toggle-password" onclick="togglePasswordVisibility('pinLama', this)">👁</button>
                 </div>
             </div>
-            <div class="form-group" style="margin-bottom:12px;">
+            <div class="form-group" style="margin-bottom:14px;">
                 <label>PIN Baru</label>
                 <div class="password-wrapper">
                     <input type="password" id="pinBaru" placeholder="Masukkan PIN Baru">
@@ -2301,13 +2222,13 @@ body.is-resizing-table-column * {
 
 <!-- MODAL EDIT MULTI-ITEM -->
 <div class="modal" id="editModal">
-    <div class="modal-box" style="max-width: 850px;">
+    <div class="modal-box" style="max-width: 860px;">
         <div class="modal-header">
             <h2 id="editModalTitle">Edit Data Transaksi</h2>
             <button class="close-modal" onclick="tutupEdit()">⛌</button>
         </div>
         <div class="modal-body">
-            <div class="form-grid" style="margin-bottom: 16px;">
+            <div class="form-grid" style="margin-bottom: 20px;">
                 <div class="form-group">
                     <label>Tanggal Transaksi</label>
                     <input type="date" id="editTanggalInput">
@@ -2346,22 +2267,22 @@ body.is-resizing-table-column * {
                         <input type="text" id="editSingleWarna">
                     </div>
                     <div class="form-group">
-                        <label>Jumlah Barang <span style="font-size:10px; color:var(--text-muted);">(Terkunci)</span></label>
+                        <label>Jumlah Barang <span style="font-size:11px; color:var(--text-muted);">(Terkunci)</span></label>
                         <input type="number" id="editSingleJumlah" readonly style="background: var(--readonly-bg); color: var(--text-muted); cursor: not-allowed;" title="Jumlah dikunci untuk menjaga keamanan stok">
                     </div>
                 </div>
             </div>
 
             <div id="containerEditItemMulti" style="display:none;">
-                <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--primary);">Daftar Barang Keluar</h3>
+                <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--primary);">Daftar Barang Keluar</h3>
                
-                <div style="margin-bottom: 14px; background: var(--thead-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
-                    <div class="form-group pilih-stok-highlight" style="margin-bottom: 8px;">
+                <div style="margin-bottom: 16px; background: var(--thead-bg); padding: 14px; border-radius: 12px; border: 1.5px solid var(--border-color);">
+                    <div class="form-group pilih-stok-highlight" style="margin-bottom: 12px;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--primary);">Cari Stock Barang Tersedia</label>
                         <input type="text" id="editSearchBarangKeluar" list="editListBarangStok" placeholder="Ketik kode, nama, atau warna..." oninput="handleEditBarangKeluarSelect(this.value)">
                         <datalist id="editListBarangStok"></datalist>
                     </div>
-                    <div class="form-grid" style="grid-template-columns: 2fr 2fr 2fr 1fr; gap: 10px; align-items: flex-end;">
+                    <div class="form-grid" style="grid-template-columns: 2fr 2fr 2fr 1fr; gap: 12px; align-items: flex-end;">
                         <div class="form-group">
                             <label style="font-size: 11px;">Kode</label>
                             <input type="text" id="editInputKode" readonly style="background: var(--readonly-bg);">
@@ -2379,8 +2300,8 @@ body.is-resizing-table-column * {
                             <input type="number" id="editInputJumlah" min="1" placeholder="Qty" oninput="validateEditJumlahStok(this)">
                         </div>
                     </div>
-                    <div style="margin-top: 10px; text-align: right;">
-                        <button type="button" class="btn-save" onclick="tambahItemEditKeranjangBaru()" style="padding: 8px 16px; background: #0284c7;">+ Tambah Barang ke Pembelian Customer</button>
+                    <div style="margin-top: 12px; text-align: right;">
+                        <button type="button" class="btn-save" onclick="tambahItemEditKeranjangBaru()" style="padding: 9px 18px; background: #0284c7;">+ Tambah Barang ke Pembelian Customer</button>
                     </div>
                 </div>
 
@@ -2391,8 +2312,8 @@ body.is-resizing-table-column * {
                                 <th>Kode Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Warna</th>
-                                <th class="text-center" style="width: 130px;">Jumlah Roll</th>
-                                <th class="text-center" style="width: 80px;">Hapus Data Barang</th>
+                                <th class="text-center" style="width: 140px;">Jumlah Roll</th>
+                                <th class="text-center" style="width: 90px;">Hapus Data Barang</th>
                             </tr>
                         </thead>
                         <tbody id="editKeranjangBody"></tbody>
@@ -2462,7 +2383,6 @@ const avatarList = [
     "https://images.unsplash.com/photo-1439853949127-fa647821eba0?auto=format&fit=crop&w=150&q=80"
 ];
 
-/* FUNGSI ANIMASI TENGAH LAYAR (CEKLIS / SILANG) */
 function showCustomPopup(type, message, callback) {
     const overlay = document.getElementById('customCenterOverlay');
     const iconContainer = document.getElementById('customPopupIconContainer');
@@ -2507,7 +2427,7 @@ function getUserAvatarUrl(username, offset = 0) {
 
 function getFallbackAvatarUrl(username) {
     const cleanName = encodeURIComponent(username || 'User');
-    return `https://ui-avatars.com/api/?name=${cleanName}&background=1565c0&color=ffffff&bold=true&rounded=true`;
+    return `https://ui-avatars.com/api/?name=${cleanName}&background=2563eb&color=ffffff&bold=true&rounded=true`;
 }
 
 function setupAvatarImages(username) {
@@ -3487,7 +3407,7 @@ function renderKeranjang() {
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
             <td class="text-center"><span class="stok-box">${formatAngka(item.jumlah)} Roll</span></td>
-            <td class="text-center"><button class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusItemKeranjang(${index})">Delete</button></td>
+            <td class="text-center"><button class="btn-delete" style="padding: 5px 10px; font-size:11px;" onclick="hapusItemKeranjang(${index})">Delete</button></td>
         `;
         tbody.appendChild(tr);
     });
@@ -3764,13 +3684,13 @@ function renderPenjualan() {
            <td style="text-align: center; vertical-align: middle;">${escapeHTML(formatTanggalIndonesia(group.tanggal))}</td>
            <td style="text-align: center; vertical-align: middle;"><strong>${escapeHTML(group.customer)}</strong></td>
            <td style="text-align: center; vertical-align: middle;">
-           <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="padding: 6px 10px; font-size: 13px; width: 68%; border: 1px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
+               <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="padding: 7px 12px; font-size: 13px; width: 75%; border: 1.5px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
            </td>
-               <td style="text-align: center; vertical-align: middle; padding: 4px 8px;">${subTableHtml}</td>
-               <td style="text-align: center; vertical-align: middle;">
+           <td style="text-align: center; vertical-align: middle; padding: 4px 8px;">${subTableHtml}</td>
+           <td style="text-align: center; vertical-align: middle;">
                <button class="btn-surat-jalan" onclick="printSuratJalan('${safeTanggal}', '${safeCustomer}', '${safeJam}')">Surat Jalan</button>
            </td>
-           `;
+        `;
         tbody.appendChild(tr);
     });
 }
@@ -4220,10 +4140,10 @@ function renderEditKeranjang() {
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
             <td class="text-center">
-                <input type="number" min="1" value="${item.jumlah}" style="width: 110px; padding: 4px; text-align: center; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-dark);" onchange="updateEditJumlahItem(${idx}, this.value)">
+                <input type="number" min="1" value="${item.jumlah}" style="width: 110px; padding: 6px; text-align: center; border: 1.5px solid var(--border-color); border-radius: 6px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateEditJumlahItem(${idx}, this.value)">
             </td>
             <td class="text-center">
-                <button type="button" class="btn-delete" style="padding: 4px 8px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">Delete</button>
+                <button type="button" class="btn-delete" style="padding: 5px 10px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">Delete</button>
             </td>
         `;
         tbody.appendChild(tr);
@@ -4645,12 +4565,6 @@ function initDraggableTabs() {
     }, {passive: true});
 }
 
-
-/* =========================================================
-   RESIZE KOLOM TABEL
-   Mendukung mouse di Windows dan sentuhan di handphone.
-   Kolom dapat digeser tanpa mengubah fungsi data/tombol.
-========================================================= */
 function initResizableReportTables() {
     const pageSelectors = ['#penjualanPage', '#stokPage', '#transaksiPage'];
 
