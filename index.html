@@ -1440,10 +1440,132 @@ input[type="reset"]:disabled,
     will-change: auto;
   }
 }
+
+/* =========================================================
+   CUSTOM CENTER OVERLAY NOTIFICATION (CHECK & CROSS ANIMATION)
+========================================================= */
+#customCenterOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: overlayFadeIn 0.2s ease forwards;
+}
+
+@keyframes overlayFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.custom-popup-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    transform: scale(0.8);
+    animation: popupScaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    max-width: 320px;
+    width: 90%;
+}
+
+@keyframes popupScaleUp {
+    to { transform: scale(1); }
+}
+
+/* Animasi Ceklis Hijau */
+.success-anim-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+    animation: iconBounce 0.5s ease;
+}
+
+.success-anim-icon svg {
+    width: 38px;
+    height: 38px;
+    stroke: #ffffff;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: drawCheck 0.4s 0.2s ease forwards;
+}
+
+@keyframes drawCheck {
+    to { stroke-dashoffset: 0; }
+}
+
+/* Animasi Silang Merah */
+.danger-anim-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--danger);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+    animation: iconBounce 0.5s ease;
+}
+
+.danger-anim-icon svg {
+    width: 38px;
+    height: 38px;
+    stroke: #ffffff;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: drawCross 0.4s 0.2s ease forwards;
+}
+
+@keyframes drawCross {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.custom-popup-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: -0.2px;
+}
 </style>
 </head>
 
 <body>
+
+<!-- CUSTOM CENTER NOTIFICATION OVERLAY -->
+<div id="customCenterOverlay">
+    <div class="custom-popup-box">
+        <div id="customPopupIconContainer"></div>
+        <div class="custom-popup-text" id="customPopupMessage">Berhasil!</div>
+    </div>
+</div>
 
 <!-- =========================================================
      SISTEM AUTENTIKASI: LOGIN, BUAT AKUN, LUPA PASSWORD
@@ -2214,6 +2336,39 @@ const avatarList = [
     "https://images.unsplash.com/photo-1439853949127-fa647821eba0?auto=format&fit=crop&w=150&q=80"
 ];
 
+/* FUNGSI ANIMASI TENGAH LAYAR (CEKLIS / SILANG) */
+function showCustomPopup(type, message, callback) {
+    const overlay = document.getElementById('customCenterOverlay');
+    const iconContainer = document.getElementById('customPopupIconContainer');
+    const msgEl = document.getElementById('customPopupMessage');
+
+    msgEl.textContent = message;
+    if (type === 'success') {
+        iconContainer.innerHTML = `
+            <div class="success-anim-icon">
+                <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+        `;
+    } else {
+        iconContainer.innerHTML = `
+            <div class="danger-anim-icon">
+                <svg viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+        `;
+    }
+
+    overlay.style.display = 'flex';
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        if (typeof callback === 'function') callback();
+    }, 1100);
+}
+
 function getUserAvatarUrl(username, offset = 0) {
     if (!username) username = "User";
     let hash = 0;
@@ -2374,9 +2529,10 @@ function prosesRegister() {
 
     users.push({ username, password, securityQuestion, securityAnswer });
     saveUsers(users);
-    alert("Akun berhasil dibuat! Silakan login.");
-    showAuthCard('loginCard');
-    document.getElementById('loginUsername').value = username;
+    showCustomPopup('success', 'Akun Berhasil Dibuat!', () => {
+        showAuthCard('loginCard');
+        document.getElementById('loginUsername').value = username;
+    });
 }
 
 function prosesLogin() {
@@ -2445,8 +2601,9 @@ function prosesResetPassword() {
     if (userIndex !== -1) {
         users[userIndex].password = newPassword;
         saveUsers(users);
-        alert("Password berhasil diubah! Silakan login.");
-        showAuthCard('loginCard');
+        showCustomPopup('success', 'Password Baru Disimpan!', () => {
+            showAuthCard('loginCard');
+        });
     }
 }
 
@@ -2603,8 +2760,9 @@ function simpanPinBaru() {
     }
 
     localStorage.setItem(PIN_KEY, pinBaru);
-    alert("PIN berhasil diperbarui!");
-    tutupModalUbahPin();
+    showCustomPopup('success', 'PIN Berhasil Diperbarui!', () => {
+        tutupModalUbahPin();
+    });
 }
 
 function switchPage(pageId) {
@@ -3207,6 +3365,7 @@ function hapusItemKeranjang(index) {
     keranjangBelanja.splice(index, 1);
     renderKeranjang();
     populateDatalistStok();
+    showCustomPopup('danger', 'Item Dihapus!');
 }
 
 function simpanTransaksi() {
@@ -3242,7 +3401,7 @@ function simpanTransaksi() {
         saveData();
         resetFormInput();
         updateApp();
-        alert("Transaksi barang keluar berhasil disimpan!");
+        showCustomPopup('success', 'Form Berhasil Disimpan!');
 
     } else {
         const kode = normalizeKode(document.getElementById('kode').value);
@@ -3270,7 +3429,7 @@ function simpanTransaksi() {
         saveData();
         resetFormInput();
         updateApp();
-        alert("Transaksi barang masuk berhasil disimpan!");
+        showCustomPopup('success', 'Form Berhasil Disimpan!');
     }
 }
 
@@ -3973,6 +4132,7 @@ function hapusEditKeranjangItem(idx) {
     editKeranjangTemp.splice(idx, 1);
     renderEditKeranjang();
     populateEditDatalistStok();
+    showCustomPopup('danger', 'Item Dihapus!');
 }
 
 function tutupEdit() {
@@ -4012,7 +4172,7 @@ function simpanEdit() {
         saveData();
         tutupEdit();
         updateApp();
-        alert("Data barang masuk berhasil diperbarui!");
+        showCustomPopup('success', 'Perubahan Disimpan!');
 
     } else if (editGroupKey !== null) {
         const customer = document.getElementById('editCustomer').value.trim();
@@ -4074,7 +4234,7 @@ function simpanEdit() {
         saveData();
         tutupEdit();
         updateApp();
-        alert("Data penjualan berhasil diperbarui!");
+        showCustomPopup('success', 'Perubahan Disimpan!');
     }
 }
 
@@ -4145,7 +4305,7 @@ function eksekusiHapusDenganPin() {
         saveData();
         updateApp();
         tutupModalDeletePin();
-        alert("Berhasil dihapus!");
+        showCustomPopup('danger', 'Data Berhasil Dihapus!');
     } else {
         alert("Kode PIN salah!");
         document.getElementById('inputPinDelete').value = '';
@@ -4183,7 +4343,7 @@ function eksekusiHapusSemuaDenganPin() {
         saveData();
         updateApp();
         tutupModalClearAll();
-        alert("Seluruh riwayat dibersihkan!");
+        showCustomPopup('danger', 'Semua Data Dihapus!');
     } else {
         alert("Kode PIN salah!");
         document.getElementById('inputPinClearAll').value = '';
@@ -4268,7 +4428,7 @@ function importExcel(event) {
 
             saveData();
             updateApp();
-            alert(`Berhasil mengimpor ${counter} data!`);
+            showCustomPopup('success', `Berhasil Impor ${counter} Data!`);
         } catch (err) {
             alert("Gagal membaca file Excel!");
         }
