@@ -3761,16 +3761,16 @@ function renderPenjualan() {
         const currentNoSJ = escapeHTML(group.noSuratJalan || '');
 
         tr.innerHTML = `
-            <td>${escapeHTML(formatTanggalIndonesia(group.tanggal))}</td>
-            <td><strong>${escapeHTML(group.customer)}</strong></td>
-            <td>
-                <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="padding: 6px 10px; font-size: 13px; width: 70%; border: 1px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark);" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
-            </td>
-            <td style="padding: 4px 8px;">${subTableHtml}</td>
-            <td class="text-center">
-                <button class="btn-surat-jalan" onclick="printSuratJalan('${safeTanggal}', '${safeCustomer}', '${safeJam}')">Surat Jalan</button>
-            </td>
-        `;
+           <td style="text-align: center; vertical-align: middle;">${escapeHTML(formatTanggalIndonesia(group.tanggal))}</td>
+           <td style="text-align: center; vertical-align: middle;"><strong>${escapeHTML(group.customer)}</strong></td>
+           <td style="text-align: center; vertical-align: middle;">
+           <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="padding: 6px 10px; font-size: 13px; width: 68%; border: 1px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
+           </td>
+               <td style="text-align: center; vertical-align: middle; padding: 4px 8px;">${subTableHtml}</td>
+               <td style="text-align: center; vertical-align: middle;">
+               <button class="btn-surat-jalan" onclick="printSuratJalan('${safeTanggal}', '${safeCustomer}', '${safeJam}')">Surat Jalan</button>
+           </td>
+           `;
         tbody.appendChild(tr);
     });
 }
