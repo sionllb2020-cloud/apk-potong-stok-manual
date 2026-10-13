@@ -1554,6 +1554,99 @@ input[type="reset"]:disabled,
     color: var(--text-dark);
     letter-spacing: -0.2px;
 }
+
+/* =========================================================
+   RESIZABLE TABLE COLUMNS: REPORT PENJUALAN, REPORT STOCK,
+   DAN TRANSACTION HISTORY
+   Hanya mengubah lebar kolom; alur sistem dan posisi tombol tetap.
+========================================================= */
+#penjualanPage .table-wrapper table,
+#stokPage .table-wrapper table,
+#transaksiPage .table-wrapper table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Garis pemisah vertikal jelas dari header sampai seluruh baris data. */
+#penjualanPage .table-wrapper table th,
+#penjualanPage .table-wrapper table td,
+#stokPage .table-wrapper table th,
+#stokPage .table-wrapper table td,
+#transaksiPage .table-wrapper table th,
+#transaksiPage .table-wrapper table td {
+    border-right: 1px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-sizing: border-box;
+}
+#penjualanPage .table-wrapper table th:last-child,
+#penjualanPage .table-wrapper table td:last-child,
+#stokPage .table-wrapper table th:last-child,
+#stokPage .table-wrapper table td:last-child,
+#transaksiPage .table-wrapper table th:last-child,
+#transaksiPage .table-wrapper table td:last-child {
+    border-right: 0 !important;
+}
+#penjualanPage .table-wrapper th,
+#stokPage .table-wrapper th,
+#transaksiPage .table-wrapper th {
+    position: relative;
+    overflow: visible;
+}
+
+.column-resizer {
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 11px;
+    height: 100%;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: none;
+    z-index: 30;
+    background: transparent;
+}
+.column-resizer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 4px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--primary);
+    opacity: .5;
+    transition: opacity .15s, width .15s, background .15s;
+}
+.column-resizer::before {
+    content: "⋮";
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: var(--primary);
+    font-size: 13px;
+    line-height: 18px;
+    opacity: .75;
+    background: var(--thead-bg);
+    border-radius: 4px;
+}
+.column-resizer:hover::after,
+.column-resizer.is-resizing::after {
+    opacity: 1;
+    width: 3px;
+    background: var(--primary);
+}
+.column-resizer:hover::before,
+.column-resizer.is-resizing::before { opacity: 1; }
+
+body.is-resizing-table-column,
+body.is-resizing-table-column * {
+    cursor: col-resize !important;
+    user-select: none !important;
+}
+
 </style>
 </head>
 
@@ -2391,14 +2484,20 @@ function setupAvatarImages(username) {
     const userAvatarImg = document.getElementById('userAvatarImg');
     const printUserAvatarImg = document.getElementById('printUserAvatarImg');
    
-    if (userAvatarImg) {
-        userAvatarImg.src = avatarUrl;
-        userAvatarImg.onerror = function() { this.src = fallbackUrl; };
-    }
-    if (printUserAvatarImg) {
-        printUserAvatarImg.src = avatarUrl;
-        printUserAvatarImg.onerror = function() { this.src = fallbackUrl; };
-    }
+    const applyAvatar = (img) => {
+        if (!img) return;
+        img.onerror = null;
+        img.referrerPolicy = 'no-referrer';
+        img.decoding = 'async';
+        img.onload = () => { img.dataset.avatarLoaded = 'true'; };
+        img.onerror = () => {
+            img.onerror = null;
+            img.src = fallbackUrl;
+        };
+        img.src = avatarUrl;
+    };
+    applyAvatar(userAvatarImg);
+    applyAvatar(printUserAvatarImg);
 }
 
 let avatarOffset = 0;
@@ -4513,9 +4612,108 @@ function initDraggableTabs() {
     }, {passive: true});
 }
 
+
+/* =========================================================
+   RESIZE KOLOM TABEL
+   Mendukung mouse di Windows dan sentuhan di handphone.
+   Kolom dapat digeser tanpa mengubah fungsi data/tombol.
+========================================================= */
+function initResizableReportTables() {
+    const pageSelectors = ['#penjualanPage', '#stokPage', '#transaksiPage'];
+
+    pageSelectors.forEach(selector => {
+        const page = document.querySelector(selector);
+        if (!page) return;
+
+        page.querySelectorAll('.table-wrapper table').forEach(table => {
+            const headerRow = table.querySelector('thead tr');
+            if (!headerRow) return;
+
+            const headers = Array.from(headerRow.children).filter(el => el.tagName === 'TH');
+            headers.forEach((th, columnIndex) => {
+                if (th.querySelector('.column-resizer')) return;
+                if (columnIndex === headers.length - 1) {
+                    // Kolom terakhir tetap dapat diubah lebarnya juga.
+                }
+
+                th.style.position = 'relative';
+                const grip = document.createElement('span');
+                grip.className = 'column-resizer';
+                grip.setAttribute('role', 'separator');
+                grip.setAttribute('aria-orientation', 'vertical');
+                grip.setAttribute('aria-label', 'Geser untuk mengubah lebar kolom');
+                grip.title = 'Geser untuk mengubah lebar kolom';
+                th.appendChild(grip);
+
+                const startResize = (event) => {
+                    if (event.button !== undefined && event.button !== 0) return;
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const startX = event.clientX;
+                    const startWidth = th.getBoundingClientRect().width;
+                    const minWidth = 70;
+                    grip.classList.add('is-resizing');
+                    document.body.classList.add('is-resizing-table-column');
+
+                    try {
+                        grip.setPointerCapture(event.pointerId);
+                    } catch (_) {}
+
+                    const moveResize = (moveEvent) => {
+                        const delta = moveEvent.clientX - startX;
+                        const newWidth = Math.max(minWidth, startWidth + delta);
+                        th.style.width = `${newWidth}px`;
+                        th.style.minWidth = `${newWidth}px`;
+
+                        const rows = table.querySelectorAll('thead tr, tbody tr, tfoot tr');
+                        rows.forEach(row => {
+                            const cell = row.children[columnIndex];
+                            if (cell && (cell.tagName === 'TH' || cell.tagName === 'TD')) {
+                                cell.style.width = `${newWidth}px`;
+                                cell.style.minWidth = `${newWidth}px`;
+                                cell.style.maxWidth = `${newWidth}px`;
+                            }
+                        });
+                    };
+
+                    const stopResize = () => {
+                        grip.classList.remove('is-resizing');
+                        document.body.classList.remove('is-resizing-table-column');
+                        document.removeEventListener('pointermove', moveResize);
+                        document.removeEventListener('pointerup', stopResize);
+                        document.removeEventListener('pointercancel', stopResize);
+                        try {
+                            if (grip.hasPointerCapture(event.pointerId)) {
+                                grip.releasePointerCapture(event.pointerId);
+                            }
+                        } catch (_) {}
+                    };
+
+                    document.addEventListener('pointermove', moveResize, { passive: false });
+                    document.addEventListener('pointerup', stopResize, { once: true });
+                    document.addEventListener('pointercancel', stopResize, { once: true });
+                };
+
+                grip.addEventListener('pointerdown', startResize);
+            });
+        });
+    });
+}
+
+function observeResizableReportTables() {
+    initResizableReportTables();
+    const observer = new MutationObserver(() => initResizableReportTables());
+    ['penjualanPage', 'stokPage', 'transaksiPage'].forEach(id => {
+        const page = document.getElementById(id);
+        if (page) observer.observe(page, { childList: true, subtree: true });
+    });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     checkSession();
     initDraggableTabs();
+    observeResizableReportTables();
     setInterval(updateClock, 1000);
 });
 
