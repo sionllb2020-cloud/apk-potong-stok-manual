@@ -2139,7 +2139,7 @@ body.sidebar-menu-open { overflow: hidden; }
             <div class="user-badge-top-right">
                 <img id="userAvatarImg" class="user-avatar-img" src="" alt="Avatar" onclick="gantiAvatarRandom()" title="Klik untuk acak foto profil">
                 <span id="displayLoggedInUser" role="button" tabindex="0" onclick="bukaEditNamaProfil()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();bukaEditNamaProfil()}" title="Klik untuk mengganti nama profil" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;">-</span>
-                <button class="btn-logout" onclick="prosesLogout()">🚶‍♂️</button>
+                <button class="btn-logout" onclick="prosesLogout()">Logout</button>
             </div>
         </div>
     </div>
@@ -2431,27 +2431,27 @@ body.sidebar-menu-open { overflow: hidden; }
                 <div>
                     <span class="game-eyebrow">BREAK TIME</span>
                     <h2>🎮 Mini Game — Snake</h2>
-                    <p>Bisa dimainkan dengan keyboard atau tombol arah di Tablet / Handphone.</p>
+                    <p>Bisa dimainkan dengan Keyboard atau tombol arah di Tablet / Handphone.</p>
                 </div>
-                <div class="game-score-box"><span>SKOR</span><strong id="snakeScore">0</strong></div>
+                <div class="game-score-box"><span>SCORE</span><strong id="snakeScore">0</strong></div>
             </div>
             <div class="snake-layout">
                 <div class="snake-board-wrap">
                     <canvas id="snakeCanvas" width="360" height="360" aria-label="Area permainan Snake"></canvas>
                     <div class="snake-overlay" id="snakeOverlay">
-                        <div class="snake-overlay-card"><div class="snake-overlay-icon">🐍</div><h3 id="snakeOverlayTitle">Siap bermain?</h3><p id="snakeOverlayText">Makan titik makanan, tambah skor, dan jangan menabrak dinding atau tubuh sendiri.</p><button type="button" class="snake-primary-btn" id="snakeStartBtn" onclick="startSnakeGame()">▶ Mulai Game</button></div>
+                        <div class="snake-overlay-card"><div class="snake-overlay-icon">🐍</div><h3 id="snakeOverlayTitle">Siap bermain?</h3><p id="snakeOverlayText">Makan titik makanan, tambah skor, dan jangan menabrak dinding atau tubuh sendiri.</p><button type="button" class="snake-primary-btn" id="snakeStartBtn" onclick="startSnakeGame()">▶ Play Game</button></div>
                     </div>
                 </div>
                 <div class="snake-controls-panel">
-                    <h3>Kontrol permainan</h3>
-                    <p>Komputer: gunakan tombol panah atau WASD.</p>
-                    <p>Handphone / tablet: gunakan tombol arah berikut.</p>
+                    <h3>Kontrol Permainan</h3>
+                    <p>Komputer: gunakan tombol panah atau tombol WASD.</p>
+                    <p>Handphone / Tablet: gunakan tombol arah berikut.</p>
                     <div class="snake-dpad" aria-label="Kontrol arah Snake">
                         <span></span><button type="button" onclick="setSnakeDirection('up')" aria-label="Atas">▲</button><span></span>
                         <button type="button" onclick="setSnakeDirection('left')" aria-label="Kiri">◀</button><button type="button" onclick="setSnakeDirection('down')" aria-label="Bawah">▼</button><button type="button" onclick="setSnakeDirection('right')" aria-label="Kanan">▶</button>
                     </div>
                     <div class="snake-game-actions"><button type="button" class="snake-secondary-btn" onclick="startSnakeGame()">↻ Mulai Ulang</button><button type="button" class="snake-secondary-btn" onclick="pauseSnakeGame()">Ⅱ Jeda</button></div>
-                    <div class="snake-tip">💡 Tips: arahkan ular menuju makanan berwarna merah. Semakin banyak makanan yang didapat, semakin tinggi skor Anda.</div>
+                    <div class="snake-tip">💡 Tips: Arahkan ular menuju makanan berwarna merah. Semakin banyak makanan yang didapat, semakin tinggi skor Anda.</div>
                 </div>
             </div>
         </div>
@@ -2748,7 +2748,7 @@ body.sidebar-menu-open { overflow: hidden; }
 <div id="editNamaProfilOverlay" class="edit-profile-overlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="editNamaProfilTitle" onclick="if(event.target===this)tutupEditNamaProfil()">
   <div class="edit-profile-card">
     <button type="button" class="edit-profile-close" onclick="tutupEditNamaProfil()" aria-label="Tutup">&times;</button>
-    <div class="edit-profile-icon">👫</div>
+    <div class="edit-profile-icon">🧑🏻</div>
     <h2 id="editNamaProfilTitle">Ubah Username</h2>
     <p>Nama baru akan digunakan pada profil dan pada saat login berikutnya.</p>
     <form onsubmit="event.preventDefault();simpanNamaProfil()">
