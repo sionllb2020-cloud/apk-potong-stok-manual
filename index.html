@@ -1908,7 +1908,7 @@ body.is-resizing-table-column * {
 
                 <div class="form-group" id="containerCustomer" style="display:none;">
                     <label>Nama Customer</label>
-                    <input type="text" id="customer" placeholder="Masukkan Nama Customer" autocomplete="off">
+                    <input type="text" id="customer" placeholder="Masukkan Nama Customer" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
                 </div>
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
@@ -1920,17 +1920,17 @@ body.is-resizing-table-column * {
 
                 <div class="form-group">
                     <label>Kode Barang</label>
-                    <input type="text" id="kode" placeholder="Masukkan Kode Barang" autocomplete="off">
+                    <input type="text" id="kode" placeholder="Masukkan Kode Barang" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
                 </div>
 
                 <div class="form-group">
                     <label>Nama Barang</label>
-                    <input type="text" id="nama" placeholder="Masukkan Nama Barang" autocomplete="off">
+                    <input type="text" id="nama" placeholder="Masukkan Nama Barang" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
                 </div>
 
                 <div class="form-group">
                     <label>Warna</label>
-                    <input type="text" id="warna" placeholder="Masukkan Warna" autocomplete="off">
+                    <input type="text" id="warna" placeholder="Masukkan Warna" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
                 </div>
 
                 <div class="form-group">
@@ -2253,7 +2253,7 @@ body.is-resizing-table-column * {
                 </div>
                 <div class="form-group">
                     <label>Nama Customer</label>
-                    <input type="text" id="editCustomer" placeholder="-">
+                    <input type="text" id="editCustomer" placeholder="-" oninput="this.value = this.value.toUpperCase()">
                 </div>
                 <div class="form-group">
                     <label>No Surat Jalan</label>
@@ -2265,15 +2265,15 @@ body.is-resizing-table-column * {
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Kode Barang</label>
-                        <input type="text" id="editSingleKode">
+                        <input type="text" id="editSingleKode" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
                         <label>Nama Barang</label>
-                        <input type="text" id="editSingleNama">
+                        <input type="text" id="editSingleNama" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
                         <label>Warna</label>
-                        <input type="text" id="editSingleWarna">
+                        <input type="text" id="editSingleWarna" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
                         <label>Jumlah Barang <span style="font-size:11px; color:var(--text-muted);">(Terkunci)</span></label>
@@ -2899,7 +2899,7 @@ function escapeHTML(str) {
 }
 
 function normalizeKode(val) { return String(val || "").trim().toUpperCase(); }
-function normalizeWarna(val) { return String(val || "").trim().toLowerCase(); }
+function normalizeWarna(val) { return String(val || "").trim().toUpperCase(); }
 function getStockKey(kode, warna) { return normalizeKode(kode) + "||" + normalizeWarna(warna); }
 function pad(num) { return String(num).padStart(2, "0"); }
 
@@ -3295,7 +3295,7 @@ function hitungStokPerBarang(excludeGroupKey = null, excludeIndex = null) {
         }
         const kodeKey = normalizeKode(item.kode);
         if (kodeKey && item.nama && item.nama.trim() !== '') {
-            mapNamaUtama[kodeKey] = item.nama.trim();
+            mapNamaUtama[kodeKey] = item.nama.trim().toUpperCase();
         }
     }
 
@@ -3308,13 +3308,13 @@ function hitungStokPerBarang(excludeGroupKey = null, excludeIndex = null) {
         }
         const kodeKey = normalizeKode(item.kode);
         const key = getStockKey(item.kode, item.warna);
-        const namaBarangSeragam = mapNamaUtama[kodeKey] || item.nama;
+        const namaBarangSeragam = mapNamaUtama[kodeKey] || (item.nama ? item.nama.toUpperCase() : '');
 
         if (!mapStok[key]) {
             mapStok[key] = {
-                kode: item.kode,
+                kode: normalizeKode(item.kode),
                 nama: namaBarangSeragam,
-                warna: item.warna,
+                warna: normalizeWarna(item.warna),
                 masuk: 0,
                 keluar: 0,
                 sisa: 0
@@ -3531,8 +3531,8 @@ function validateJumlahStok(inputElem) {
 
 function tambahItemKeKeranjang() {
     const kode = normalizeKode(document.getElementById('kode').value);
-    const nama = document.getElementById('nama').value.trim();
-    const warna = document.getElementById('warna').value.trim();
+    const nama = document.getElementById('nama').value.trim().toUpperCase();
+    const warna = document.getElementById('warna').value.trim().toUpperCase();
     const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
 
     if (!kode || !nama || !warna || jumlah <= 0) {
@@ -3614,7 +3614,7 @@ function simpanTransaksi() {
     const time = getCurrentDateTime();
 
     if (jenis === 'keluar') {
-        const customer = document.getElementById('customer') ? document.getElementById('customer').value.trim() : '';
+        const customer = document.getElementById('customer') ? document.getElementById('customer').value.trim().toUpperCase() : '';
         if (!customer) {
             alert("Mohon isi Nama Customer terlebih dahulu!");
             return;
@@ -3646,8 +3646,8 @@ function simpanTransaksi() {
 
     } else {
         const kode = normalizeKode(document.getElementById('kode').value);
-        const nama = document.getElementById('nama').value.trim();
-        const warna = document.getElementById('warna').value.trim();
+        const nama = document.getElementById('nama').value.trim().toUpperCase();
+        const warna = document.getElementById('warna').value.trim().toUpperCase();
         const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
 
         if (!kode || !nama || !warna || jumlah <= 0) {
@@ -3719,7 +3719,7 @@ function populateFilterCustomerDropdown() {
     const currentVal = select.value;
     select.innerHTML = '<option value="">Semua Customer</option>';
    
-    const customers = [...new Set(transaksi.filter(i => i.jenis === 'keluar' && i.customer && i.customer !== '-').map(i => i.customer.trim()))];
+    const customers = [...new Set(transaksi.filter(i => i.jenis === 'keluar' && i.customer && i.customer !== '-').map(i => i.customer.trim().toUpperCase()))];
     customers.sort((a, b) => a.localeCompare(b, 'id', { sensitivity: 'base' }));
 
     customers.forEach(cust => {
@@ -4263,8 +4263,8 @@ function validateEditJumlahStok(inputElem) {
 
 function tambahItemEditKeranjangBaru() {
     const kode = normalizeKode(document.getElementById('editInputKode').value);
-    const nama = document.getElementById('editInputNama').value.trim();
-    const warna = document.getElementById('editInputWarna').value.trim();
+    const nama = document.getElementById('editInputNama').value.trim().toUpperCase();
+    const warna = document.getElementById('editInputWarna').value.trim().toUpperCase();
     const jumlah = parseInt(document.getElementById('editInputJumlah').value) || 0;
 
     if (!kode || !nama || !warna || jumlah <= 0) {
@@ -4395,8 +4395,8 @@ function simpanEdit() {
     if (editSingleIndex !== null) {
         const item = transaksi[editSingleIndex];
         const kode = normalizeKode(document.getElementById('editSingleKode').value);
-        const nama = document.getElementById('editSingleNama').value.trim();
-        const warna = document.getElementById('editSingleWarna').value.trim();
+        const nama = document.getElementById('editSingleNama').value.trim().toUpperCase();
+        const warna = document.getElementById('editSingleWarna').value.trim().toUpperCase();
         const jumlah = item.jumlah;
 
         if (!kode || !nama || !warna) {
@@ -4416,7 +4416,7 @@ function simpanEdit() {
         showCustomPopup('success', 'Perubahan Disimpan');
 
     } else if (editGroupKey !== null) {
-        const customer = document.getElementById('editCustomer').value.trim();
+        const customer = document.getElementById('editCustomer').value.trim().toUpperCase();
         const noSuratJalan = document.getElementById('editNoSuratJalan').value.trim();
 
         if (!customer) {
@@ -4465,8 +4465,8 @@ function simpanEdit() {
                 jenis: 'keluar',
                 noSuratJalan: noSuratJalan,
                 kode: normalizeKode(editedItem.kode),
-                nama: editedItem.nama.trim(),
-                warna: editedItem.warna.trim(),
+                nama: editedItem.nama.trim().toUpperCase(),
+                warna: editedItem.warna.trim().toUpperCase(),
                 customer: customer,
                 jumlah: editedItem.jumlah
             });
@@ -4615,10 +4615,10 @@ function exportExcel() {
         "Jam": item.jam,
         "Jenis": item.jenis === 'masuk' ? 'Barang Masuk' : 'Barang Keluar',
         "No Surat Jalan": item.noSuratJalan || '-',
-        "Nama Customer": item.customer || '-',
-        "Kode Barang": item.kode,
-        "Nama Barang": item.nama,
-        "Warna": item.warna,
+        "Nama Customer": item.customer ? item.customer.toUpperCase() : '-',
+        "Kode Barang": item.kode ? item.kode.toUpperCase() : '',
+        "Nama Barang": item.nama ? item.nama.toUpperCase() : '',
+        "Warna": item.warna ? item.warna.toUpperCase() : '',
         "Jumlah": item.jumlah
     }));
 
@@ -4648,9 +4648,9 @@ function importExcel(event) {
             let counter = 0;
             json.forEach(row => {
                 const kode = normalizeKode(row["Kode Barang"] || row["kode"] || "");
-                const nama = String(row["Nama Barang"] || row["nama"] || "").trim();
-                const warna = String(row["Warna"] || row["warna"] || "").trim();
-                const customer = String(row["Nama Customer"] || row["customer"] || "-").trim();
+                const nama = String(row["Nama Barang"] || row["nama"] || "").trim().toUpperCase();
+                const warna = String(row["Warna"] || row["warna"] || "").trim().toUpperCase();
+                const customer = String(row["Nama Customer"] || row["customer"] || "-").trim().toUpperCase();
                 const noSuratJalan = String(row["No Surat Jalan"] || row["noSuratJalan"] || "").trim();
                 const jumlah = parseInt(row["Jumlah"] || row["jumlah"] || 0);
                 const jenisRaw = String(row["Jenis"] || row["jenis"] || "").toLowerCase();
