@@ -2139,7 +2139,7 @@ body.sidebar-menu-open { overflow: hidden; }
             <div class="user-badge-top-right">
                 <img id="userAvatarImg" class="user-avatar-img" src="" alt="Avatar" onclick="gantiAvatarRandom()" title="Klik untuk acak foto profil">
                 <span id="displayLoggedInUser" role="button" tabindex="0" onclick="bukaEditNamaProfil()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();bukaEditNamaProfil()}" title="Klik untuk mengganti nama profil" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;">-</span>
-                <button class="btn-logout" onclick="prosesLogout()">LOGOUT</button>
+                <button class="btn-logout" onclick="prosesLogout()">🚶‍♂️</button>
             </div>
         </div>
     </div>
@@ -2431,7 +2431,7 @@ body.sidebar-menu-open { overflow: hidden; }
                 <div>
                     <span class="game-eyebrow">BREAK TIME</span>
                     <h2>🎮 Mini Game — Snake</h2>
-                    <p>Mainkan game ular sederhana langsung di aplikasi. Bisa dimainkan dengan keyboard atau tombol arah di HP.</p>
+                    <p>Bisa dimainkan dengan keyboard atau tombol arah di Tablet / Handphone.</p>
                 </div>
                 <div class="game-score-box"><span>SKOR</span><strong id="snakeScore">0</strong></div>
             </div>
@@ -2445,7 +2445,7 @@ body.sidebar-menu-open { overflow: hidden; }
                 <div class="snake-controls-panel">
                     <h3>Kontrol permainan</h3>
                     <p>Komputer: gunakan tombol panah atau WASD.</p>
-                    <p>HP / tablet: gunakan tombol arah berikut.</p>
+                    <p>Handphone / tablet: gunakan tombol arah berikut.</p>
                     <div class="snake-dpad" aria-label="Kontrol arah Snake">
                         <span></span><button type="button" onclick="setSnakeDirection('up')" aria-label="Atas">▲</button><span></span>
                         <button type="button" onclick="setSnakeDirection('left')" aria-label="Kiri">◀</button><button type="button" onclick="setSnakeDirection('down')" aria-label="Bawah">▼</button><button type="button" onclick="setSnakeDirection('right')" aria-label="Kanan">▶</button>
@@ -2748,15 +2748,15 @@ body.sidebar-menu-open { overflow: hidden; }
 <div id="editNamaProfilOverlay" class="edit-profile-overlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="editNamaProfilTitle" onclick="if(event.target===this)tutupEditNamaProfil()">
   <div class="edit-profile-card">
     <button type="button" class="edit-profile-close" onclick="tutupEditNamaProfil()" aria-label="Tutup">&times;</button>
-    <div class="edit-profile-icon">👤</div>
-    <h2 id="editNamaProfilTitle">Ubah Nama Profil</h2>
-    <p>Nama baru akan digunakan pada profil dan saat login berikutnya.</p>
+    <div class="edit-profile-icon">👫</div>
+    <h2 id="editNamaProfilTitle">Ubah Username</h2>
+    <p>Nama baru akan digunakan pada profil dan pada saat login berikutnya.</p>
     <form onsubmit="event.preventDefault();simpanNamaProfil()">
-      <label for="editNamaProfilInput">Nama / Username Baru</label>
+      <label for="editNamaProfilInput">Username Baru</label>
       <input id="editNamaProfilInput" type="text" maxlength="40" autocomplete="username" placeholder="Masukkan nama baru" required>
       <div class="edit-profile-actions">
         <button type="button" class="edit-profile-cancel" onclick="tutupEditNamaProfil()">Batal</button>
-        <button type="submit" class="edit-profile-save">Simpan Nama</button>
+        <button type="submit" class="edit-profile-save">Save Name</button>
       </div>
     </form>
   </div>
