@@ -4527,7 +4527,7 @@ function renderTransaksi() {
                 <td class="text-center" style="white-space: nowrap;">${index + 1}</td>
                 <td style="white-space: nowrap;">${escapeHTML(formatTanggalIndonesia(rowObj.tanggal))}</td>
                 <td style="white-space: nowrap;">${escapeHTML(rowObj.jam)}</td>
-                <td style="white-space: nowrap;"><span class="badge badge-masuk">Masuk</span></td>
+                <td style="white-space: nowrap;"><span class="badge badge-masuk">Barang Masuk</span></td>
                 <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;" title="${escapeHTML(rowObj.noSuratJalan)}">${escapeHTML(rowObj.noSuratJalan)}</td>
                 <td style="word-break: break-word; white-space: normal;"><strong>${escapeHTML(rowObj.kode)}</strong> → ${escapeHTML(rowObj.nama)} (${escapeHTML(rowObj.warna)}) : <strong>${formatAngka(rowObj.jumlah)} Roll</strong></td>
                 <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;">-</td>
@@ -4560,7 +4560,7 @@ function renderTransaksi() {
                 <td class="text-center" style="white-space: nowrap;">${index + 1}</td>
                 <td style="white-space: nowrap;">${escapeHTML(formatTanggalIndonesia(rowObj.tanggal))}</td>
                 <td style="white-space: nowrap;">${escapeHTML(rowObj.jam)}</td>
-                <td style="white-space: nowrap;"><span class="badge badge-keluar">Keluar</span></td>
+                <td style="white-space: nowrap;"><span class="badge badge-keluar">Barang Keluar</span></td>
                 <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;" title="${escapeHTML(rowObj.noSuratJalan || '-')}">${escapeHTML(rowObj.noSuratJalan || '-')}</td>
                 <td style="padding: 4px 8px; white-space: normal;">${subTableHtml}</td>
                 <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px;" title="${escapeHTML(rowObj.customer)}"><strong>${escapeHTML(rowObj.customer)}</strong></td>
