@@ -2764,11 +2764,11 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                 </div>
 
                 <div class="button-area" style="margin-top:0;">
-                    <button class="btn-upload" onclick="document.getElementById('uploadExcelInput').click()">UPLOAD EXCEL</button>
+                    <button class="btn-upload" onclick="document.getElementById('uploadExcelInput').click()"><strong>UPLOAD EXCEL</strong></button>
                     <input type="file" id="uploadExcelInput" accept=".xlsx,.xls" onchange="importExcel(event)">
-                    <button class="btn-excel" onclick="exportExcel()">EXPORT EXCEL</button>
-                    <button class="btn-backup" onclick="backupJSON()">BACKUP DATA</button>
-                    <button class="btn-clear-all" onclick="konfirmasiHapusSemuaTransaksi()">DELETE ALL TRANSACTIONS</button>
+                    <button class="btn-excel" onclick="exportExcel()"><strong>EXPORT EXCEL</strong></button>
+                    <button class="btn-backup" onclick="backupJSON()"><strong>BACKUP DATA</strong></button>
+                    <button class="btn-clear-all" onclick="konfirmasiHapusSemuaTransaksi()"><strong>DELETE ALL TRANSACTIONS</strong></button>
                 </div>
             </div>
 
@@ -4219,7 +4219,7 @@ function renderPilihanBarang(query) {
     popup.innerHTML = '';
     const heading = document.createElement('div');
     heading.className = 'picker-heading';
-    heading.innerHTML = '<span>KODE</span><span>NAMA BARANG</span><span>WARNA</span><span>STOK</span>';
+    heading.innerHTML = '<span>KODE BARANG</span><span>NAMA BARANG</span><span>WARNA</span><span>STOCK</span>';
     popup.appendChild(heading);
     if (!found.length) {
         const empty = document.createElement('div');
