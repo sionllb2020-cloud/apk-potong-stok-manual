@@ -2001,72 +2001,119 @@ body.sidebar-menu-open { overflow: hidden; }
   .sj-signatures .line, .sj-sig-box .line { border-color: #222222 !important; }
 }
 
-/* Tampilan Semua Data: tabel dibuka memenuhi layar, bukan scroll kecil di dalam popup */
+/* Tampilan Semua Data: tabel dibuka memenuhi layar dengan scrolling yang sangat rapi & sticky header */
 #allHistoryModal {
   padding: 0 !important;
+  margin: 0 !important;
   align-items: stretch !important;
   justify-content: stretch !important;
-  overflow: auto !important;
   background: var(--bg-main);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  overflow: hidden !important;
 }
 #allHistoryModal .modal-box {
-  width: 100% !important;
-  max-width: none !important;
-  min-height: 100vh;
-  max-height: none !important;
-  height: auto;
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  overflow: visible;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--bg-main) !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
 }
 #allHistoryModal .modal-header {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  padding: 16px 22px;
+  flex-shrink: 0;
+  background: var(--primary);
+  color: white;
+  padding: 14px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  z-index: 20;
 }
 #allHistoryModal .modal-body {
-  flex: initial;
-  overflow: visible !important;
-  padding: 14px 18px 28px;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 20px 18px;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+#allHistoryModal .history-count {
+  flex-shrink: 0;
+  margin: 0 0 10px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
 }
 #allHistoryModal .table-wrapper {
-  width: 100%;
-  max-height: none !important;
-  overflow: visible !important;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--card-bg);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
 }
 #allHistoryModal table {
   width: 100%;
-  min-width: 0 !important;
-  border-collapse: collapse;
-  table-layout: auto;
+  min-width: 1100px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card-bg);
 }
-#allHistoryModal th, #allHistoryModal td {
-  border: 1px solid var(--border-color);
-  padding: 7px 8px;
-  text-align: left;
-  vertical-align: top;
-  overflow-wrap: anywhere;
-  white-space: normal;
-  font-size: 12px;
+#allHistoryModal thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 #allHistoryModal th {
-  background: var(--thead-bg);
+  background: var(--thead-bg) !important;
+  color: var(--text-dark);
   font-weight: 800;
   position: sticky;
-  top: 57px;
-  z-index: 4;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  padding: 11px 12px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
 }
-#allHistoryModal .history-count { margin: 0 0 10px; color: var(--text-muted); font-size: 13px; }
+#allHistoryModal th:last-child {
+  border-right: none;
+}
+#allHistoryModal td {
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  padding: 9px 12px;
+  vertical-align: middle;
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--text-dark);
+}
+#allHistoryModal td:last-child {
+  border-right: none;
+}
+#allHistoryModal tbody tr:hover {
+  background: var(--table-hover);
+}
 @media (max-width: 700px) {
-  #allHistoryModal .modal-body { padding: 10px 8px 20px; }
-  #allHistoryModal th, #allHistoryModal td { padding: 5px 4px; font-size: 10px; }
-  #allHistoryModal .modal-header { padding: 12px; }
-  #allHistoryModal th { top: 49px; }
+  #allHistoryModal .modal-body { padding: 8px 10px 14px; }
+  #allHistoryModal th, #allHistoryModal td { padding: 7px 8px; font-size: 11px; }
+  #allHistoryModal .modal-header { padding: 12px 14px; }
 }
 @media print { #allHistoryModal { display:none !important; } }
 
@@ -2474,6 +2521,7 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                 <div class="sj-info-item">
                     <strong>KEPADA YTH:</strong>
                     <span id="sjPrintCustomer" style="font-size: 13px; font-weight: 700;">-</span>
+                    <div id="sjPrintAlamat" style="font-size: 11px; font-weight: 600; color: #111; margin-top: 3px;">-</div>
                 </div>
                 <div class="sj-info-item">
                     <strong>Tanggal Pembelian:</strong>
@@ -2484,11 +2532,13 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
             <table class="sj-table">
                 <thead>
                     <tr>
-                        <th style="width: 7%; text-align: center;">No</th>
-                        <th style="width: 25%;">Kode Barang</th>
-                        <th style="width: 46%;">Nama Barang</th>
-                        <th style="width: 14%;">Warna</th>
+                        <th style="width: 5%; text-align: center;">No</th>
+                        <th style="width: 20%;">Kode Barang</th>
+                        <th style="width: 32%;">Nama Barang</th>
+                        <th style="width: 13%;">Warna</th>
                         <th style="width: 8%; text-align: center;">Roll</th>
+                        <th style="width: 14%; text-align: center;">Yard</th>
+                        <th style="width: 8%; text-align: center;">Total</th>
                     </tr>
                 </thead>
                 <tbody id="sjPrintTableBody"></tbody>
@@ -2549,6 +2599,11 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                 <div class="form-group" id="containerCustomer" style="display:none;">
                     <label>Nama Customer</label>
                     <input type="text" id="customer" placeholder="Masukkan Nama Customer" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
+                </div>
+
+                <div class="form-group" id="containerAlamatCustomer" style="display:none;">
+                    <label>Alamat Customer</label>
+                    <input type="text" id="alamatCustomer" placeholder="Masukkan Alamat Customer (Opsional)" autocomplete="off">
                 </div>
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
@@ -2643,10 +2698,10 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 13%; text-align: center;">Tanggal</th>
-                            <th style="width: 20%; text-align: center;">Customer</th>
-                            <th style="width: 17%; text-align: center;">No Surat Jalan</th>
-                            <th style="width: 38%; text-align: center;">Barang Terjual</th>
+                            <th style="width: 12%; text-align: center;">Tanggal</th>
+                            <th style="width: 22%; text-align: center;">Customer & Alamat</th>
+                            <th style="width: 16%; text-align: center;">No Surat Jalan</th>
+                            <th style="width: 38%; text-align: center;">Barang Terjual & Yard</th>
                             <th style="width: 12%; text-align: center;">Print Surat Jalan</th>
                         </tr>
                     </thead>
@@ -2739,9 +2794,9 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
             <div class="card-title">
                 <span>Transaction History Barang</span>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-excel" onclick="bukaSemuaRiwayat()" style="font-size:12px;">Lihat Semua Data</button>
                     <button class="btn-reset" onclick="bukaModalUbahPin()" style="font-size:12px;">Change PIN Access</button>
                     <button class="btn-lock" onclick="kunciAkses()" style="font-size:12px;">Lock Transaction History</button>
-                    <button class="btn-excel" onclick="bukaSemuaRiwayat()" style="font-size:12px;">Lihat Semua Data</button>
                 </div>
             </div>
 
@@ -2803,14 +2858,43 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
     </div>
     <div class="modal-body">
       <p class="history-count" id="allHistoryCount">Memuat data...</p>
-      <div class="table-wrapper" style="max-height:none;overflow:visible;">
+      <div class="table-wrapper">
         <table>
-          <thead><tr><th>No</th><th>Tanggal</th><th>Jam</th><th>Jenis Transaksi</th><th>No Surat Jalan</th><th>Kode Barang</th><th>Nama Barang</th><th>Warna</th><th>Jumlah (Roll)</th><th>Customer</th></tr></thead>
+          <thead><tr><th>No</th><th>Tanggal</th><th>Jam</th><th>Jenis Transaksi</th><th>No Surat Jalan</th><th>Kode Barang</th><th>Nama Barang</th><th>Warna</th><th>Jumlah (Roll)</th><th>Yard & Total</th><th>Customer</th><th>Alamat Customer</th></tr></thead>
           <tbody id="allHistoryBody"></tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
+
+<!-- MODAL INPUT / EDIT YARD PER PC -->
+<div class="modal" id="yardModal">
+    <div class="modal-box" style="max-width: 520px;">
+        <div class="modal-header" style="background: #0284c7;">
+            <h2>📏 Input Detail Yard Barang</h2>
+            <button class="close-modal" onclick="tutupModalYard()">⛌</button>
+        </div>
+        <div class="modal-body">
+            <div style="background: var(--thead-bg); padding: 12px 14px; border-radius: 10px; margin-bottom: 14px; border: 1px solid var(--border-color);">
+                <div id="yardModalItemInfo" style="font-size: 13px; font-weight: 700; color: var(--text-dark);">-</div>
+                <div id="yardModalQtyInfo" style="font-size: 12px; color: var(--primary); font-weight: 800; margin-top: 4px;">-</div>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                Masukkan nilai yard untuk masing-masing pc / roll di bawah:
+            </p>
+            <div id="yardInputsContainer" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 280px; overflow-y: auto; padding: 4px;">
+            </div>
+            <div style="margin-top: 16px; padding: 10px 14px; background: var(--primary-light); border: 1.5px solid var(--primary); border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; font-weight: 700; color: var(--primary-dark);">Grand Total Yard:</span>
+                <span style="font-size: 16px; font-weight: 900; color: var(--primary-dark);"><strong id="displayModalTotalYard">0</strong> Yard</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-reset" onclick="tutupModalYard()">BATAL</button>
+            <button class="btn-save" style="background: #0284c7;" onclick="simpanModalYard()">SIMPAN YARD</button>
+        </div>
+    </div>
 </div>
 
 <!-- MODALS -->
@@ -2951,6 +3035,10 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                     <input type="text" id="editCustomer" placeholder="-" oninput="this.value = this.value.toUpperCase()">
                 </div>
                 <div class="form-group">
+                    <label>Alamat Customer</label>
+                    <input type="text" id="editAlamatCustomer" placeholder="-">
+                </div>
+                <div class="form-group">
                     <label>No Surat Jalan</label>
                     <input type="text" id="editNoSuratJalan" placeholder="-">
                 </div>
@@ -3016,8 +3104,9 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                                 <th>Kode Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Warna</th>
-                                <th class="text-center" style="width: 140px;">Jumlah Roll</th>
-                                <th class="text-center" style="width: 90px;">Hapus Data Barang</th>
+                                <th class="text-center" style="width: 120px;">Jumlah Roll</th>
+                                <th class="text-center" style="width: 140px;">Yard & Total</th>
+                                <th class="text-center" style="width: 80px;">Hapus Data Barang</th>
                             </tr>
                         </thead>
                         <tbody id="editKeranjangBody"></tbody>
@@ -3033,7 +3122,7 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
 </div>
 
 <div class="footer">
-    <strong>Copyright © 2026 Nicholas Sulistio. All Rights Reserved. Manual Stock Management System</strong>
+    <strong>Copyright © 2026 Nicholas Sulistio. All Rights Reserved. Manual Stock Management System • <a href="javascript:void(0)" onclick="downloadFileHTML()" style="color:var(--primary);text-decoration:underline;cursor:pointer;">📥 Download File HTML</a></strong>
 </div>
 
 </div>
@@ -3793,14 +3882,20 @@ function printSuratJalan(tanggal, customer, jam) {
         return;
     }
    
+    const alamatCust = (groupItems[0].alamatCustomer || "").trim();
     document.getElementById('sjPrintNo').textContent = "No Surat Jalan : " + sjNo;
     document.getElementById('sjPrintCustomer').textContent = customer;
+    const alamatEl = document.getElementById('sjPrintAlamat');
+    if (alamatEl) {
+        alamatEl.textContent = alamatCust ? "Alamat: " + alamatCust : "-";
+    }
     document.getElementById('sjPrintTanggal').textContent = formatTanggalIndonesia(tanggal);
 
     const tbody = document.getElementById('sjPrintTableBody');
     tbody.innerHTML = '';
 
     let totalJumlahBarang = 0;
+    let totalYardBarang = 0;
 
     groupItems.sort((a, b) => {
         let compKode = (a.kode || "").localeCompare(b.kode || "", 'id', { sensitivity: 'base' });
@@ -3811,6 +3906,12 @@ function printSuratJalan(tanggal, customer, jam) {
     groupItems.forEach((it, idx) => {
         const qty = parseInt(it.jumlah) || 0;
         totalJumlahBarang += qty;
+        const itYards = Array.isArray(it.yards) ? it.yards : [];
+        const itTotalYard = Number(it.totalYard || itYards.reduce((a, b) => a + Number(b || 0), 0)) || 0;
+        totalYardBarang += itTotalYard;
+
+        const rincianYardStr = itYards.length > 0 ? itYards.join(', ') : '-';
+        const totalYardStr = itTotalYard > 0 ? `${itTotalYard} Yd` : '-';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -3819,6 +3920,8 @@ function printSuratJalan(tanggal, customer, jam) {
             <td>${escapeHTML(it.nama)}</td>
             <td>${escapeHTML(it.warna)}</td>
             <td style="text-align: center; font-weight: 700;">${formatAngka(qty)}</td>
+            <td style="text-align: center; font-size: 11px;">${escapeHTML(rincianYardStr)}</td>
+            <td style="text-align: center; font-weight: 700;">${escapeHTML(totalYardStr)}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -3826,7 +3929,9 @@ function printSuratJalan(tanggal, customer, jam) {
     const trTotal = document.createElement('tr');
     trTotal.innerHTML = `
         <td colspan="4" style="text-align: center; font-weight: 700; background: #eaeaea;">Total Beli Barang</td>
-        <td style="text-align: center; font-weight: 800; background: #eaeaea;">${formatAngka(totalJumlahBarang)}</td>
+        <td style="text-align: center; font-weight: 800; background: #eaeaea;">${formatAngka(totalJumlahBarang)} Roll</td>
+        <td style="text-align: center; font-weight: 700; background: #eaeaea;">-</td>
+        <td style="text-align: center; font-weight: 800; background: #eaeaea;">${totalYardBarang > 0 ? totalYardBarang + ' Yd' : '-'}</td>
     `;
     tbody.appendChild(trTotal);
 
@@ -3896,10 +4001,13 @@ function eksekusiCetakAllSuratJalan() {
             groupedMap[groupKey] = {
                 tanggal: tglStr,
                 customer: custName,
+                alamatCustomer: (item.alamatCustomer || '').trim(),
                 jam: item.jam,
                 noSuratJalan: item.noSuratJalan || '',
                 items: []
             };
+        } else if (!groupedMap[groupKey].alamatCustomer && item.alamatCustomer) {
+            groupedMap[groupKey].alamatCustomer = (item.alamatCustomer || '').trim();
         }
         groupedMap[groupKey].items.push(item);
     });
@@ -3926,9 +4034,17 @@ function eksekusiCetakAllSuratJalan() {
 
         let rowsHtml = '';
         let totalQty = 0;
+        let totalGroupYard = 0;
         group.items.forEach((it, idx) => {
             const qty = parseInt(it.jumlah) || 0;
             totalQty += qty;
+            const itYards = Array.isArray(it.yards) ? it.yards : [];
+            const itTotalYard = Number(it.totalYard || itYards.reduce((a, b) => a + Number(b || 0), 0)) || 0;
+            totalGroupYard += itTotalYard;
+
+            const rincianYardStr = itYards.length > 0 ? itYards.join(', ') : '-';
+            const totalYardStr = itTotalYard > 0 ? `${itTotalYard} Yd` : '-';
+
             rowsHtml += `
                 <tr>
                     <td style="text-align: center;">${idx + 1}</td>
@@ -3936,6 +4052,8 @@ function eksekusiCetakAllSuratJalan() {
                     <td>${escapeHTML(it.nama)}</td>
                     <td>${escapeHTML(it.warna)}</td>
                     <td style="text-align: center; font-weight: 700;">${formatAngka(qty)}</td>
+                    <td style="text-align: center; font-size: 11px;">${escapeHTML(rincianYardStr)}</td>
+                    <td style="text-align: center; font-weight: 700;">${escapeHTML(totalYardStr)}</td>
                 </tr>
             `;
         });
@@ -3958,6 +4076,7 @@ function eksekusiCetakAllSuratJalan() {
                     <div class="sj-info-item">
                         <strong>KEPADA YTH:</strong>
                         <span style="font-size: 13px; font-weight: 700;">${escapeHTML(customer)}</span>
+                        <div style="font-size: 11px; font-weight: 600; color: #111; margin-top: 3px;">${group.alamatCustomer ? 'Alamat: ' + escapeHTML(group.alamatCustomer) : '-'}</div>
                     </div>
                     <div class="sj-info-item">
                         <strong>Tanggal Pembelian:</strong>
@@ -3968,18 +4087,22 @@ function eksekusiCetakAllSuratJalan() {
                 <table class="sj-table">
                     <thead>
                         <tr>
-                            <th style="width: 7%; text-align: center;">No</th>
-                            <th style="width: 25%;">Kode Barang</th>
-                            <th style="width: 46%;">Nama Barang</th>
-                            <th style="width: 14%;">Warna</th>
+                            <th style="width: 5%; text-align: center;">No</th>
+                            <th style="width: 20%;">Kode Barang</th>
+                            <th style="width: 32%;">Nama Barang</th>
+                            <th style="width: 13%;">Warna</th>
                             <th style="width: 8%; text-align: center;">Roll</th>
+                            <th style="width: 14%; text-align: center;">Yard</th>
+                            <th style="width: 8%; text-align: center;">Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${rowsHtml}
                         <tr>
                             <td colspan="4" style="text-align: center; font-weight: 700; background: #eaeaea;">Total Beli Barang</td>
-                            <td style="text-align: center; font-weight: 800; background: #eaeaea;">${formatAngka(totalQty)}</td>
+                            <td style="text-align: center; font-weight: 800; background: #eaeaea;">${formatAngka(totalQty)} Roll</td>
+                            <td style="text-align: center; font-weight: 700; background: #eaeaea;">-</td>
+                            <td style="text-align: center; font-weight: 800; background: #eaeaea;">${totalGroupYard > 0 ? totalGroupYard + ' Yd' : '-'}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -4123,6 +4246,7 @@ function updateDashboard() {
 function handleJenisChange() {
     const jenis = document.getElementById('jenis').value;
     const containerCustomer = document.getElementById('containerCustomer');
+    const containerAlamatCustomer = document.getElementById('containerAlamatCustomer');
     const containerBtnTambahItem = document.getElementById('containerBtnTambahItem');
     const containerKeranjang = document.getElementById('containerKeranjang');
     const labelPilihStok = document.getElementById('labelPilihStok');
@@ -4138,6 +4262,7 @@ function handleJenisChange() {
 
     if (jenis === 'keluar') {
         containerCustomer.style.display = 'flex';
+        if (containerAlamatCustomer) containerAlamatCustomer.style.display = 'flex';
         containerBtnTambahItem.style.display = 'flex';
         containerKeranjang.style.display = 'block';
         labelPilihStok.textContent = 'Cari Stock Barang Tersedia';
@@ -4149,6 +4274,7 @@ function handleJenisChange() {
         renderKeranjang();
     } else {
         containerCustomer.style.display = 'none';
+        if (containerAlamatCustomer) containerAlamatCustomer.style.display = 'none';
         containerBtnTambahItem.style.display = 'none';
         containerKeranjang.style.display = 'none';
         keranjangBelanja = [];
@@ -4498,6 +4624,7 @@ function simpanTransaksi() {
 
     if (jenis === 'keluar') {
         const customer = document.getElementById('customer') ? document.getElementById('customer').value.trim().toUpperCase() : '';
+        const alamatCustomer = document.getElementById('alamatCustomer') ? document.getElementById('alamatCustomer').value.trim() : '';
         if (!customer) {
             alert("Mohon isi Nama Customer terlebih dahulu!");
             return;
@@ -4517,7 +4644,10 @@ function simpanTransaksi() {
                 nama: item.nama,
                 warna: item.warna,
                 customer: customer,
-                jumlah: item.jumlah
+                alamatCustomer: alamatCustomer,
+                jumlah: item.jumlah,
+                yards: item.yards || [],
+                totalYard: item.totalYard || 0
             });
         });
 
@@ -4547,7 +4677,10 @@ function simpanTransaksi() {
             nama: nama,
             warna: warna,
             customer: '-',
-            jumlah: jumlah
+            alamatCustomer: '-',
+            jumlah: jumlah,
+            yards: [],
+            totalYard: 0
         });
 
         saveData();
@@ -4561,6 +4694,7 @@ function resetFormInput() {
     const jenis = document.getElementById('jenis') ? document.getElementById('jenis').value : 'masuk';
     if (document.getElementById('searchBarangKeluar')) document.getElementById('searchBarangKeluar').value = '';
     if (document.getElementById('customer')) document.getElementById('customer').value = '';
+    if (document.getElementById('alamatCustomer')) document.getElementById('alamatCustomer').value = '';
    
     const inputKode = document.getElementById('kode');
     const inputNama = document.getElementById('nama');
@@ -4704,10 +4838,13 @@ function renderPenjualan() {
             groupedMap[groupKey] = {
                 tanggal: tglStr,
                 customer: custName,
+                alamatCustomer: (item.alamatCustomer || '').trim(),
                 jam: item.jam,
                 noSuratJalan: item.noSuratJalan || '',
                 items: []
             };
+        } else if (!groupedMap[groupKey].alamatCustomer && item.alamatCustomer) {
+            groupedMap[groupKey].alamatCustomer = (item.alamatCustomer || '').trim();
         }
         groupedMap[groupKey].items.push(item);
     });
@@ -4733,15 +4870,52 @@ function renderPenjualan() {
                 <tbody>
         `;
        
+        let totalGroupRoll = 0;
+        let totalGroupYard = 0;
+
         group.items.forEach(it => {
+            const qty = parseInt(it.jumlah) || 0;
+            totalGroupRoll += qty;
+            const itemYards = Array.isArray(it.yards) ? it.yards : [];
+            const itemTotalYard = Number(it.totalYard || itemYards.reduce((a, b) => a + Number(b || 0), 0)) || 0;
+            totalGroupYard += itemTotalYard;
+
+            let yardDisplayHtml = '';
+            if (itemYards.length > 0) {
+                yardDisplayHtml = `<div style="font-size: 11px; color: var(--primary); margin-top: 3px; font-weight: 700;">Yard: ${itemYards.join(' + ')} = <strong>${itemTotalYard} Yd</strong></div>`;
+            } else {
+                yardDisplayHtml = `<div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; font-style: italic;">Belum isi yard (${qty} pc)</div>`;
+            }
+
+            const safeTanggal = escapeHTML(group.tanggal);
+            const safeCustomer = escapeHTML(group.customer).replace(/'/g, "\\'");
+            const safeJam = escapeHTML(group.jam);
+            const safeKode = escapeHTML(it.kode).replace(/'/g, "\\'");
+            const safeWarna = escapeHTML(it.warna).replace(/'/g, "\\'");
+
             subTableHtml += `
-                <tr>
-                    <td><strong>${escapeHTML(it.kode)}</strong> → ${escapeHTML(it.nama)} (${escapeHTML(it.warna)})</td>
-                    <td style="text-align: right; font-weight: 700; width: 90px;">${formatAngka(it.jumlah)} Roll</td>
+                <tr style="border-bottom: 1px dashed var(--border-color) !important;">
+                    <td style="vertical-align: middle;">
+                        <div><strong>${escapeHTML(it.kode)}</strong> → ${escapeHTML(it.nama)} (${escapeHTML(it.warna)})</div>
+                        ${yardDisplayHtml}
+                    </td>
+                    <td style="text-align: right; font-weight: 700; width: 140px; vertical-align: middle; white-space: nowrap;">
+                        <span>${formatAngka(qty)} Roll</span>
+                        <button type="button" class="btn-edit" style="padding: 4px 8px; font-size: 11px; margin-left: 6px; background: #0284c7;" onclick="bukaModalInputYard('${safeTanggal}', '${safeCustomer}', '${safeJam}', '${safeKode}', '${safeWarna}')" title="Input nilai yard per pc">📏 Yard</button>
+                    </td>
                 </tr>
             `;
         });
        
+        if (totalGroupYard > 0) {
+            subTableHtml += `
+                <tr>
+                    <td style="font-size: 11px; font-weight: 800; color: var(--primary);">Total Penjualan:</td>
+                    <td style="text-align: right; font-size: 11px; font-weight: 800; color: var(--primary); white-space: nowrap;">${formatAngka(totalGroupRoll)} Roll • ${totalGroupYard} Yd</td>
+                </tr>
+            `;
+        }
+
         subTableHtml += `
                 </tbody>
             </table>
@@ -4751,14 +4925,18 @@ function renderPenjualan() {
         const safeCustomer = escapeHTML(group.customer).replace(/'/g, "\\'");
         const safeJam = escapeHTML(group.jam);
         const currentNoSJ = escapeHTML(group.noSuratJalan || '');
+        const currentAlamat = escapeHTML(group.alamatCustomer || '');
 
         tr.innerHTML = `
            <td style="text-align: center; vertical-align: middle;">${escapeHTML(formatTanggalIndonesia(group.tanggal))}</td>
-           <td style="text-align: center; vertical-align: middle;"><strong>${escapeHTML(group.customer)}</strong></td>
            <td style="text-align: center; vertical-align: middle;">
-               <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="padding: 7px 12px; font-size: 13px; width: 75%; border: 1.5px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
+               <div style="font-weight: 800; font-size: 13px; margin-bottom: 4px;">${escapeHTML(group.customer)}</div>
+               <input type="text" class="input-alamat" value="${currentAlamat}" placeholder="Isi Alamat Customer..." style="padding: 6px 10px; font-size: 11px; width: 90%; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--input-bg); color: var(--text-dark);" onchange="updateAlamatCustomerBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)" title="Ketik untuk mengubah alamat customer">
            </td>
-           <td style="text-align: center; vertical-align: middle; padding: 4px 8px;">${subTableHtml}</td>
+           <td style="text-align: center; vertical-align: middle;">
+               <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="padding: 7px 12px; font-size: 13px; width: 85%; border: 1.5px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
+           </td>
+           <td style="vertical-align: middle; padding: 6px 10px;">${subTableHtml}</td>
            <td style="text-align: center; vertical-align: middle;">
                <button class="btn-surat-jalan" onclick="printSuratJalan('${safeTanggal}', '${safeCustomer}', '${safeJam}')">Surat Jalan</button>
            </td>
@@ -4853,21 +5031,29 @@ function bukaSemuaRiwayat() {
     });
     tbody.innerHTML = '';
     if (!semua.length) {
-        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:24px;">Belum ada data transaksi.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;padding:24px;">Belum ada data transaksi.</td></tr>';
     } else {
         semua.forEach((item, i) => {
             const tr = document.createElement('tr');
+            let yardText = '-';
+            if (Array.isArray(item.yards) && item.yards.length > 0) {
+                yardText = `${item.yards.join(' + ')} = ${item.totalYard || item.yards.reduce((a, b) => a + Number(b || 0), 0)} Yd`;
+            } else if (item.totalYard) {
+                yardText = `${item.totalYard} Yd`;
+            }
             tr.innerHTML = `
               <td>${i + 1}</td>
               <td>${escapeHTML(formatTanggalIndonesia(item.tanggal || '-'))}</td>
               <td>${escapeHTML(item.jam || '-')}</td>
-              <td>${item.jenis === 'masuk' ? 'Barang Masuk' : 'Barang Keluar'}</td>
+              <td>${item.jenis === 'masuk' ? '<span class="badge badge-masuk">Barang Masuk</span>' : '<span class="badge badge-keluar">Barang Keluar</span>'}</td>
               <td>${escapeHTML(item.noSuratJalan || '-')}</td>
               <td><strong>${escapeHTML(item.kode || '-')}</strong></td>
               <td>${escapeHTML(item.nama || '-')}</td>
               <td>${escapeHTML(item.warna || '-')}</td>
-              <td>${escapeHTML(formatAngka(item.jumlah ?? 0))}</td>
-              <td>${escapeHTML(item.customer || '-')}</td>`;
+              <td>${escapeHTML(formatAngka(item.jumlah ?? 0))} Roll</td>
+              <td>${escapeHTML(yardText)}</td>
+              <td><strong>${escapeHTML(item.customer || '-')}</strong></td>
+              <td>${escapeHTML(item.alamatCustomer || '-')}</td>`;
             tbody.appendChild(tr);
         });
     }
@@ -5081,6 +5267,8 @@ function bukaEditGroup(groupKey) {
     document.getElementById('editJenisDisplay').value = 'Barang Keluar';
     document.getElementById('editCustomer').value = first.customer || '';
     document.getElementById('editCustomer').readOnly = false;
+    const editAlamatEl = document.getElementById('editAlamatCustomer');
+    if (editAlamatEl) editAlamatEl.value = first.alamatCustomer || '';
     document.getElementById('editNoSuratJalan').value = first.noSuratJalan || '';
     document.getElementById('editNoSuratJalan').readOnly = false;
 
@@ -5092,7 +5280,9 @@ function bukaEditGroup(groupKey) {
         kode: it.kode,
         nama: it.nama,
         warna: it.warna,
-        jumlah: it.jumlah
+        jumlah: it.jumlah,
+        yards: Array.isArray(it.yards) ? [...it.yards] : [],
+        totalYard: it.totalYard || 0
     }));
 
     editKeranjangTemp.sort((a, b) => {
@@ -5250,12 +5440,16 @@ function renderEditKeranjang() {
 
     editKeranjangTemp.forEach((item, idx) => {
         const tr = document.createElement('tr');
+        const yardLabel = (item.totalYard && item.totalYard > 0) ? `${item.totalYard} Yd` : 'Isi Yard';
         tr.innerHTML = `
             <td><strong>${escapeHTML(item.kode)}</strong></td>
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
             <td class="text-center">
-                <input type="number" min="1" value="${item.jumlah}" style="width: 110px; padding: 6px; text-align: center; border: 1.5px solid var(--border-color); border-radius: 6px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateEditJumlahItem(${idx}, this.value)">
+                <input type="number" min="1" value="${item.jumlah}" style="width: 100px; padding: 6px; text-align: center; border: 1.5px solid var(--border-color); border-radius: 6px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateEditJumlahItem(${idx}, this.value)">
+            </td>
+            <td class="text-center">
+                <button type="button" class="btn-edit" style="padding: 5px 10px; font-size:11px; background:#0284c7;" onclick="bukaModalEditYardItem(${idx})">📏 ${escapeHTML(yardLabel)}</button>
             </td>
             <td class="text-center">
                 <button type="button" class="btn-delete" style="padding: 5px 10px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">Delete</button>
@@ -5289,6 +5483,13 @@ function updateEditJumlahItem(idx, val) {
     }
 
     editKeranjangTemp[idx].jumlah = qty;
+    if (Array.isArray(editKeranjangTemp[idx].yards)) {
+        if (editKeranjangTemp[idx].yards.length > qty) {
+            editKeranjangTemp[idx].yards = editKeranjangTemp[idx].yards.slice(0, qty);
+        }
+        editKeranjangTemp[idx].totalYard = Math.round(editKeranjangTemp[idx].yards.reduce((a, b) => a + Number(b || 0), 0) * 100) / 100;
+    }
+    renderEditKeranjang();
 }
 
 function hapusEditKeranjangItem(idx) {
@@ -5343,6 +5544,8 @@ function simpanEdit() {
 
     } else if (editGroupKey !== null) {
         const customer = document.getElementById('editCustomer').value.trim().toUpperCase();
+        const editAlamatEl = document.getElementById('editAlamatCustomer');
+        const alamatCustomer = editAlamatEl ? editAlamatEl.value.trim() : '';
         const noSuratJalan = document.getElementById('editNoSuratJalan').value.trim();
 
         if (!customer) {
@@ -5394,7 +5597,10 @@ function simpanEdit() {
                 nama: editedItem.nama.trim().toUpperCase(),
                 warna: editedItem.warna.trim().toUpperCase(),
                 customer: customer,
-                jumlah: editedItem.jumlah
+                alamatCustomer: alamatCustomer,
+                jumlah: editedItem.jumlah,
+                yards: Array.isArray(editedItem.yards) ? editedItem.yards : [],
+                totalYard: editedItem.totalYard || 0
             });
         });
 
@@ -5403,6 +5609,155 @@ function simpanEdit() {
         updateApp();
         showCustomPopup('success', 'Perubahan Disimpan');
     }
+}
+
+let currentYardTarget = null;
+let currentEditYardIndex = null;
+
+function bukaModalInputYard(tanggal, customer, jam, kode, warna) {
+    const item = transaksi.find(t =>
+        t.jenis === 'keluar' &&
+        t.tanggal === tanggal &&
+        t.jam === jam &&
+        (t.customer || '-').trim() === customer &&
+        normalizeKode(t.kode) === normalizeKode(kode) &&
+        normalizeWarna(t.warna) === normalizeWarna(warna)
+    );
+
+    if (!item) {
+        alert("Data barang tidak ditemukan!");
+        return;
+    }
+
+    const qty = parseInt(item.jumlah) || 1;
+    const existingYards = Array.isArray(item.yards) ? item.yards : [];
+
+    currentYardTarget = {
+        tanggal, customer, jam, kode: item.kode, warna: item.warna, qty
+    };
+    currentEditYardIndex = null;
+
+    document.getElementById('yardModalItemInfo').textContent = `${item.kode} - ${item.nama} (${item.warna})`;
+    document.getElementById('yardModalQtyInfo').textContent = `Total Pembelian: ${qty} Pc / Roll (Tersedia ${qty} input yard)`;
+
+    const container = document.getElementById('yardInputsContainer');
+    container.innerHTML = '';
+
+    for (let i = 0; i < qty; i++) {
+        const val = existingYards[i] !== undefined && existingYards[i] !== null ? existingYards[i] : '';
+        const div = document.createElement('div');
+        div.style.cssText = "display: flex; flex-direction: column; background: var(--input-bg); padding: 8px; border: 1.5px solid var(--border-color); border-radius: 8px;";
+        div.innerHTML = `
+            <label style="font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 4px;">ROLL #${i + 1} (YARD)</label>
+            <input type="number" step="0.01" min="0" class="input-yard-pc" data-idx="${i}" value="${val}" placeholder="0.00" style="padding: 7px 10px; font-size: 13px; font-weight: 700; border: 1.5px solid var(--border-color); border-radius: 6px; background: var(--input-bg); color: var(--text-dark);" oninput="hitungTotalYardModal()">
+        `;
+        container.appendChild(div);
+    }
+
+    hitungTotalYardModal();
+    document.getElementById('yardModal').classList.add('active');
+}
+
+function bukaModalEditYardItem(idx) {
+    const item = editKeranjangTemp[idx];
+    if (!item) return;
+    const qty = parseInt(item.jumlah) || 1;
+    const existingYards = Array.isArray(item.yards) ? item.yards : [];
+
+    currentEditYardIndex = idx;
+    currentYardTarget = null;
+
+    document.getElementById('yardModalItemInfo').textContent = `${item.kode} - ${item.nama} (${item.warna})`;
+    document.getElementById('yardModalQtyInfo').textContent = `Total Pembelian: ${qty} Pc / Roll (Tersedia ${qty} input yard)`;
+
+    const container = document.getElementById('yardInputsContainer');
+    container.innerHTML = '';
+
+    for (let i = 0; i < qty; i++) {
+        const val = existingYards[i] !== undefined && existingYards[i] !== null ? existingYards[i] : '';
+        const div = document.createElement('div');
+        div.style.cssText = "display: flex; flex-direction: column; background: var(--input-bg); padding: 8px; border: 1.5px solid var(--border-color); border-radius: 8px;";
+        div.innerHTML = `
+            <label style="font-size: 10px; font-weight: 800; color: var(--text-muted); margin-bottom: 4px;">ROLL #${i + 1} (YARD)</label>
+            <input type="number" step="0.01" min="0" class="input-yard-pc" data-idx="${i}" value="${val}" placeholder="0.00" style="padding: 7px 10px; font-size: 13px; font-weight: 700; border: 1.5px solid var(--border-color); border-radius: 6px; background: var(--input-bg); color: var(--text-dark);" oninput="hitungTotalYardModal()">
+        `;
+        container.appendChild(div);
+    }
+
+    hitungTotalYardModal();
+    document.getElementById('yardModal').classList.add('active');
+}
+
+function hitungTotalYardModal() {
+    const inputs = document.querySelectorAll('.input-yard-pc');
+    let total = 0;
+    inputs.forEach(inp => {
+        const val = parseFloat(inp.value);
+        if (!isNaN(val) && val > 0) {
+            total += val;
+        }
+    });
+    const rounded = Math.round(total * 100) / 100;
+    const disp = document.getElementById('displayModalTotalYard');
+    if (disp) disp.textContent = rounded;
+    return rounded;
+}
+
+function tutupModalYard() {
+    currentYardTarget = null;
+    currentEditYardIndex = null;
+    const modal = document.getElementById('yardModal');
+    if (modal) modal.classList.remove('active');
+}
+
+function simpanModalYard() {
+    const inputs = document.querySelectorAll('.input-yard-pc');
+    const newYards = [];
+    inputs.forEach(inp => {
+        const val = parseFloat(inp.value);
+        newYards.push(!isNaN(val) ? Math.round(val * 100) / 100 : 0);
+    });
+    const totalYard = Math.round(newYards.reduce((a, b) => a + b, 0) * 100) / 100;
+
+    if (currentEditYardIndex !== null && editKeranjangTemp[currentEditYardIndex]) {
+        editKeranjangTemp[currentEditYardIndex].yards = newYards;
+        editKeranjangTemp[currentEditYardIndex].totalYard = totalYard;
+        renderEditKeranjang();
+        tutupModalYard();
+        showCustomPopup('success', 'Detail Yard Disimpan!');
+        return;
+    }
+
+    if (currentYardTarget !== null) {
+        transaksi.forEach(t => {
+            if (
+                t.jenis === 'keluar' &&
+                t.tanggal === currentYardTarget.tanggal &&
+                t.jam === currentYardTarget.jam &&
+                (t.customer || '-').trim() === currentYardTarget.customer &&
+                normalizeKode(t.kode) === normalizeKode(currentYardTarget.kode) &&
+                normalizeWarna(t.warna) === normalizeWarna(currentYardTarget.warna)
+            ) {
+                t.yards = newYards;
+                t.totalYard = totalYard;
+            }
+        });
+        saveData();
+        tutupModalYard();
+        updateApp();
+        showCustomPopup('success', 'Detail Yard Disimpan!');
+    }
+}
+
+function updateAlamatCustomerBaris(tanggal, customer, jam, newAlamat) {
+    const cleanAlamat = newAlamat.trim();
+    transaksi.forEach(item => {
+        if (item.jenis === 'keluar' && item.tanggal === tanggal && item.jam === jam && (item.customer || '-').trim() === customer) {
+            item.alamatCustomer = cleanAlamat;
+        }
+    });
+    saveData();
+    renderPenjualan();
 }
 
 function konfirmasiHapusPin(index) {
@@ -5542,10 +5897,13 @@ function exportExcel() {
         "Jenis": item.jenis === 'masuk' ? 'Barang Masuk' : 'Barang Keluar',
         "No Surat Jalan": item.noSuratJalan || '-',
         "Nama Customer": item.customer ? item.customer.toUpperCase() : '-',
+        "Alamat Customer": item.alamatCustomer || '-',
         "Kode Barang": item.kode ? item.kode.toUpperCase() : '',
         "Nama Barang": item.nama ? item.nama.toUpperCase() : '',
         "Warna": item.warna ? item.warna.toUpperCase() : '',
-        "Jumlah": item.jumlah
+        "Jumlah (Roll)": item.jumlah,
+        "Detail Yard": Array.isArray(item.yards) && item.yards.length > 0 ? item.yards.join(', ') : '-',
+        "Total Yard": item.totalYard ? (item.totalYard + ' Yd') : '-'
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(dataExcel);
@@ -5577,17 +5935,31 @@ function importExcel(event) {
                 const nama = String(row["Nama Barang"] || row["nama"] || "").trim().toUpperCase();
                 const warna = String(row["Warna"] || row["warna"] || "").trim().toUpperCase();
                 const customer = String(row["Nama Customer"] || row["customer"] || "-").trim().toUpperCase();
+                const alamatCustomer = String(row["Alamat Customer"] || row["alamatCustomer"] || "").trim();
                 const noSuratJalan = String(row["No Surat Jalan"] || row["noSuratJalan"] || "").trim();
-                const jumlah = parseInt(row["Jumlah"] || row["jumlah"] || 0);
+                const jumlah = parseInt(row["Jumlah (Roll)"] || row["Jumlah"] || row["jumlah"] || 0);
                 const jenisRaw = String(row["Jenis"] || row["jenis"] || "").toLowerCase();
                 const jenis = jenisRaw.includes('keluar') ? 'keluar' : 'masuk';
+
+                let yards = [];
+                let totalYard = 0;
+                if (row["Detail Yard"]) {
+                    yards = String(row["Detail Yard"]).split(/[,+]/).map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+                    totalYard = Math.round(yards.reduce((a, b) => a + b, 0) * 100) / 100;
+                } else if (row["Total Yard"]) {
+                    totalYard = parseFloat(String(row["Total Yard"]).replace(/[^0-9.]/g, '')) || 0;
+                }
 
                 if (kode && nama && jumlah > 0) {
                     const time = getCurrentDateTime();
                     transaksi.unshift({
                         tanggal: row["Tanggal"] ? formatTanggalIndonesia(String(row["Tanggal"])) : time.tanggal,
                         jam: row["Jam"] || time.jam,
-                        jenis, noSuratJalan, kode, nama, warna, customer, jumlah
+                        jenis, noSuratJalan, kode, nama, warna, customer,
+                        alamatCustomer: alamatCustomer || '',
+                        jumlah,
+                        yards: yards.length > 0 ? yards : [],
+                        totalYard: totalYard || 0
                     });
                     counter++;
                 }
@@ -5616,6 +5988,35 @@ function backupJSON() {
     document.body.appendChild(dl);
     dl.click();
     dl.remove();
+}
+
+function downloadFileHTML() {
+    const filename = "Manual_Stock_Management_System.html";
+    fetch('/assets/aistudio/index_484309d7.html')
+        .then(res => {
+            if (!res.ok) throw new Error('Network response not ok');
+            return res.text();
+        })
+        .then(html => {
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
+            showCustomPopup('success', 'File HTML Berhasil Diunduh!');
+        })
+        .catch(() => {
+            const a = document.createElement('a');
+            a.href = '/assets/aistudio/index_484309d7.html';
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
 }
 
 function updateApp() {
