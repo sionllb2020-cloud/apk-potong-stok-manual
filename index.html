@@ -1963,6 +1963,280 @@ body.sidebar-menu-open { overflow: hidden; }
 @media(max-width:760px){.snake-layout{grid-template-columns:1fr}.snake-board-wrap{width:min(100%,430px)}.snake-controls-panel{padding:18px}.game-heading{align-items:flex-start}.game-score-box{min-width:76px;padding:10px}.game-score-box strong{font-size:26px}}
 @media(max-width:420px){.game-heading{gap:10px}.game-heading h2{font-size:21px}.game-heading p{font-size:13px}.game-score-box{min-width:65px}.snake-board-wrap{border-width:3px;border-radius:14px}.snake-dpad{grid-template-columns:repeat(3,54px);grid-template-rows:repeat(2,49px);gap:7px}.snake-game-actions{flex-direction:column}}
 
+
+/* CETAK SELALU PUTIH-HITAM, TIDAK MENGIKUTI TEMA DARK */
+@media print {
+  html, body, body * {
+    color: #111111 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+  body, .container, .card, .surat-jalan-print-area, .print-all-sj-area,
+  .sj-container, .sj-header, .sj-title-box, .sj-info-grid, .sj-info-item,
+  .sj-signatures, .sj-sig-box, #stokPage, #stokPage .table-wrapper {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+  }
+  .sj-table, .sj-table thead, .sj-table tbody, .sj-table tr,
+  .sj-table th, .sj-table td,
+  #stokPage table, #stokPage thead, #stokPage tbody,
+  #stokPage tr, #stokPage th, #stokPage td {
+    color: #111111 !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border-color: #222222 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .sj-table, .sj-table th, .sj-table td,
+  #stokPage table, #stokPage th, #stokPage td {
+    border: 1px solid #222222 !important;
+    border-collapse: collapse !important;
+  }
+  .sj-title-box h1, .sj-company h2, .print-header-brand h1,
+  .print-header-brand p, .print-header-meta, .sj-info-item strong,
+  .sj-info-item span, .sj-sig-box strong {
+    color: #111111 !important;
+  }
+  .sj-signatures .line, .sj-sig-box .line { border-color: #222222 !important; }
+}
+
+/* Tampilan Semua Data: tabel dibuka memenuhi layar, bukan scroll kecil di dalam popup */
+#allHistoryModal {
+  padding: 0 !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  overflow: auto !important;
+  background: var(--bg-main);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+#allHistoryModal .modal-box {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100vh;
+  max-height: none !important;
+  height: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+#allHistoryModal .modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 16px 22px;
+}
+#allHistoryModal .modal-body {
+  flex: initial;
+  overflow: visible !important;
+  padding: 14px 18px 28px;
+}
+#allHistoryModal .table-wrapper {
+  width: 100%;
+  max-height: none !important;
+  overflow: visible !important;
+}
+#allHistoryModal table {
+  width: 100%;
+  min-width: 0 !important;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+#allHistoryModal th, #allHistoryModal td {
+  border: 1px solid var(--border-color);
+  padding: 7px 8px;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  font-size: 12px;
+}
+#allHistoryModal th {
+  background: var(--thead-bg);
+  font-weight: 800;
+  position: sticky;
+  top: 57px;
+  z-index: 4;
+}
+#allHistoryModal .history-count { margin: 0 0 10px; color: var(--text-muted); font-size: 13px; }
+@media (max-width: 700px) {
+  #allHistoryModal .modal-body { padding: 10px 8px 20px; }
+  #allHistoryModal th, #allHistoryModal td { padding: 5px 4px; font-size: 10px; }
+  #allHistoryModal .modal-header { padding: 12px; }
+  #allHistoryModal th { top: 49px; }
+}
+@media print { #allHistoryModal { display:none !important; } }
+
+</style>
+<style>
+
+/* PENYESUAIAN TEMA NAVIGASI: WARNA MENGIKUTI TEMA AKTIF */
+.sidebar-toggle {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,.16);
+}
+.sidebar-toggle:hover,
+.sidebar-toggle:focus-visible {
+    background: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+.nav-container-wrapper {
+    background: var(--card-bg) !important;
+    border-right-color: var(--border-color) !important;
+}
+.nav-tabs {
+    background: var(--bg-main) !important;
+    border-color: var(--border-color) !important;
+}
+.tab-btn {
+    color: var(--text-dark) !important;
+}
+.tab-btn:hover {
+    color: var(--primary-dark) !important;
+    background: var(--primary-light) !important;
+}
+.tab-btn.active {
+    color: #fff !important;
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 5px 14px rgba(0,0,0,.12) !important;
+}
+body.theme-dark .tab-btn.active {
+    color: #fff !important;
+    background: var(--primary-dark) !important;
+    border-color: var(--primary) !important;
+}
+.sidebar-toggle:focus-visible,
+.tab-btn:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* HASIL CETAK KARTU STOK: GARIS KOLOM KONSISTEN DAN ISI PANJANG MEMBUNGKUS */
+@media print {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage .table-wrapper {
+        overflow: visible !important;
+        width: 100% !important;
+    }
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: auto !important;
+        border-collapse: collapse !important;
+        border-spacing: 0 !important;
+    }
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td {
+        border: 1px solid #334155 !important;
+        box-sizing: border-box !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        vertical-align: top !important;
+    }
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(1),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(1),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(2),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(2),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(3),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(3),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(4),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(4) {
+        width: auto !important;
+    }
+}
+
+
+/* PILIHAN BARANG: TABEL BESAR DI TENGAH LAYAR, TANPA MENGGESER LAYOUT FORM */
+.floating-barang-picker {
+    position: fixed;
+    z-index: 10050;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    width: min(1100px, 88vw);
+    max-width: 1100px;
+    max-height: min(76vh, 760px);
+    overflow: auto;
+    border: 1px solid var(--border-color, #cbd5e1);
+    border-radius: 16px;
+    background: var(--card-bg, #fff);
+    color: var(--text-dark, #1e293b);
+    box-shadow: 0 24px 70px rgba(15, 23, 42, .38);
+    padding: 0;
+}
+#containerPilihStok { position: relative; z-index: 30; }
+.floating-barang-picker[hidden] { display: none !important; }
+.floating-barang-picker .picker-heading {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(90px, .8fr) minmax(140px, 1.6fr) minmax(80px, .8fr) auto;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--primary, #0284c7);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .035em;
+}
+.floating-barang-picker .picker-row {
+    display: grid;
+    grid-template-columns: minmax(90px, .8fr) minmax(140px, 1.6fr) minmax(80px, .8fr) auto;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 0;
+    padding: 17px 20px;
+    min-height: 56px;
+    margin: 0;
+    background: var(--card-bg, #fff);
+    color: var(--text-dark, #1e293b);
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+}
+.floating-barang-picker .picker-row:last-child { border-bottom: 0; }
+.floating-barang-picker .picker-row:hover,
+.floating-barang-picker .picker-row:focus-visible {
+    background: var(--primary-light, #e0f2fe);
+    outline: none;
+}
+.floating-barang-picker .picker-code { font-weight: 800; overflow-wrap: anywhere; }
+.floating-barang-picker .picker-name { overflow-wrap: anywhere; }
+.floating-barang-picker .picker-color { opacity: .85; overflow-wrap: anywhere; }
+.floating-barang-picker .picker-stock { font-weight: 800; white-space: nowrap; text-align: right; }
+.floating-barang-picker .picker-empty { padding: 18px 14px; text-align: center; font-size: 12px; opacity: .75; }
+body.theme-dark .floating-barang-picker .picker-row { background: var(--card-bg, #111827); }
+body.theme-dark .floating-barang-picker .picker-row:hover,
+body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: var(--primary-light, #334155); }
+@media (max-width: 700px) {
+    .floating-barang-picker {
+        width: 94vw;
+        max-width: 94vw;
+        max-height: 78vh;
+        border-radius: 12px;
+    }
+    .floating-barang-picker .picker-heading,
+    .floating-barang-picker .picker-row {
+        grid-template-columns: minmax(75px, .8fr) minmax(120px, 1.5fr) minmax(70px, .8fr) auto;
+        gap: 8px;
+        padding: 13px 12px;
+        font-size: 12px;
+    }
+}
+
 </style>
 </head>
 
@@ -2279,8 +2553,8 @@ body.sidebar-menu-open { overflow: hidden; }
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
                     <label id="labelPilihStok">Barang Sudah Ada (Opsional)</label>
-                    <input type="text" id="searchBarangKeluar" list="listBarangStok" placeholder="Ketik kode, nama, atau warna..." oninput="handleBarangKeluarSelect(this.value)">
-                    <datalist id="listBarangStok"></datalist>
+                    <input type="text" id="searchBarangKeluar" placeholder="Ketik kode, nama, atau warna..." autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanBarang()" oninput="filterPilihanBarang(this.value)" onkeydown="navigasiPilihanBarang(event)">
+                    <div id="floatingBarangPicker" class="floating-barang-picker" role="listbox" aria-label="Daftar barang tersedia" hidden></div>
                     <div class="form-help" id="helpPilihStok">Pilih barang untuk diisi otomatis</div>
                 </div>
 
@@ -2467,6 +2741,7 @@ body.sidebar-menu-open { overflow: hidden; }
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button class="btn-reset" onclick="bukaModalUbahPin()" style="font-size:12px;">Change PIN Access</button>
                     <button class="btn-lock" onclick="kunciAkses()" style="font-size:12px;">Lock Transaction History</button>
+                    <button class="btn-excel" onclick="bukaSemuaRiwayat()" style="font-size:12px;">Lihat Semua Data</button>
                 </div>
             </div>
 
@@ -2517,6 +2792,25 @@ body.sidebar-menu-open { overflow: hidden; }
         </div>
     </div>
 
+</div>
+
+<!-- POPUP TABEL SELURUH DATA YANG PERNAH DIINPUT -->
+<div class="modal" id="allHistoryModal" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Semua Data yang Pernah Diinput</h2>
+      <button class="close-modal" onclick="tutupSemuaRiwayat()" aria-label="Tutup">×</button>
+    </div>
+    <div class="modal-body">
+      <p class="history-count" id="allHistoryCount">Memuat data...</p>
+      <div class="table-wrapper" style="max-height:none;overflow:visible;">
+        <table>
+          <thead><tr><th>No</th><th>Tanggal</th><th>Jam</th><th>Jenis Transaksi</th><th>No Surat Jalan</th><th>Kode Barang</th><th>Nama Barang</th><th>Warna</th><th>Jumlah (Roll)</th><th>Customer</th></tr></thead>
+          <tbody id="allHistoryBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- MODALS -->
@@ -2855,7 +3149,7 @@ function getUserAvatarUrl(username, offset = 0) {
 
 function getFallbackAvatarUrl(username) {
     const cleanName = encodeURIComponent(username || 'User');
-    return `https://ui-avatars.com/api/?name=${cleanName}&background=2563eb&color=ffffff&bold=true&rounded=true`;
+    return `[https://ui-avatars.com/api/?name=${cleanName}&background=2563eb&color=ffffff&bold=true&rounded=true](https://ui-avatars.com/api/?name=${cleanName}&background=2563eb&color=ffffff&bold=true&rounded=true)`;
 }
 
 function setupAvatarImages(username) {
@@ -3840,6 +4134,7 @@ function handleJenisChange() {
     const inputJumlah = document.getElementById('jumlah');
 
     if (searchInput) searchInput.value = '';
+    tutupPilihanBarang();
 
     if (jenis === 'keluar') {
         containerCustomer.style.display = 'flex';
@@ -3870,6 +4165,131 @@ function handleJenisChange() {
         resetFormInput();
     }
 }
+
+
+let floatingBarangIndex = -1;
+let floatingBarangItems = [];
+
+function daftarPilihanBarang() {
+    const jenis = document.getElementById('jenis')?.value || 'masuk';
+    const mapStok = hitungStokPerBarang();
+    return Object.values(mapStok).sort((a, b) =>
+        (a.kode || '').localeCompare(b.kode || '', 'id', { sensitivity: 'base' }) ||
+        (a.warna || '').localeCompare(b.warna || '', 'id', { sensitivity: 'base' })
+    ).filter(item => {
+        if (jenis === 'keluar') {
+            const inCart = keranjangBelanja.some(k => getStockKey(k.kode, k.warna) === getStockKey(item.kode, item.warna));
+            return item.sisa > 0 && !inCart;
+        }
+        return true;
+    });
+}
+
+function bukaPilihanBarang() {
+    const input = document.getElementById('searchBarangKeluar');
+    if (!input) return;
+    floatingBarangItems = daftarPilihanBarang();
+    renderPilihanBarang(input.value || '');
+}
+
+function filterPilihanBarang(query) {
+    const input = document.getElementById('searchBarangKeluar');
+    if (!input) return;
+    // Saat mengetik, kosongkan pilihan otomatis sebelumnya agar hasil pencarian tidak mengunci field.
+    const kode = document.getElementById('kode');
+    const nama = document.getElementById('nama');
+    const warna = document.getElementById('warna');
+    if (input.value.trim() === '') {
+        if (kode) kode.value = '';
+        if (nama) nama.value = '';
+        if (warna) warna.value = '';
+    }
+    floatingBarangItems = daftarPilihanBarang();
+    renderPilihanBarang(query || '');
+}
+
+function renderPilihanBarang(query) {
+    const popup = document.getElementById('floatingBarangPicker');
+    const input = document.getElementById('searchBarangKeluar');
+    if (!popup || !input) return;
+    const q = String(query || '').trim().toLocaleLowerCase('id');
+    const found = floatingBarangItems.filter(item =>
+        [item.kode, item.nama, item.warna].some(v => String(v || '').toLocaleLowerCase('id').includes(q))
+    );
+    popup.innerHTML = '';
+    const heading = document.createElement('div');
+    heading.className = 'picker-heading';
+    heading.innerHTML = '<span>KODE</span><span>NAMA BARANG</span><span>WARNA</span><span>STOK</span>';
+    popup.appendChild(heading);
+    if (!found.length) {
+        const empty = document.createElement('div');
+        empty.className = 'picker-empty';
+        empty.textContent = q ? 'Barang tidak ditemukan.' : 'Belum ada barang tersedia.';
+        popup.appendChild(empty);
+    } else {
+        found.forEach((item, idx) => {
+            const row = document.createElement('button');
+            row.type = 'button';
+            row.className = 'picker-row';
+            row.setAttribute('role', 'option');
+            row.dataset.index = String(idx);
+            const kode = document.createElement('span'); kode.className = 'picker-code'; kode.textContent = item.kode || '-';
+            const nama = document.createElement('span'); nama.className = 'picker-name'; nama.textContent = item.nama || '-';
+            const warna = document.createElement('span'); warna.className = 'picker-color'; warna.textContent = item.warna || '-';
+            const stok = document.createElement('span'); stok.className = 'picker-stock'; stok.textContent = document.getElementById('jenis').value === 'keluar' ? formatAngka(item.sisa) : '—';
+            row.append(kode, nama, warna, stok);
+            row.addEventListener('mousedown', e => e.preventDefault());
+            row.addEventListener('click', () => pilihBarangDariTabel(item));
+            popup.appendChild(row);
+        });
+    }
+    popup.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    floatingBarangIndex = -1;
+}
+
+function pilihBarangDariTabel(item) {
+    const input = document.getElementById('searchBarangKeluar');
+    if (!input) return;
+    const jenis = document.getElementById('jenis').value;
+    input.value = jenis === 'keluar'
+        ? `${item.kode} - ${item.nama} (${item.warna}) [Sisa: ${item.sisa}]`
+        : `${item.kode} - ${item.nama} (${item.warna})`;
+    handleBarangKeluarSelect(input.value);
+    tutupPilihanBarang();
+}
+
+function tutupPilihanBarang() {
+    const popup = document.getElementById('floatingBarangPicker');
+    const input = document.getElementById('searchBarangKeluar');
+    if (popup) popup.hidden = true;
+    if (input) input.setAttribute('aria-expanded', 'false');
+}
+
+function navigasiPilihanBarang(event) {
+    const popup = document.getElementById('floatingBarangPicker');
+    if (!popup || popup.hidden) {
+        if (event.key === 'ArrowDown') bukaPilihanBarang();
+        return;
+    }
+    const rows = [...popup.querySelectorAll('.picker-row')];
+    if (event.key === 'Escape') { tutupPilihanBarang(); return; }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        floatingBarangIndex = Math.max(0, Math.min(rows.length - 1, floatingBarangIndex + (event.key === 'ArrowDown' ? 1 : -1)));
+        rows.forEach((row, i) => row.style.background = i === floatingBarangIndex ? 'var(--primary-light, #e0f2fe)' : '');
+        rows[floatingBarangIndex]?.scrollIntoView({ block: 'nearest' });
+    }
+    if (event.key === 'Enter' && floatingBarangIndex >= 0 && rows[floatingBarangIndex]) {
+        event.preventDefault();
+        rows[floatingBarangIndex].click();
+    }
+}
+
+document.addEventListener('click', function(event) {
+    const wrapper = document.getElementById('containerPilihStok');
+    if (wrapper && !wrapper.contains(event.target)) tutupPilihanBarang();
+});
 
 function populateDatalistStok() {
     const list = document.getElementById('listBarangStok');
@@ -4418,6 +4838,49 @@ function renderStok() {
         `;
         tbody.appendChild(tr);
     });
+}
+
+function bukaSemuaRiwayat() {
+    const modal = document.getElementById('allHistoryModal');
+    const tbody = document.getElementById('allHistoryBody');
+    const count = document.getElementById('allHistoryCount');
+    if (!modal || !tbody) return;
+    const semua = Array.isArray(transaksi) ? [...transaksi] : [];
+    semua.sort((a, b) => {
+        const da = parseDateDDMMYYYY(a.tanggal)?.getTime() || 0;
+        const db = parseDateDDMMYYYY(b.tanggal)?.getTime() || 0;
+        return db - da || String(b.jam || '').localeCompare(String(a.jam || ''));
+    });
+    tbody.innerHTML = '';
+    if (!semua.length) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:24px;">Belum ada data transaksi.</td></tr>';
+    } else {
+        semua.forEach((item, i) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${i + 1}</td>
+              <td>${escapeHTML(formatTanggalIndonesia(item.tanggal || '-'))}</td>
+              <td>${escapeHTML(item.jam || '-')}</td>
+              <td>${item.jenis === 'masuk' ? 'Barang Masuk' : 'Barang Keluar'}</td>
+              <td>${escapeHTML(item.noSuratJalan || '-')}</td>
+              <td><strong>${escapeHTML(item.kode || '-')}</strong></td>
+              <td>${escapeHTML(item.nama || '-')}</td>
+              <td>${escapeHTML(item.warna || '-')}</td>
+              <td>${escapeHTML(formatAngka(item.jumlah ?? 0))}</td>
+              <td>${escapeHTML(item.customer || '-')}</td>`;
+            tbody.appendChild(tr);
+        });
+    }
+    count.textContent = `Total ${semua.length} data transaksi • Menampilkan seluruh data tanpa mengikuti filter pencarian/tanggal.`;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+}
+
+function tutupSemuaRiwayat() {
+    const modal = document.getElementById('allHistoryModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
 }
 
 function renderTransaksi() {
@@ -5378,6 +5841,13 @@ window.addEventListener('DOMContentLoaded', () => {
   window.drawSnakeBoard=drawSnakeBoard;reset();
 })();
 
+</script>
+<script>
+(function(){
+  const modal = document.getElementById('allHistoryModal');
+  if (modal) modal.addEventListener('click', function(e){ if (e.target === modal) tutupSemuaRiwayat(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') tutupSemuaRiwayat(); });
+})();
 </script>
 </body>
 </html>
