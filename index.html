@@ -664,7 +664,7 @@ body.theme-dark .tab-btn.active {
     color: var(--text-muted);
 }
 
-.pilih-stok-highlight input {
+.pilih-stock-highlight input {
     border: 2px solid var(--primary);
     background-color: var(--primary-light);
     font-weight: 600;
@@ -701,7 +701,7 @@ body.theme-dark .tab-btn.active {
     box-shadow: none;
 }
 
-.badge-total-stok {
+.badge-total-stock {
     background: var(--primary);
     color: white;
     padding: 8px 16px;
@@ -910,7 +910,7 @@ body.theme-dark #transaksiBody tr {
 .badge-masuk { background: var(--success-light); color: var(--success); }
 .badge-keluar { background: var(--danger-light); color: var(--danger); }
 
-.stok-box {
+.stock-box {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -925,7 +925,7 @@ body.theme-dark #transaksiBody tr {
     text-align: center;
 }
 
-.stok-habis-box {
+.stock-habis-box {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -1232,17 +1232,17 @@ body.theme-dark #transaksiBody tr {
         display: table-header-group !important;
     }
 
-    #stokPage table th:nth-child(1),
-    #stokPage table td:nth-child(1) { width: 22% !important; }
+    #stockPage table th:nth-child(1),
+    #stockPage table td:nth-child(1) { width: 22% !important; }
     
-    #stokPage table th:nth-child(2),
-    #stokPage table td:nth-child(2) { width: 48% !important; }
+    #stockPage table th:nth-child(2),
+    #stockPage table td:nth-child(2) { width: 48% !important; }
 
-    #stokPage table th:nth-child(3),
-    #stokPage table td:nth-child(3) { width: 18% !important; }
+    #stockPage table th:nth-child(3),
+    #stockPage table td:nth-child(3) { width: 18% !important; }
 
-    #stokPage table th:nth-child(4),
-    #stokPage table td:nth-child(4) { width: 12% !important; text-align: center !important; }
+    #stockPage table th:nth-child(4),
+    #stockPage table td:nth-child(4) { width: 12% !important; text-align: center !important; }
 
     th {
         background-color: #e2e8f0 !important;
@@ -1265,8 +1265,8 @@ body.theme-dark #transaksiBody tr {
         word-break: break-word;
     }
 
-    body:not(.printing-surat-jalan):not(.printing-all-sj) .stok-box,
-    body:not(.printing-surat-jalan):not(.printing-all-sj) .stok-habis-box {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .stock-box,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) .stock-habis-box {
         background: transparent !important;
         border: none !important;
         padding: 0 !important;
@@ -1520,7 +1520,7 @@ body.theme-dark #transaksiBody tr {
    RESIZABLE TABLE COLUMNS
 ========================================================= */
 #penjualanPage .table-wrapper table,
-#stokPage .table-wrapper table,
+#stockPage .table-wrapper table,
 #transaksiPage .table-wrapper table {
     table-layout: fixed;
     border-collapse: separate;
@@ -1529,8 +1529,8 @@ body.theme-dark #transaksiBody tr {
 
 #penjualanPage .table-wrapper table th,
 #penjualanPage .table-wrapper table td,
-#stokPage .table-wrapper table th,
-#stokPage .table-wrapper table td,
+#stockPage .table-wrapper table th,
+#stockPage .table-wrapper table td,
 #transaksiPage .table-wrapper table th,
 #transaksiPage .table-wrapper table td {
     border-right: 1px solid var(--border-color) !important;
@@ -1539,14 +1539,14 @@ body.theme-dark #transaksiBody tr {
 }
 #penjualanPage .table-wrapper table th:last-child,
 #penjualanPage .table-wrapper table td:last-child,
-#stokPage .table-wrapper table th:last-child,
-#stokPage .table-wrapper table td:last-child,
+#stockPage .table-wrapper table th:last-child,
+#stockPage .table-wrapper table td:last-child,
 #transaksiPage .table-wrapper table th:last-child,
 #transaksiPage .table-wrapper table td:last-child {
     border-right: 0 !important;
 }
 #penjualanPage .table-wrapper th,
-#stokPage .table-wrapper th,
+#stockPage .table-wrapper th,
 #transaksiPage .table-wrapper th {
     position: relative;
     overflow: visible;
@@ -1777,7 +1777,7 @@ img, canvas, svg { max-width: 100%; }
     .user-badge-top-right { max-width: 100%; white-space: normal; }
     .button-area { grid-template-columns: minmax(0, 1fr); }
     .card-title { font-size: 16px; }
-    .badge-total-stok { max-width: 100%; white-space: normal; }
+    .badge-total-stock { max-width: 100%; white-space: normal; }
     .modal-footer button { font-size: 13px; }
 }
 
@@ -1973,14 +1973,14 @@ body.sidebar-menu-open { overflow: hidden; }
   }
   body, .container, .card, .surat-jalan-print-area, .print-all-sj-area,
   .sj-container, .sj-header, .sj-title-box, .sj-info-grid, .sj-info-item,
-  .sj-signatures, .sj-sig-box, #stokPage, #stokPage .table-wrapper {
+  .sj-signatures, .sj-sig-box, #stockPage, #stockPage .table-wrapper {
     background: #ffffff !important;
     background-color: #ffffff !important;
   }
   .sj-table, .sj-table thead, .sj-table tbody, .sj-table tr,
   .sj-table th, .sj-table td,
-  #stokPage table, #stokPage thead, #stokPage tbody,
-  #stokPage tr, #stokPage th, #stokPage td {
+  #stockPage table, #stockPage thead, #stockPage tbody,
+  #stockPage tr, #stockPage th, #stockPage td {
     color: #111111 !important;
     background: #ffffff !important;
     background-color: #ffffff !important;
@@ -1989,7 +1989,7 @@ body.sidebar-menu-open { overflow: hidden; }
     print-color-adjust: exact !important;
   }
   .sj-table, .sj-table th, .sj-table td,
-  #stokPage table, #stokPage th, #stokPage td {
+  #stockPage table, #stockPage th, #stockPage td {
     border: 1px solid #222222 !important;
     border-collapse: collapse !important;
   }
@@ -2117,21 +2117,21 @@ body.theme-dark .tab-btn.active {
     outline-offset: 3px;
 }
 
-/* HASIL CETAK KARTU STOK: GARIS KOLOM KONSISTEN DAN ISI PANJANG MEMBUNGKUS */
+/* HASIL CETAK KARTU stock: GARIS KOLOM KONSISTEN DAN ISI PANJANG MEMBUNGKUS */
 @media print {
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage .table-wrapper {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage .table-wrapper {
         overflow: visible !important;
         width: 100% !important;
     }
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table {
         width: 100% !important;
         min-width: 0 !important;
         table-layout: auto !important;
         border-collapse: collapse !important;
         border-spacing: 0 !important;
     }
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th,
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table th,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table td {
         border: 1px solid #334155 !important;
         box-sizing: border-box !important;
         white-space: normal !important;
@@ -2139,14 +2139,14 @@ body.theme-dark .tab-btn.active {
         word-break: normal !important;
         vertical-align: top !important;
     }
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(1),
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(1),
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(2),
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(2),
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(3),
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(3),
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table th:nth-child(4),
-    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage table td:nth-child(4) {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table th:nth-child(1),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table td:nth-child(1),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table th:nth-child(2),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table td:nth-child(2),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table th:nth-child(3),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table td:nth-child(3),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table th:nth-child(4),
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stockPage table td:nth-child(4) {
         width: auto !important;
     }
 }
@@ -2172,7 +2172,7 @@ body.theme-dark .tab-btn.active {
     box-shadow: 0 24px 70px rgba(15, 23, 42, .38);
     padding: 0;
 }
-#containerPilihStok { position: relative; z-index: 30; }
+#containerPilihstock { position: relative; z-index: 30; }
 .floating-barang-picker[hidden] { display: none !important; }
 .floating-barang-picker .picker-heading {
     position: sticky;
@@ -2427,7 +2427,7 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
             <button class="tab-btn" id="tabPenjualanBtn" onclick="switchPage('penjualanPage'); closeSidebar()">
                 Report Penjualan
             </button>
-            <button class="tab-btn" id="tabStokBtn" onclick="switchPage('stokPage'); closeSidebar()">
+            <button class="tab-btn" id="tabstockBtn" onclick="switchPage('stockPage'); closeSidebar()">
                 Report Stock Barang
             </button>
             <button class="tab-btn" id="tabGameBtn" onclick="switchPage('gamePage'); closeSidebar()">
@@ -2551,11 +2551,11 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                     <input type="text" id="customer" placeholder="Masukkan Nama Customer" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
                 </div>
 
-                <div class="form-group pilih-stok-highlight" id="containerPilihStok">
-                    <label id="labelPilihStok">Barang Sudah Ada (Opsional)</label>
+                <div class="form-group pilih-stock-highlight" id="containerPilihstock">
+                    <label id="labelPilihstock">Barang Sudah Ada (Opsional)</label>
                     <input type="text" id="searchBarangKeluar" placeholder="Ketik kode, nama, atau warna..." autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanBarang()" oninput="filterPilihanBarang(this.value)" onkeydown="navigasiPilihanBarang(event)">
                     <div id="floatingBarangPicker" class="floating-barang-picker" role="listbox" aria-label="Daftar barang tersedia" hidden></div>
-                    <div class="form-help" id="helpPilihStok">Pilih barang untuk diisi otomatis</div>
+                    <div class="form-help" id="helpPilihstock">Pilih barang untuk diisi otomatis</div>
                 </div>
 
                 <div class="form-group">
@@ -2575,7 +2575,7 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
 
                 <div class="form-group">
                     <label>Jumlah Barang</label>
-                    <input type="number" id="jumlah" min="1" step="1" placeholder="Masukkan Jumlah Barang" oninput="validateJumlahStok(this)">
+                    <input type="number" id="jumlah" min="1" step="1" placeholder="Masukkan Jumlah Barang" oninput="validateJumlahstock(this)">
                 </div>
             </div>
 
@@ -2657,21 +2657,21 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
     </div>
 
     <!-- =========================================================
-         HALAMAN 2: SISA STOK BARANG
+         HALAMAN 2: SISA stock BARANG
     ========================================================= -->
-    <div class="page" id="stokPage">
+    <div class="page" id="stockPage">
         <div class="card">
             <div class="card-title">
                 <span>Stock Barang</span>
-                <div class="badge-total-stok" id="displayTotalStok">
+                <div class="badge-total-stock" id="displayTotalstock">
                     Grand Total Stock <strong>0 Roll</strong>
                 </div>
             </div>
 
             <div class="toolbar">
                 <div class="search-area">
-                    <input type="text" id="searchStok" placeholder="Cari kode barang, nama barang, atau warna" oninput="renderStok()">
-                    <select id="filterKodeStok" onchange="renderStok()" style="max-width: 240px;">
+                    <input type="text" id="searchstock" placeholder="Cari kode barang, nama barang, atau warna" oninput="renderstock()">
+                    <select id="filterKodestock" onchange="renderstock()" style="max-width: 240px;">
                         <option value="">Semua Kode Barang</option>
                     </select>
                 </div>
@@ -2690,7 +2690,7 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                             <th class="text-center">Sisa Stock</th>
                         </tr>
                     </thead>
-                    <tbody id="stokBody"></tbody>
+                    <tbody id="stockBody"></tbody>
                 </table>
             </div>
         </div>
@@ -2972,7 +2972,7 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                     </div>
                     <div class="form-group">
                         <label>Jumlah Barang <span style="font-size:11px; color:var(--text-muted);">(Terkunci)</span></label>
-                        <input type="number" id="editSingleJumlah" readonly style="background: var(--readonly-bg); color: var(--text-muted); cursor: not-allowed;" title="Jumlah dikunci untuk menjaga keamanan stok">
+                        <input type="number" id="editSingleJumlah" readonly style="background: var(--readonly-bg); color: var(--text-muted); cursor: not-allowed;" title="Jumlah dikunci untuk menjaga keamanan stock">
                     </div>
                 </div>
             </div>
@@ -2981,10 +2981,10 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                 <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--primary);">Daftar Barang Keluar</h3>
                
                 <div style="margin-bottom: 16px; background: var(--thead-bg); padding: 14px; border-radius: 12px; border: 1.5px solid var(--border-color);">
-                    <div class="form-group pilih-stok-highlight" style="margin-bottom: 12px;">
+                    <div class="form-group pilih-stock-highlight" style="margin-bottom: 12px;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--primary);">Cari Stock Barang Tersedia</label>
-                        <input type="text" id="editSearchBarangKeluar" list="editListBarangStok" placeholder="Ketik kode, nama, atau warna..." oninput="handleEditBarangKeluarSelect(this.value)">
-                        <datalist id="editListBarangStok"></datalist>
+                        <input type="text" id="editSearchBarangKeluar" list="editListBarangstock" placeholder="Ketik kode, nama, atau warna..." oninput="handleEditBarangKeluarSelect(this.value)">
+                        <datalist id="editListBarangstock"></datalist>
                     </div>
                     <div class="form-grid" style="grid-template-columns: 2fr 2fr 2fr 1fr; gap: 12px; align-items: flex-end;">
                         <div class="form-group">
@@ -3001,7 +3001,7 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
                         </div>
                         <div class="form-group">
                             <label style="font-size: 11px;">Jumlah</label>
-                            <input type="number" id="editInputJumlah" min="1" placeholder="Qty" oninput="validateEditJumlahStok(this)">
+                            <input type="number" id="editInputJumlah" min="1" placeholder="Qty" oninput="validateEditJumlahstock(this)">
                         </div>
                     </div>
                     <div style="margin-top: 12px; text-align: right;">
@@ -3058,20 +3058,20 @@ body.theme-dark .floating-barang-picker .picker-row:focus-visible { background: 
 
 <!-- SCRIPT LOGIC -->
 <script>
-const USERS_KEY = "SISTEM_STOK_USERS_LIST";
-const CURRENT_USER_KEY = "SISTEM_STOK_LOGGED_USER";
-const STORAGE_KEY = "SISTEM_POTONG_STOK_DATA_PERMANEN";
-const PIN_KEY = "SISTEM_STOK_PIN_AKSES";
-const THEME_KEY = "SISTEM_STOK_THEME_MODE";
-const PAGE_KEY = "SISTEM_STOK_LAST_ACTIVE_PAGE";
-const AUTH_STATUS_KEY = "SISTEM_STOK_IS_AUTHORIZED";
+const USERS_KEY = "SISTEM_stock_USERS_LIST";
+const CURRENT_USER_KEY = "SISTEM_stock_LOGGED_USER";
+const STORAGE_KEY = "SISTEM_POTONG_stock_DATA_PERMANEN";
+const PIN_KEY = "SISTEM_stock_PIN_AKSES";
+const THEME_KEY = "SISTEM_stock_THEME_MODE";
+const PAGE_KEY = "SISTEM_stock_LAST_ACTIVE_PAGE";
+const AUTH_STATUS_KEY = "SISTEM_stock_IS_AUTHORIZED";
 const DEFAULT_PIN = "1234";
 
 const OLD_STORAGE_KEYS = [
-    "stok_barang_local_storage_v4",
-    "stok_barang_local_storage_v3",
-    "stok_barang_local_storage_v2",
-    "sistem_potong_stok_v1"
+    "stock_barang_local_storage_v4",
+    "stock_barang_local_storage_v3",
+    "stock_barang_local_storage_v2",
+    "sistem_potong_stock_v1"
 ];
 
 let transaksi = [];
@@ -3597,11 +3597,11 @@ function switchPage(pageId) {
         document.getElementById('tabPenjualanBtn').classList.add('active');
         populateFilterCustomerDropdown();
         renderPenjualan();
-    } else if (pageId === 'stokPage') {
-        document.getElementById('tabStokBtn').classList.add('active');
+    } else if (pageId === 'stockPage') {
+        document.getElementById('tabstockBtn').classList.add('active');
         updateDashboard();
-        populateFilterStokDropdown();
-        renderStok();
+        populateFilterstockDropdown();
+        renderstock();
     } else if (pageId === 'transaksiPage') {
         document.getElementById('tabTransaksiBtn').classList.add('active');
         renderTransaksi();
@@ -3759,8 +3759,8 @@ function updateClock() {
 }
 
 function eksekusiCetakKartuStock() {
-    const mapStok = hitungStokPerBarang();
-    const uniqueKodes = [...new Set(Object.values(mapStok).map(item => item.kode))];
+    const mapstock = hitungstockPerBarang();
+    const uniqueKodes = [...new Set(Object.values(mapstock).map(item => item.kode))];
    
     if (uniqueKodes.length === 0) {
         alert("Tidak ada data stock barang untuk dicetak!");
@@ -4041,7 +4041,7 @@ function updateNoSuratJalanBaris(tanggal, customer, jam, newNoSJ) {
     renderPenjualan();
 }
 
-function hitungStokPerBarang(excludeGroupKey = null, excludeIndex = null) {
+function hitungstockPerBarang(excludeGroupKey = null, excludeIndex = null) {
     const mapNamaUtama = {};
     for (let i = transaksi.length - 1; i >= 0; i--) {
         const item = transaksi[i];
@@ -4056,7 +4056,7 @@ function hitungStokPerBarang(excludeGroupKey = null, excludeIndex = null) {
         }
     }
 
-    const mapStok = {};
+    const mapstock = {};
     transaksi.forEach((item, index) => {
         if (excludeIndex !== null && index === excludeIndex) return;
         if (excludeGroupKey !== null) {
@@ -4067,8 +4067,8 @@ function hitungStokPerBarang(excludeGroupKey = null, excludeIndex = null) {
         const key = getStockKey(item.kode, item.warna);
         const namaBarangSeragam = mapNamaUtama[kodeKey] || (item.nama ? item.nama.toUpperCase() : '');
 
-        if (!mapStok[key]) {
-            mapStok[key] = {
+        if (!mapstock[key]) {
+            mapstock[key] = {
                 kode: normalizeKode(item.kode),
                 nama: namaBarangSeragam,
                 warna: normalizeWarna(item.warna),
@@ -4078,16 +4078,16 @@ function hitungStokPerBarang(excludeGroupKey = null, excludeIndex = null) {
             };
         }
         const qty = parseInt(item.jumlah) || 0;
-        if (item.jenis === 'masuk') mapStok[key].masuk += qty;
-        else if (item.jenis === 'keluar') mapStok[key].keluar += qty;
-        mapStok[key].sisa = mapStok[key].masuk - mapStok[key].keluar;
+        if (item.jenis === 'masuk') mapstock[key].masuk += qty;
+        else if (item.jenis === 'keluar') mapstock[key].keluar += qty;
+        mapstock[key].sisa = mapstock[key].masuk - mapstock[key].keluar;
     });
 
     if (keranjangBelanja.length > 0) {
         keranjangBelanja.forEach(kItem => {
             const key = getStockKey(kItem.kode, kItem.warna);
-            if (mapStok[key]) {
-                mapStok[key].sisa -= kItem.jumlah;
+            if (mapstock[key]) {
+                mapstock[key].sisa -= kItem.jumlah;
             }
         });
     }
@@ -4095,13 +4095,13 @@ function hitungStokPerBarang(excludeGroupKey = null, excludeIndex = null) {
     if (editGroupKey !== null && editKeranjangTemp.length > 0) {
         editKeranjangTemp.forEach(kItem => {
             const key = getStockKey(kItem.kode, kItem.warna);
-            if (mapStok[key]) {
-                mapStok[key].sisa -= kItem.jumlah;
+            if (mapstock[key]) {
+                mapstock[key].sisa -= kItem.jumlah;
             }
         });
     }
 
-    return mapStok;
+    return mapstock;
 }
 
 function updateDashboard() {
@@ -4113,7 +4113,7 @@ function updateDashboard() {
     });
 
     const totalSisa = tMasuk - tKeluar;
-    const displayElement = document.getElementById('displayTotalStok');
+    const displayElement = document.getElementById('displayTotalstock');
 
     if (displayElement) {
         displayElement.innerHTML = `Grand Total Stock <strong>${formatAngka(totalSisa)} Roll</strong>`;
@@ -4125,8 +4125,8 @@ function handleJenisChange() {
     const containerCustomer = document.getElementById('containerCustomer');
     const containerBtnTambahItem = document.getElementById('containerBtnTambahItem');
     const containerKeranjang = document.getElementById('containerKeranjang');
-    const labelPilihStok = document.getElementById('labelPilihStok');
-    const helpPilihStok = document.getElementById('helpPilihStok');
+    const labelPilihstock = document.getElementById('labelPilihstock');
+    const helpPilihstock = document.getElementById('helpPilihstock');
     const searchInput = document.getElementById('searchBarangKeluar');
     const inputKode = document.getElementById('kode');
     const inputNama = document.getElementById('nama');
@@ -4140,20 +4140,20 @@ function handleJenisChange() {
         containerCustomer.style.display = 'flex';
         containerBtnTambahItem.style.display = 'flex';
         containerKeranjang.style.display = 'block';
-        labelPilihStok.textContent = 'Cari Stock Barang Tersedia';
-        helpPilihStok.textContent = 'Pilih barang untuk dimasukkan ke keranjang pembelian';
+        labelPilihstock.textContent = 'Cari Stock Barang Tersedia';
+        helpPilihstock.textContent = 'Pilih barang untuk dimasukkan ke keranjang pembelian';
         inputKode.readOnly = true;
         inputNama.readOnly = true;
         inputWarna.readOnly = true;
-        populateDatalistStok();
+        populateDataliststock();
         renderKeranjang();
     } else {
         containerCustomer.style.display = 'none';
         containerBtnTambahItem.style.display = 'none';
         containerKeranjang.style.display = 'none';
         keranjangBelanja = [];
-        labelPilihStok.textContent = 'Barang Sudah Terinput (Opsional)';
-        helpPilihStok.textContent = 'Pilih barang yang sudah terinput.';
+        labelPilihstock.textContent = 'Barang Sudah Terinput (Opsional)';
+        helpPilihstock.textContent = 'Pilih barang yang sudah terinput.';
         inputKode.readOnly = false;
         inputNama.readOnly = false;
         inputWarna.readOnly = false;
@@ -4172,8 +4172,8 @@ let floatingBarangItems = [];
 
 function daftarPilihanBarang() {
     const jenis = document.getElementById('jenis')?.value || 'masuk';
-    const mapStok = hitungStokPerBarang();
-    return Object.values(mapStok).sort((a, b) =>
+    const mapstock = hitungstockPerBarang();
+    return Object.values(mapstock).sort((a, b) =>
         (a.kode || '').localeCompare(b.kode || '', 'id', { sensitivity: 'base' }) ||
         (a.warna || '').localeCompare(b.warna || '', 'id', { sensitivity: 'base' })
     ).filter(item => {
@@ -4219,7 +4219,7 @@ function renderPilihanBarang(query) {
     popup.innerHTML = '';
     const heading = document.createElement('div');
     heading.className = 'picker-heading';
-    heading.innerHTML = '<span>KODE</span><span>NAMA BARANG</span><span>WARNA</span><span>STOK</span>';
+    heading.innerHTML = '<span>KODE</span><span>NAMA BARANG</span><span>WARNA</span><span>stock</span>';
     popup.appendChild(heading);
     if (!found.length) {
         const empty = document.createElement('div');
@@ -4236,8 +4236,8 @@ function renderPilihanBarang(query) {
             const kode = document.createElement('span'); kode.className = 'picker-code'; kode.textContent = item.kode || '-';
             const nama = document.createElement('span'); nama.className = 'picker-name'; nama.textContent = item.nama || '-';
             const warna = document.createElement('span'); warna.className = 'picker-color'; warna.textContent = item.warna || '-';
-            const stok = document.createElement('span'); stok.className = 'picker-stock'; stok.textContent = document.getElementById('jenis').value === 'keluar' ? formatAngka(item.sisa) : '—';
-            row.append(kode, nama, warna, stok);
+            const stock = document.createElement('span'); stock.className = 'picker-stock'; stock.textContent = document.getElementById('jenis').value === 'keluar' ? formatAngka(item.sisa) : '—';
+            row.append(kode, nama, warna, stock);
             row.addEventListener('mousedown', e => e.preventDefault());
             row.addEventListener('click', () => pilihBarangDariTabel(item));
             popup.appendChild(row);
@@ -4287,23 +4287,23 @@ function navigasiPilihanBarang(event) {
 }
 
 document.addEventListener('click', function(event) {
-    const wrapper = document.getElementById('containerPilihStok');
+    const wrapper = document.getElementById('containerPilihstock');
     if (wrapper && !wrapper.contains(event.target)) tutupPilihanBarang();
 });
 
-function populateDatalistStok() {
-    const list = document.getElementById('listBarangStok');
+function populateDataliststock() {
+    const list = document.getElementById('listBarangstock');
     if (!list) return;
     list.innerHTML = '';
-    const mapStok = hitungStokPerBarang();
+    const mapstock = hitungstockPerBarang();
 
-    const sortedStok = Object.values(mapStok).sort((a, b) => {
+    const sortedstock = Object.values(mapstock).sort((a, b) => {
         let compKode = (a.kode || "").localeCompare(b.kode || "", 'id', { sensitivity: 'base' });
         if (compKode !== 0) return compKode;
         return (a.warna || "").localeCompare(b.warna || "", 'id', { sensitivity: 'base' });
     });
 
-    sortedStok.forEach(item => {
+    sortedstock.forEach(item => {
         const isAlreadyInCart = keranjangBelanja.some(k => getStockKey(k.kode, k.warna) === getStockKey(item.kode, item.warna));
         if (item.sisa > 0 && !isAlreadyInCart) {
             const option = document.createElement('option');
@@ -4314,18 +4314,18 @@ function populateDatalistStok() {
 }
 
 function populateDatalistBarangMasuk() {
-    const list = document.getElementById('listBarangStok');
+    const list = document.getElementById('listBarangstock');
     if (!list) return;
     list.innerHTML = '';
-    const mapStok = hitungStokPerBarang();
+    const mapstock = hitungstockPerBarang();
 
-    const sortedStok = Object.values(mapStok).sort((a, b) => {
+    const sortedstock = Object.values(mapstock).sort((a, b) => {
         let compKode = (a.kode || "").localeCompare(b.kode || "", 'id', { sensitivity: 'base' });
         if (compKode !== 0) return compKode;
         return (a.warna || "").localeCompare(b.warna || "", 'id', { sensitivity: 'base' });
     });
 
-    sortedStok.forEach(item => {
+    sortedstock.forEach(item => {
         const option = document.createElement('option');
         option.value = `${item.kode} - ${item.nama} (${item.warna})`;
         list.appendChild(option);
@@ -4357,10 +4357,10 @@ function handleBarangKeluarSelect(selectedVal) {
         return;
     }
 
-    const mapStok = hitungStokPerBarang();
+    const mapstock = hitungstockPerBarang();
 
     if (jenis === 'keluar') {
-        const barangFound = Object.values(mapStok).find(item => {
+        const barangFound = Object.values(mapstock).find(item => {
             const fullString = `${item.kode} - ${item.nama} (${item.warna}) [Sisa: ${item.sisa}]`;
             const isAlreadyInCart = keranjangBelanja.some(k => getStockKey(k.kode, k.warna) === getStockKey(item.kode, item.warna));
             return item.sisa > 0 && !isAlreadyInCart && (fullString === selectedVal || item.kode === selectedVal);
@@ -4383,7 +4383,7 @@ function handleBarangKeluarSelect(selectedVal) {
             }
         }
     } else {
-        const barangFound = Object.values(mapStok).find(item => {
+        const barangFound = Object.values(mapstock).find(item => {
             const fullString = `${item.kode} - ${item.nama} (${item.warna})`;
             return fullString === selectedVal || item.kode === selectedVal;
         });
@@ -4399,7 +4399,7 @@ function handleBarangKeluarSelect(selectedVal) {
     }
 }
 
-function validateJumlahStok(inputElem) {
+function validateJumlahstock(inputElem) {
     const jenis = document.getElementById('jenis').value;
     if (jenis !== 'keluar') return;
 
@@ -4407,7 +4407,7 @@ function validateJumlahStok(inputElem) {
     const val = parseInt(inputElem.value);
 
     if (maxVal && val > maxVal) {
-        alert(`Jumlah barang tidak bisa melebihi sisa stok yang tersedia!\nSisa stok maksimum: ${maxVal}`);
+        alert(`Jumlah barang tidak bisa melebihi sisa stock yang tersedia!\nSisa stock maksimum: ${maxVal}`);
         inputElem.value = maxVal;
     }
 }
@@ -4423,9 +4423,9 @@ function tambahItemKeKeranjang() {
         return;
     }
 
-    const mapStok = hitungStokPerBarang();
+    const mapstock = hitungstockPerBarang();
     const key = getStockKey(kode, warna);
-    const stokTersedia = mapStok[key] ? mapStok[key].sisa : 0;
+    const stockTersedia = mapstock[key] ? mapstock[key].sisa : 0;
 
     const existingIndex = keranjangBelanja.findIndex(item => getStockKey(item.kode, item.warna) === key);
     let totalQtyDiKeranjang = jumlah;
@@ -4433,8 +4433,8 @@ function tambahItemKeKeranjang() {
         totalQtyDiKeranjang += keranjangBelanja[existingIndex].jumlah;
     }
 
-    if (totalQtyDiKeranjang > stokTersedia) {
-        alert(`Jumlah total di keranjang melebihi sisa stok (${stokTersedia})!`);
+    if (totalQtyDiKeranjang > stockTersedia) {
+        alert(`Jumlah total di keranjang melebihi sisa stock (${stockTersedia})!`);
         return;
     }
 
@@ -4458,7 +4458,7 @@ function tambahItemKeKeranjang() {
     document.getElementById('jumlah').removeAttribute('max');
     document.getElementById('searchBarangKeluar').focus();
 
-    populateDatalistStok();
+    populateDataliststock();
     renderKeranjang();
 }
 
@@ -4478,7 +4478,7 @@ function renderKeranjang() {
             <td><strong>${escapeHTML(item.kode)}</strong></td>
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
-            <td class="text-center"><span class="stok-box">${formatAngka(item.jumlah)} Roll</span></td>
+            <td class="text-center"><span class="stock-box">${formatAngka(item.jumlah)} Roll</span></td>
             <td class="text-center"><button class="btn-delete" style="padding: 5px 10px; font-size:11px;" onclick="hapusItemKeranjang(${index})">Delete</button></td>
         `;
         tbody.appendChild(tr);
@@ -4488,7 +4488,7 @@ function renderKeranjang() {
 function hapusItemKeranjang(index) {
     keranjangBelanja.splice(index, 1);
     renderKeranjang();
-    populateDatalistStok();
+    populateDataliststock();
     showCustomPopup('danger', 'Item Dihapus');
 }
 
@@ -4588,7 +4588,7 @@ function resetFormInput() {
     if (jenis === 'keluar') {
         keranjangBelanja = [];
         renderKeranjang();
-        populateDatalistStok();
+        populateDataliststock();
     }
 }
 
@@ -4614,14 +4614,14 @@ function populateFilterCustomerDropdown() {
     select.value = currentVal;
 }
 
-function populateFilterStokDropdown() {
-    const select = document.getElementById('filterKodeStok');
+function populateFilterstockDropdown() {
+    const select = document.getElementById('filterKodestock');
     if (!select) return;
     const currentVal = select.value;
     select.innerHTML = '<option value="">Semua Kode Barang</option>';
    
-    const mapStok = hitungStokPerBarang();
-    const kodes = [...new Set(Object.values(mapStok).map(i => i.kode))];
+    const mapstock = hitungstockPerBarang();
+    const kodes = [...new Set(Object.values(mapstock).map(i => i.kode))];
     kodes.sort((a, b) => a.localeCompare(b, 'id', { sensitivity: 'base' }));
 
     kodes.forEach(kd => {
@@ -4767,16 +4767,16 @@ function renderPenjualan() {
     });
 }
 
-function renderStok() {
-    const tbody = document.getElementById('stokBody');
+function renderstock() {
+    const tbody = document.getElementById('stockBody');
     if (!tbody) return;
-    const query = (document.getElementById('searchStok').value || '').toLowerCase().trim();
-    const selectedKode = document.getElementById('filterKodeStok').value.toLowerCase().trim();
-    const mapStok = hitungStokPerBarang();
+    const query = (document.getElementById('searchstock').value || '').toLowerCase().trim();
+    const selectedKode = document.getElementById('filterKodestock').value.toLowerCase().trim();
+    const mapstock = hitungstockPerBarang();
 
     tbody.innerHTML = '';
    
-    const listStok = Object.values(mapStok)
+    const liststock = Object.values(mapstock)
         .filter(item => {
             if (selectedKode && item.kode.toLowerCase() !== selectedKode) {
                 return false;
@@ -4803,11 +4803,11 @@ function renderStok() {
         });
 
     let totalFilteredSisa = 0;
-    listStok.forEach(item => {
+    liststock.forEach(item => {
         totalFilteredSisa += item.sisa;
     });
 
-    const displayElement = document.getElementById('displayTotalStok');
+    const displayElement = document.getElementById('displayTotalstock');
     if (displayElement) {
         let labelKeterangan = "Grand Total Stock All Goods →";
         if (selectedKode) {
@@ -4818,23 +4818,23 @@ function renderStok() {
         displayElement.innerHTML =`${labelKeterangan}<strong>${formatAngka(totalFilteredSisa)} Roll</strong>`;
     }
 
-    if (listStok.length === 0) {
+    if (liststock.length === 0) {
         tbody.innerHTML = `<tr><td colspan="4" class="empty"><strong>Tidak ada data stock barang.</strong></td></tr>`;
         return;
     }
 
-    listStok.forEach(item => {
+    liststock.forEach(item => {
         const tr = document.createElement('tr');
         const sisaValue = formatAngka(item.sisa);
-        const sisaStokHtml = item.sisa <= 0
-            ? `<span class="stok-habis-box">0</span>`
-            : `<span class="stok-box">${sisaValue}</span>`;
+        const sisastockHtml = item.sisa <= 0
+            ? `<span class="stock-habis-box">0</span>`
+            : `<span class="stock-box">${sisaValue}</span>`;
 
         tr.innerHTML = `
             <td><strong>${escapeHTML(item.kode)}</strong></td>
             <td>${escapeHTML(item.nama)}</td>
             <td>${escapeHTML(item.warna)}</td>
-            <td class="text-center">${sisaStokHtml}</td>
+            <td class="text-center">${sisastockHtml}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -5111,24 +5111,24 @@ function bukaEditGroup(groupKey) {
     document.getElementById('editInputJumlah').removeAttribute('max');
 
     renderEditKeranjang();
-    populateEditDatalistStok();
+    populateEditDataliststock();
 
     document.getElementById('editModal').classList.add('active');
 }
 
-function populateEditDatalistStok() {
-    const list = document.getElementById('editListBarangStok');
+function populateEditDataliststock() {
+    const list = document.getElementById('editListBarangstock');
     if (!list) return;
     list.innerHTML = '';
-    const mapStok = hitungStokPerBarang(editGroupKey);
+    const mapstock = hitungstockPerBarang(editGroupKey);
 
-    const sortedStok = Object.values(mapStok).sort((a, b) => {
+    const sortedstock = Object.values(mapstock).sort((a, b) => {
         let compKode = (a.kode || "").localeCompare(b.kode || "", 'id', { sensitivity: 'base' });
         if (compKode !== 0) return compKode;
         return (a.warna || "").localeCompare(b.warna || "", 'id', { sensitivity: 'base' });
     });
 
-    sortedStok.forEach(item => {
+    sortedstock.forEach(item => {
         const isAlreadyInCart = editKeranjangTemp.some(k => getStockKey(k.kode, k.warna) === getStockKey(item.kode, item.warna));
         if (item.sisa > 0 && !isAlreadyInCart) {
             const option = document.createElement('option');
@@ -5154,8 +5154,8 @@ function handleEditBarangKeluarSelect(selectedVal) {
         return;
     }
 
-    const mapStok = hitungStokPerBarang(editGroupKey);
-    const barangFound = Object.values(mapStok).find(item => {
+    const mapstock = hitungstockPerBarang(editGroupKey);
+    const barangFound = Object.values(mapstock).find(item => {
         const fullString = `${item.kode} - ${item.nama} (${item.warna}) [Sisa: ${item.sisa}]`;
         const simpleString = `${item.kode} - ${item.nama} (${item.warna})`;
         const isAlreadyInCart = editKeranjangTemp.some(k => getStockKey(k.kode, k.warna) === getStockKey(item.kode, item.warna));
@@ -5177,12 +5177,12 @@ function handleEditBarangKeluarSelect(selectedVal) {
     }
 }
 
-function validateEditJumlahStok(inputElem) {
+function validateEditJumlahstock(inputElem) {
     const maxVal = parseInt(inputElem.getAttribute('max'));
     const val = parseInt(inputElem.value);
 
     if (maxVal && val > maxVal) {
-        alert(`Jumlah barang tidak bisa melebihi sisa stok yang tersedia!\nSisa stok maksimum: ${maxVal}`);
+        alert(`Jumlah barang tidak bisa melebihi sisa stock yang tersedia!\nSisa stock maksimum: ${maxVal}`);
         inputElem.value = maxVal;
     }
 }
@@ -5198,21 +5198,21 @@ function tambahItemEditKeranjangBaru() {
         return;
     }
 
-    const mapStok = hitungStokPerBarang(editGroupKey);
+    const mapstock = hitungstockPerBarang(editGroupKey);
     const key = getStockKey(kode, warna);
-    let stokTersedia = mapStok[key] ? mapStok[key].sisa : 0;
+    let stockTersedia = mapstock[key] ? mapstock[key].sisa : 0;
 
     const existingIndex = editKeranjangTemp.findIndex(item => getStockKey(item.kode, item.warna) === key);
     let totalQtyDiKeranjang = jumlah;
     if (existingIndex !== -1) {
         totalQtyDiKeranjang += editKeranjangTemp[existingIndex].jumlah;
         if (editKeranjangTemp[existingIndex].originalIndex !== null && transaksi[editKeranjangTemp[existingIndex].originalIndex]) {
-            stokTersedia += parseInt(transaksi[editKeranjangTemp[existingIndex].originalIndex].jumlah) || 0;
+            stockTersedia += parseInt(transaksi[editKeranjangTemp[existingIndex].originalIndex].jumlah) || 0;
         }
     }
 
-    if (totalQtyDiKeranjang > stokTersedia) {
-        alert(`Jumlah total di keranjang melebihi sisa stok (${stokTersedia})!`);
+    if (totalQtyDiKeranjang > stockTersedia) {
+        alert(`Jumlah total di keranjang melebihi sisa stock (${stockTersedia})!`);
         return;
     }
 
@@ -5240,7 +5240,7 @@ function tambahItemEditKeranjangBaru() {
     if (document.getElementById('editSearchBarangKeluar')) document.getElementById('editSearchBarangKeluar').focus();
 
     renderEditKeranjang();
-    populateEditDatalistStok();
+    populateEditDataliststock();
 }
 
 function renderEditKeranjang() {
@@ -5274,16 +5274,16 @@ function updateEditJumlahItem(idx, val) {
     }
 
     const item = editKeranjangTemp[idx];
-    const mapStok = hitungStokPerBarang(editGroupKey);
+    const mapstock = hitungstockPerBarang(editGroupKey);
     const key = getStockKey(item.kode, item.warna);
    
-    let stokTersedia = mapStok[key] ? mapStok[key].sisa : 0;
+    let stockTersedia = mapstock[key] ? mapstock[key].sisa : 0;
     if (item.originalIndex !== null && transaksi[item.originalIndex]) {
-        stokTersedia += parseInt(transaksi[item.originalIndex].jumlah) || 0;
+        stockTersedia += parseInt(transaksi[item.originalIndex].jumlah) || 0;
     }
 
-    if (qty > stokTersedia) {
-        alert(`Jumlah melebihi sisa stok yang tersedia (${stokTersedia})!`);
+    if (qty > stockTersedia) {
+        alert(`Jumlah melebihi sisa stock yang tersedia (${stockTersedia})!`);
         renderEditKeranjang();
         return;
     }
@@ -5298,7 +5298,7 @@ function hapusEditKeranjangItem(idx) {
     }
     editKeranjangTemp.splice(idx, 1);
     renderEditKeranjang();
-    populateEditDatalistStok();
+    populateEditDataliststock();
     showCustomPopup('danger', 'Item Dihapus');
 }
 
@@ -5448,15 +5448,15 @@ function eksekusiHapusDenganPin() {
             const itemDihapus = transaksi[deleteTargetIndex];
             if (itemDihapus && itemDihapus.jenis === 'masuk') {
                 const tempTransaksis = transaksi.filter((_, idx) => idx !== deleteTargetIndex);
-                const testMapStok = {};
+                const testMapstock = {};
                 tempTransaksis.forEach(t => {
                     const key = getStockKey(t.kode, t.warna);
-                    if (!testMapStok[key]) testMapStok[key] = { masuk: 0, keluar: 0 };
-                    if (t.jenis === 'masuk') testMapStok[key].masuk += parseInt(t.jumlah) || 0;
-                    if (t.jenis === 'keluar') testMapStok[key].keluar += parseInt(t.jumlah) || 0;
+                    if (!testMapstock[key]) testMapstock[key] = { masuk: 0, keluar: 0 };
+                    if (t.jenis === 'masuk') testMapstock[key].masuk += parseInt(t.jumlah) || 0;
+                    if (t.jenis === 'keluar') testMapstock[key].keluar += parseInt(t.jumlah) || 0;
                 });
-                for (let k in testMapStok) {
-                    if (testMapStok[k].masuk < testMapStok[k].keluar) {
+                for (let k in testMapstock) {
+                    if (testMapstock[k].masuk < testMapstock[k].keluar) {
                         alert("Tidak dapat menghapus barang masuk ini karena jumlahnya sedang digunakan oleh transaksi barang keluar!");
                         return;
                     }
@@ -5550,7 +5550,7 @@ function exportExcel() {
 
     const worksheet = XLSX.utils.json_to_sheet(dataExcel);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Riwayat Stok");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Riwayat stock");
    
     let filenameSuffix = "Semua_Transaksi";
     if (filterJenis === 'masuk') filenameSuffix = "Barang_Masuk";
@@ -5612,7 +5612,7 @@ function backupJSON() {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(transaksi, null, 2));
     const dl = document.createElement('a');
     dl.setAttribute("href", dataStr);
-    dl.setAttribute("download", `backup_stok_${new Date().toISOString().slice(0, 10)}.json`);
+    dl.setAttribute("download", `backup_stock_${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(dl);
     dl.click();
     dl.remove();
@@ -5621,14 +5621,14 @@ function backupJSON() {
 function updateApp() {
     updateDashboard();
     populateFilterCustomerDropdown();
-    populateFilterStokDropdown();
+    populateFilterstockDropdown();
     if (document.getElementById('penjualanPage').classList.contains('active')) renderPenjualan();
-    if (document.getElementById('stokPage').classList.contains('active')) renderStok();
+    if (document.getElementById('stockPage').classList.contains('active')) renderstock();
     if (document.getElementById('transaksiPage').classList.contains('active')) renderTransaksi();
    
     const jenis = document.getElementById('jenis') ? document.getElementById('jenis').value : 'masuk';
     if (jenis === 'keluar') {
-        populateDatalistStok();
+        populateDataliststock();
         renderKeranjang();
     } else {
         populateDatalistBarangMasuk();
@@ -5681,7 +5681,7 @@ function initDraggableTabs() {
 }
 
 function initResizableReportTables() {
-    const pageSelectors = ['#penjualanPage', '#stokPage', '#transaksiPage'];
+    const pageSelectors = ['#penjualanPage', '#stockPage', '#transaksiPage'];
 
     pageSelectors.forEach(selector => {
         const page = document.querySelector(selector);
@@ -5763,7 +5763,7 @@ function initResizableReportTables() {
 function observeResizableReportTables() {
     initResizableReportTables();
     const observer = new MutationObserver(() => initResizableReportTables());
-    ['penjualanPage', 'stokPage', 'transaksiPage'].forEach(id => {
+    ['penjualanPage', 'stockPage', 'transaksiPage'].forEach(id => {
         const page = document.getElementById(id);
         if (page) observer.observe(page, { childList: true, subtree: true });
     });
