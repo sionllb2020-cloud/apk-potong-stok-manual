@@ -3764,8 +3764,12 @@ hr, .divider { border-color: var(--border-color); }
                 </div>
 
                 <div class="form-group" id="containerAlamatCustomer" style="display:none;">
-                    <label>Alamat Customer</label>
-                    <input type="text" id="alamatCustomer" placeholder="Masukkan Alamat Customer" autocomplete="off">
+                    <label for="alamatCustomer">Alamat Customer</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="text" id="alamatCustomer" placeholder="Klik untuk isi Alamat & No Telp" autocomplete="off" readonly style="cursor: pointer; padding-right: 40px; background: var(--input-bg); font-weight: 600;" onclick="bukaModalAlamatCustomer('form')" title="Klik untuk membuka form input alamat dan nomor telepon/HP">
+                        <button type="button" onclick="bukaModalAlamatCustomer('form')" style="position: absolute; right: 8px; background: transparent; border: none; padding: 6px; cursor: pointer; font-size: 16px; color: var(--primary); min-height: auto; box-shadow: none; transform: none;" title="Buka Form Input Alamat">🏠︎</button>
+                    </div>
+                    <div class="form-help" style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Klik kolom untuk mengisi Alamat Lengkap & No Telepon/HP</div>
                 </div>
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
@@ -4034,6 +4038,55 @@ hr, .divider { border-color: var(--border-color); }
 </div>
 
 <!-- MODAL INPUT / EDIT YARD PER PC -->
+<!-- MODAL INPUT ALAMAT CUSTOMER -->
+<div class="modal" id="modalAlamatCustomer" role="dialog" aria-modal="true" aria-labelledby="modalAlamatTitle">
+    <div class="modal-box" style="max-width: 540px;">
+        <div class="modal-header" style="background: var(--primary);">
+            <h2 id="modalAlamatTitle" style="font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                <span></span> Form Input Alamat Customer
+            </h2>
+            <button type="button" class="close-modal" onclick="tutupModalAlamatCustomer()" aria-label="Tutup">⛌</button>
+        </div>
+        <div class="modal-body" style="padding: 22px;">
+            <div id="modalAlamatCustomerBadge" style="background: var(--thead-bg); padding: 11px 15px; border-radius: 10px; margin-bottom: 18px; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Customer:</span>
+                <strong id="modalAlamatCustNameText" style="font-size: 14px; font-weight: 800; color: var(--primary);">-</strong>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label for="inputModalAlamatLengkap" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Alamat Lengkap</span>
+                    <span style="font-size: 11px; text-transform: none; color: var(--text-muted); font-weight: normal;">Jalan, No, RT/RW, Kel/Kec, Kota</span>
+                </label>
+                <textarea id="inputModalAlamatLengkap" rows="3" placeholder="Masukkan alamat lengkap customer." style="width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 13px; background: var(--input-bg); color: var(--text-dark); line-height: 1.5; resize: vertical; min-height: 85px; font-family: inherit;" oninput="deteksiAutoNoTelp(this.value); updatePreviewAlamatModal();"></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 14px;">
+                <label for="inputModalNoTelepon" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>No Telepon / HP</span>
+                    <span style="font-size: 11px; text-transform: none; color: var(--text-muted); font-weight: normal;">WhatsApp / Telp Aktif</span>
+                </label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <span style="position: absolute; left: 14px; font-size: 14px; color: var(--text-muted); pointer-events: none;">☏</span>
+                    <input type="text" id="inputModalNoTelepon" placeholder="Isi No Telepon / HP dengan lengkap dan benar." autocomplete="tel" style="width: 100%; padding: 12px 14px 12px 38px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 13px; background: var(--input-bg); color: var(--text-dark); font-weight: 600;" oninput="updatePreviewAlamatModal()">
+                </div>
+                <div class="form-help" style="font-size: 11px; margin-top: 5px; color: var(--text-muted);">
+                    Tolong isi alamat lengkap dan no telepon/hp yang lengkap.
+                </div>
+            </div>
+
+            <div id="previewAlamatBox" style="display: none; padding: 12px 14px; background: var(--primary-light); border-radius: 10px; border: 1.5px solid var(--primary); margin-top: 14px;">
+                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary-dark); margin-bottom: 4px;">Pratinjau Alamat di Surat Jalan & Laporan:</div>
+                <div id="previewAlamatText" style="font-size: 12px; font-weight: 700; color: var(--text-dark); word-break: break-word;">-</div>
+            </div>
+        </div>
+        <div class="modal-footer" style="padding: 14px 22px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn-reset" onclick="tutupModalAlamatCustomer()" style="min-width: 100px;">BATAL</button>
+            <button type="button" class="btn-save" onclick="simpanModalAlamatCustomer()" style="min-width: 140px; background: var(--primary);">SIMPAN ALAMAT</button>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="yardModal">
     <div class="modal-box" style="max-width: 520px;">
         <div class="modal-header" style="background: #0284c7;">
@@ -4200,8 +4253,11 @@ hr, .divider { border-color: var(--border-color); }
                     <input type="text" id="editCustomer" placeholder="-" oninput="this.value = this.value.toUpperCase()">
                 </div>
                 <div class="form-group">
-                    <label>Alamat Customer</label>
-                    <input type="text" id="editAlamatCustomer" placeholder="-">
+                    <label for="editAlamatCustomer">Alamat Customer</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="text" id="editAlamatCustomer" placeholder="Klik untuk isi Alamat & No Telp" readonly style="cursor: pointer; padding-right: 40px; background: var(--input-bg); font-weight: 600;" onclick="bukaModalAlamatCustomer('editModal')" title="Klik untuk membuka form input alamat dan nomor telepon/HP">
+                        <button type="button" onclick="bukaModalAlamatCustomer('editModal')" style="position: absolute; right: 8px; background: transparent; border: none; padding: 6px; cursor: pointer; font-size: 16px; color: var(--primary); min-height: auto; box-shadow: none; transform: none;" title="Buka Form Input Alamat">🏠︎</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>No Surat Jalan</label>
@@ -6123,7 +6179,10 @@ function renderPenjualan() {
            <td style="text-align: center; vertical-align: middle;">${escapeHTML(formatTanggalIndonesia(group.tanggal))}</td>
            <td style="text-align: center; vertical-align: middle;">
                <div style="font-weight: 800; font-size: 13px; margin-bottom: 4px;">${escapeHTML(group.customer)}</div>
-               <input type="text" class="input-alamat" value="${currentAlamat}" placeholder="Isi Alamat Customer" style="display: block; margin: 0 auto; padding: 6px 10px; font-size: 11px; width: 90%; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--input-bg); color: var(--text-dark); text-align: center;" onchange="updateAlamatCustomerBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)" title="Ketik untuk mengubah alamat customer">
+               <div style="position: relative; width: 92%; margin: 0 auto; display: flex; align-items: center;">
+                   <input type="text" class="input-alamat" value="${currentAlamat}" placeholder="Isi Alamat & Telp..." readonly style="display: block; width: 100%; padding: 6px 26px 6px 8px; font-size: 11px; font-weight: 700; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--input-bg); color: var(--text-dark); text-align: center; cursor: pointer; text-overflow: ellipsis;" onclick="bukaModalAlamatCustomer('penjualan', '${safeTanggal}', '${safeCustomer}', '${safeJam}')" title="Klik untuk membuka form input Alamat Lengkap & No Telepon/HP">
+                   <span style="position: absolute; right: 7px; font-size: 13px; color: var(--primary); pointer-events: none;" title="Buka Form Input Alamat">🏠︎</span>
+               </div>
            </td>
            <td style="text-align: center; vertical-align: middle;">
                <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="display: block; margin: 0 auto; padding: 7px 12px; font-size: 13px; width: 85%; border: 1.5px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark); font-weight: bold; text-align: center;" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
@@ -6955,6 +7014,175 @@ function updateAlamatCustomerBaris(tanggal, customer, jam, newAlamat) {
     saveData();
     renderPenjualan();
 }
+
+
+/* =========================================================
+   SISTEM MANAJEMEN ALAMAT CUSTOMER (ALAMAT LENGKAP & NO TELP/HP)
+========================================================= */
+let currentAlamatTarget = null; // Menyimpan konteks: { source: 'form'|'penjualan'|'editModal', tanggal, customer, jam }
+
+function pisahAlamatDanTelepon(str) {
+    if (!str || str === '-') return { alamat: '', telepon: '' };
+    str = String(str).trim();
+
+    // 1. Pola dengan label: "(Telp: 0812...)", " - Telp: 0812...", " | Telp: 0812...", "(HP: ...)", "WA: ..."
+    const regexTelp = /(?:[\(|\/|\,|\-|\;]?\s*(?:Telp|HP|Telepon|No\.?\s*Telp|No\.?\s*HP|WA|WhatsApp)[:\s-]+([0-9+\s\-()]{7,25})\)?)/i;
+    const match = str.match(regexTelp);
+    if (match) {
+        const telepon = match[1].replace(/[\(\)]/g, '').trim();
+        let alamat = str.replace(match[0], '').trim();
+        alamat = alamat.replace(/[\(\)\|\,\-\;]+$/, '').trim();
+        return { alamat, telepon };
+    }
+
+    // 2. Pola nomor telepon di kurung paling akhir, misal: "... (08123456789)"
+    const regexKurung = /\(\s*([0-9+\s\-]{8,20})\s*\)$/;
+    const matchKurung = str.match(regexKurung);
+    if (matchKurung) {
+        const telepon = matchKurung[1].trim();
+        let alamat = str.replace(regexKurung, '').trim();
+        alamat = alamat.replace(/[\(\)\|\,\-\;]+$/, '').trim();
+        return { alamat, telepon };
+    }
+
+    // 3. Pola jika di ujung string terdapat nomor HP diawali 08, +62, atau 021
+    const regexUjung = /[\,\-\|]?\s*((?:08|\+62|021)[0-9\-\s]{6,16})\s*$/i;
+    const matchUjung = str.match(regexUjung);
+    if (matchUjung) {
+        const telepon = matchUjung[1].trim();
+        let alamat = str.substring(0, matchUjung.index).replace(/[\(\)\|\,\-\;]+$/, '').trim();
+        return { alamat, telepon };
+    }
+
+    return { alamat: str, telepon: '' };
+}
+
+function gabungAlamatDanTelepon(alamat, telepon) {
+    alamat = String(alamat || '').trim();
+    telepon = String(telepon || '').trim();
+    if (alamat && telepon) {
+        return `${alamat} (Telp: ${telepon})`;
+    } else if (alamat) {
+        return alamat;
+    } else if (telepon) {
+        return `Telp: ${telepon}`;
+    }
+    return '';
+}
+
+function deteksiAutoNoTelp(val) {
+    if (!val) return;
+    const inputTelp = document.getElementById('inputModalNoTelepon');
+    if (!inputTelp || inputTelp.value.trim() !== '') return;
+
+    const parsed = pisahAlamatDanTelepon(val);
+    if (parsed.telepon) {
+        inputTelp.value = parsed.telepon;
+        document.getElementById('inputModalAlamatLengkap').value = parsed.alamat;
+    }
+}
+
+function updatePreviewAlamatModal() {
+    const alamat = document.getElementById('inputModalAlamatLengkap').value;
+    const telp = document.getElementById('inputModalNoTelepon').value;
+    const previewBox = document.getElementById('previewAlamatBox');
+    const previewText = document.getElementById('previewAlamatText');
+
+    const gabungan = gabungAlamatDanTelepon(alamat, telp);
+    if (gabungan) {
+        previewBox.style.display = 'block';
+        previewText.textContent = gabungan;
+    } else {
+        previewBox.style.display = 'none';
+        previewText.textContent = '-';
+    }
+}
+
+function bukaModalAlamatCustomer(source, tanggal, customer, jam) {
+    currentAlamatTarget = { source, tanggal, customer, jam };
+
+    let currentVal = '';
+    let customerName = '-';
+
+    if (source === 'form') {
+        const custInput = document.getElementById('customer');
+        customerName = custInput ? (custInput.value.trim().toUpperCase() || 'Customer Baru') : 'Customer Baru';
+        const alamatInput = document.getElementById('alamatCustomer');
+        currentVal = alamatInput ? alamatInput.value : '';
+    } else if (source === 'penjualan') {
+        customerName = customer || '-';
+        const item = transaksi.find(t => t.jenis === 'keluar' && t.tanggal === tanggal && t.jam === jam && (t.customer || '-').trim() === customer);
+        currentVal = item ? (item.alamatCustomer || '') : '';
+    } else if (source === 'editModal') {
+        const custInput = document.getElementById('editCustomer');
+        customerName = custInput ? (custInput.value.trim().toUpperCase() || '-') : '-';
+        const alamatInput = document.getElementById('editAlamatCustomer');
+        currentVal = alamatInput ? alamatInput.value : '';
+    }
+
+    document.getElementById('modalAlamatCustNameText').textContent = customerName;
+
+    const parsed = pisahAlamatDanTelepon(currentVal);
+    document.getElementById('inputModalAlamatLengkap').value = parsed.alamat;
+    document.getElementById('inputModalNoTelepon').value = parsed.telepon;
+
+    updatePreviewAlamatModal();
+
+    const modal = document.getElementById('modalAlamatCustomer');
+    if (modal) {
+        modal.classList.add('active');
+        setTimeout(() => {
+            const txt = document.getElementById('inputModalAlamatLengkap');
+            if (txt) {
+                txt.focus();
+                txt.setSelectionRange(txt.value.length, txt.value.length);
+            }
+        }, 120);
+    }
+}
+
+function tutupModalAlamatCustomer() {
+    currentAlamatTarget = null;
+    const modal = document.getElementById('modalAlamatCustomer');
+    if (modal) modal.classList.remove('active');
+}
+
+function simpanModalAlamatCustomer() {
+    if (!currentAlamatTarget) return;
+
+    const alamatLengkap = document.getElementById('inputModalAlamatLengkap').value.trim();
+    const noTelepon = document.getElementById('inputModalNoTelepon').value.trim();
+    const hasilGabungan = gabungAlamatDanTelepon(alamatLengkap, noTelepon);
+
+    const source = currentAlamatTarget.source;
+
+    if (source === 'form') {
+        const inputAlamat = document.getElementById('alamatCustomer');
+        if (inputAlamat) inputAlamat.value = hasilGabungan;
+        tutupModalAlamatCustomer();
+        showCustomPopup('success', 'Alamat Customer Disimpan');
+    } else if (source === 'penjualan') {
+        const { tanggal, customer, jam } = currentAlamatTarget;
+        updateAlamatCustomerBaris(tanggal, customer, jam, hasilGabungan);
+        tutupModalAlamatCustomer();
+        showCustomPopup('success', 'Alamat Customer Disimpan');
+    } else if (source === 'editModal') {
+        const inputAlamat = document.getElementById('editAlamatCustomer');
+        if (inputAlamat) inputAlamat.value = hasilGabungan;
+        tutupModalAlamatCustomer();
+        showCustomPopup('success', 'Alamat Customer Disimpan');
+    }
+}
+
+// Menutup modal dengan tombol ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('modalAlamatCustomer');
+        if (modal && modal.classList.contains('active')) {
+            tutupModalAlamatCustomer();
+        }
+    }
+});
 
 function konfirmasiHapusPin(index) {
     deleteTargetIndex = index;
