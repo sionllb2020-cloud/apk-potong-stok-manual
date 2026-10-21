@@ -6522,6 +6522,32 @@ function renderTransaksi() {
     });
 }
 
+function kunciAlamatEditModal(kunci) {
+    const input = document.getElementById('editAlamatCustomer');
+    if (!input) return;
+    const wrap = input.parentElement;
+    const btn = wrap ? wrap.querySelector('button') : null;
+    if (kunci) {
+        input.value = '-';
+        input.readOnly = true;
+        input.tabIndex = -1;
+        input.style.cursor = 'not-allowed';
+        input.style.background = 'var(--readonly-bg)';
+        input.style.color = 'var(--text-muted)';
+        input.style.pointerEvents = 'none';
+        input.title = 'Alamat Customer dikunci untuk Barang Masuk';
+        if (btn) { btn.disabled = true; btn.style.pointerEvents = 'none'; btn.style.cursor = 'not-allowed'; btn.style.opacity = '0.4'; }
+    } else {
+        input.tabIndex = 0;
+        input.style.cursor = 'pointer';
+        input.style.background = 'var(--input-bg)';
+        input.style.color = '';
+        input.style.pointerEvents = '';
+        input.title = 'Klik untuk membuka form input alamat dan nomor telepon/HP';
+        if (btn) { btn.disabled = false; btn.style.pointerEvents = ''; btn.style.cursor = 'pointer'; btn.style.opacity = ''; }
+    }
+}
+
 function bukaEditSingle(index) {
     editSingleIndex = index;
     editGroupKey = null;
@@ -6536,6 +6562,7 @@ function bukaEditSingle(index) {
     document.getElementById('editCustomer').readOnly = true;
     document.getElementById('editNoSuratJalan').value = item.noSuratJalan || '';
     document.getElementById('editNoSuratJalan').readOnly = true;
+    kunciAlamatEditModal(true);
 
     document.getElementById('containerEditItemSingle').style.display = 'block';
     document.getElementById('containerEditItemMulti').style.display = 'none';
@@ -6567,6 +6594,7 @@ function bukaEditGroup(groupKey) {
     document.getElementById('editCustomer').value = first.customer || '';
     document.getElementById('editCustomer').readOnly = false;
     const editAlamatEl = document.getElementById('editAlamatCustomer');
+    kunciAlamatEditModal(false);
     if (editAlamatEl) editAlamatEl.value = first.alamatCustomer || '';
     document.getElementById('editNoSuratJalan').value = first.noSuratJalan || '';
     document.getElementById('editNoSuratJalan').readOnly = false;
@@ -6810,13 +6838,9 @@ function tutupEdit() {
 }
 
 function simpanEdit() {
-    const rawNewDate = document.getElementById('editTanggalInput').value;
-    const newTanggalFormatted = convertFromYYYYMMDD(rawNewDate);
-
-    if (!newTanggalFormatted) {
-        alert("Mohon pilih tanggal yang valid!");
-        return;
-    }
+    // Tanggal & jam otomatis mengikuti waktu real time saat SAVE CHANGES diklik
+    const waktuSekarang = getCurrentDateTime();
+    const newTanggalFormatted = waktuSekarang.tanggal;
 
     if (editSingleIndex !== null) {
         const item = transaksi[editSingleIndex];
@@ -6833,6 +6857,7 @@ function simpanEdit() {
         transaksi[editSingleIndex] = {
             ...item,
             tanggal: newTanggalFormatted,
+            jam: waktuSekarang.jam,
             kode, nama, warna, jumlah
         };
 
@@ -6873,7 +6898,7 @@ function simpanEdit() {
         });
 
         const first = existingGroupItems[0] || {};
-        const targetJam = first.jam || getCurrentDateTime().jam;
+        const targetJam = waktuSekarang.jam;
 
         transaksi = transaksi.filter(item => {
             const k = `${item.tanggal}___${(item.customer || '-').trim()}___${item.jam}`;
