@@ -3828,8 +3828,8 @@ hr, .divider { border-color: var(--border-color); }
             </div>
 
             <div class="button-area">
-                <button class="btn-save" onclick="simpanTransaksi()">SAVE FORM</button>
-                <button class="btn-reset" onclick="resetForm()">RESET FORM</button>
+                <button class="btn-save" onclick="simpanTransaksi()"><strong>SAVE FORM</strong></button>
+                <button class="btn-reset" onclick="resetForm()"><strong>RESET FORM</strong></button>
             </div>
         </div>
     </div>
@@ -4049,7 +4049,7 @@ hr, .divider { border-color: var(--border-color); }
         </div>
         <div class="modal-body" style="padding: 22px;">
             <div id="modalAlamatCustomerBadge" style="background: var(--thead-bg); padding: 11px 15px; border-radius: 10px; margin-bottom: 18px; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-                <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Customer:</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Customer</span>
                 <strong id="modalAlamatCustNameText" style="font-size: 14px; font-weight: 800; color: var(--primary);">-</strong>
             </div>
 
@@ -4081,8 +4081,8 @@ hr, .divider { border-color: var(--border-color); }
             </div>
         </div>
         <div class="modal-footer" style="padding: 14px 22px; display: flex; justify-content: flex-end; gap: 10px;">
-            <button type="button" class="btn-reset" onclick="tutupModalAlamatCustomer()" style="min-width: 100px;">BATAL</button>
-            <button type="button" class="btn-save" onclick="simpanModalAlamatCustomer()" style="min-width: 140px; background: var(--primary);">SIMPAN ALAMAT</button>
+            <button type="button" class="btn-reset" onclick="tutupModalAlamatCustomer()" style="min-width: 100px;"><strong>CANCEL</strong></button>
+            <button type="button" class="btn-save" onclick="simpanModalAlamatCustomer()" style="min-width: 140px; background: var(--primary);"><strong>SAVE ALAMAT</strong></button>
         </div>
     </div>
 </div>
@@ -4109,7 +4109,7 @@ hr, .divider { border-color: var(--border-color); }
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn-reset" onclick="tutupModalYard()"><strong>BATAL</strong></button>
+            <button class="btn-reset" onclick="tutupModalYard()"><strong>CANCEL</strong></button>
             <button class="btn-save" style="background: #0284c7;" onclick="simpanModalYard()"><strong>SAVE YARD</strong></button>
         </div>
     </div>
@@ -4135,8 +4135,8 @@ hr, .divider { border-color: var(--border-color); }
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn-reset" onclick="tutupModalPin()">BATAL</button>
-            <button class="btn-save" onclick="verifikasiPin()">MASUK</button>
+            <button class="btn-reset" onclick="tutupModalPin()"><strong>CANCEL</strong></button>
+            <button class="btn-save" onclick="verifikasiPin()"><strong>MASUK</strong></button>
         </div>
     </div>
 </div>
@@ -4220,8 +4220,8 @@ hr, .divider { border-color: var(--border-color); }
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn-reset" onclick="tutupModalUbahPin()">BATAL</button>
-            <button class="btn-save" onclick="simpanPinBaru()">SAVE PIN</button>
+            <button class="btn-reset" onclick="tutupModalUbahPin()"><strong>CANCEL</strong></button>
+            <button class="btn-save" onclick="simpanPinBaru()"><strong>SAVE PIN</strong></button>
         </div>
     </div>
 </div>
@@ -4336,8 +4336,8 @@ hr, .divider { border-color: var(--border-color); }
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn-reset" onclick="tutupEdit()">BATAL</button>
-            <button class="btn-save" onclick="simpanEdit()">SAVE CHANGES</button>
+            <button class="btn-reset" onclick="tutupEdit()"><strong>CANCEL</strong></button>
+            <button class="btn-save" onclick="simpanEdit()"><strong>SAVE CHANGES</strong></button>
         </div>
     </div>
 </div>
@@ -4359,8 +4359,8 @@ hr, .divider { border-color: var(--border-color); }
       <label for="editNamaProfilInput">Username Baru</label>
       <input id="editNamaProfilInput" type="text" maxlength="40" autocomplete="username" placeholder="Masukkan nama baru" required>
       <div class="edit-profile-actions">
-        <button type="button" class="edit-profile-cancel" onclick="tutupEditNamaProfil()">Batal</button>
-        <button type="submit" class="edit-profile-save">Save Name</button>
+        <button type="button" class="edit-profile-cancel" onclick="tutupEditNamaProfil()"><strong>CANCEL</strong></button>
+        <button type="submit" class="edit-profile-save"><strong>SAVE NAME</strong></button>
       </div>
     </form>
   </div>
