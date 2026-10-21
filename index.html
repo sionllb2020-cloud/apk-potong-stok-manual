@@ -3445,6 +3445,20 @@ hr, .divider { border-color: var(--border-color); }
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
+
+/* Modal Alamat & Yard tampil di atas modal Edit saat dibuka dari dalamnya */
+#modalAlamatCustomer, #yardModal { z-index: 10002; }
+/* Kolom Search di dalam daftar pilihan barang */
+.floating-barang-picker .picker-sticky { position: sticky; top: 0; z-index: 3; background: var(--card-bg, #fff); }
+.floating-barang-picker .picker-sticky .picker-heading { position: static; }
+.floating-barang-picker .picker-search-wrap { padding: 12px 14px; border-bottom: 1px solid var(--border-color, #e2e8f0); background: var(--card-bg, #fff); }
+.floating-barang-picker .picker-search-input {
+    width: 100%; min-height: 44px; padding: 10px 14px;
+    border: 1.5px solid var(--primary, #0284c7); border-radius: 10px;
+    background: var(--input-bg, #fff); color: var(--text-dark, #1e293b);
+    font-size: 14px; font-weight: 600; outline: none;
+}
+.floating-barang-picker .picker-search-input:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }
 </style>
 </head>
 
@@ -4007,7 +4021,7 @@ hr, .divider { border-color: var(--border-color); }
                             <th class="text-center" style="width: 10%;">No Surat Jalan</th>
                             <th class="text-center" style="width: 30%;">Rincian Transaction</th>
                             <th class="text-center" style="width: 10%;">Customer</th>
-                            <th class="text-center" class="text-center" style="width: 10%;">Edit / Delete</th>
+                            <th class="text-center" style="width: 10%;">Edit / Delete</th>
                         </tr>
                     </thead>
                     <tbody id="transaksiBody"></tbody>
@@ -4076,7 +4090,7 @@ hr, .divider { border-color: var(--border-color); }
             </div>
 
             <div id="previewAlamatBox" style="display: none; padding: 12px 14px; background: var(--primary-light); border-radius: 10px; border: 1.5px solid var(--primary); margin-top: 14px;">
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary-dark); margin-bottom: 15px;">Pratinjau Alamat di Surat Jalan<div>
+                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary-dark); margin-bottom: 15px;">Pratinjau Alamat di Surat Jalan</div>
                 <div id="previewAlamatText" style="font-size: 12px; font-weight: 700; color: var(--text-dark); word-break: break-word;">-</div>
             </div>
         </div>
@@ -4459,7 +4473,7 @@ function getUserAvatarUrl(username, offset = 0) {
 
 function getFallbackAvatarUrl(username) {
     const cleanName = encodeURIComponent(username || 'User');
-    return `[https://ui-avatars.com/api/?name=${cleanName}&background=2563eb&color=ffffff&bold=true&rounded=true](https://ui-avatars.com/api/?name=${cleanName}&background=2563eb&color=ffffff&bold=true&rounded=true)`;
+    return `https://ui-avatars.com/api/?name=${cleanName}&background=2563eb&color=ffffff&bold=true&rounded=true`;
 }
 
 function setupAvatarImages(username) {
@@ -5567,24 +5581,54 @@ function filterPilihanBarang(query) {
     renderPilihanBarang(query || '');
 }
 
+function pastikanShellPilihan(popup) {
+    if (popup.querySelector('.picker-sticky')) return;
+    popup.innerHTML = '';
+    const sticky = document.createElement('div');
+    sticky.className = 'picker-sticky';
+    const wrap = document.createElement('div');
+    wrap.className = 'picker-search-wrap';
+    const si = document.createElement('input');
+    si.type = 'text';
+    si.id = 'pickerSearchInput';
+    si.className = 'picker-search-input';
+    si.placeholder = 'Search kode, nama, atau warna...';
+    si.autocomplete = 'off';
+    si.setAttribute('aria-label', 'Search barang');
+    si.addEventListener('input', function () {
+        const main = document.getElementById('searchBarangKeluar');
+        if (main) main.value = si.value;
+        filterPilihanBarang(si.value);
+    });
+    si.addEventListener('keydown', navigasiPilihanBarang);
+    wrap.appendChild(si);
+    const heading = document.createElement('div');
+    heading.className = 'picker-heading';
+    heading.innerHTML = '<span>KODE BARANG</span><span>NAMA BARANG</span><span>WARNA</span><span>STOCK</span>';
+    sticky.append(wrap, heading);
+    const list = document.createElement('div');
+    list.id = 'pickerListBody';
+    popup.append(sticky, list);
+}
+
 function renderPilihanBarang(query) {
     const popup = document.getElementById('floatingBarangPicker');
     const input = document.getElementById('searchBarangKeluar');
     if (!popup || !input) return;
+    pastikanShellPilihan(popup);
+    const searchBox = document.getElementById('pickerSearchInput');
+    if (searchBox && searchBox.value !== String(query || '')) searchBox.value = String(query || '');
+    const list = document.getElementById('pickerListBody');
     const q = String(query || '').trim().toLocaleLowerCase('id');
     const found = floatingBarangItems.filter(item =>
         [item.kode, item.nama, item.warna].some(v => String(v || '').toLocaleLowerCase('id').includes(q))
     );
-    popup.innerHTML = '';
-    const heading = document.createElement('div');
-    heading.className = 'picker-heading';
-    heading.innerHTML = '<span>KODE BARANG</span><span>NAMA BARANG</span><span>WARNA</span><span>STOCK</span>';
-    popup.appendChild(heading);
+    list.innerHTML = '';
     if (!found.length) {
         const empty = document.createElement('div');
         empty.className = 'picker-empty';
         empty.textContent = q ? 'Barang tidak ditemukan.' : 'Belum ada barang tersedia.';
-        popup.appendChild(empty);
+        list.appendChild(empty);
     } else {
         found.forEach((item, idx) => {
             const row = document.createElement('button');
@@ -5599,7 +5643,7 @@ function renderPilihanBarang(query) {
             row.append(kode, nama, warna, stok);
             row.addEventListener('mousedown', e => e.preventDefault());
             row.addEventListener('click', () => pilihBarangDariTabel(item));
-            popup.appendChild(row);
+            list.appendChild(row);
         });
     }
     popup.hidden = false;
