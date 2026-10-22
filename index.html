@@ -7998,11 +7998,10 @@ function formatRT_RWPreview(nilai) {
 // Tambahkan titik otomatis setelah JL, JLN, atau JALAN saat pengguna menekan spasi.
 // Contoh: 'JL Hh' menjadi 'Jl. Hh', 'JLN Hh' menjadi 'Jln. Hh', 'JALAN Hh' menjadi 'Jalan. Hh'.
 function formatNamaJalan(teks) {
-    return String(teks || '').replace(/\b(JL|JLN|JALAN)(?=\s)/gi, kata => {
+    return String(teks || '').replace(/\b(JL|JLN)(?=\s)/gi, kata => {
         const huruf = kata.toUpperCase();
         if (huruf === 'JL') return 'Jl.';
         if (huruf === 'JLN') return 'Jln.';
-        return 'Jalan.';
     });
 }
 
