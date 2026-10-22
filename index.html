@@ -4389,7 +4389,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
                     <label id="labelPilihStok">Barang Sudah Ada (Opsional)</label>
-                    <div class="picker-field"><input type="text" id="searchBarangKeluar" placeholder="Ketik kode, nama, atau warna..." autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanBarang()" oninput="filterPilihanBarang(this.value)" onkeydown="navigasiPilihanBarang(event)"><button type="button" class="picker-toggle-btn" onclick="togglePilihan('barang')" aria-label="Pilih barang yang sudah terinput" title="Pilih barang yang sudah terinput"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingBarangPicker" class="floating-barang-picker" role="listbox" aria-label="Daftar barang tersedia" hidden></div></div>
+                    <div class="picker-field"><input type="text" id="searchBarangKeluar" placeholder="Search" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanBarang()" oninput="filterPilihanBarang(this.value)" onkeydown="navigasiPilihanBarang(event)"><button type="button" class="picker-toggle-btn" onclick="togglePilihan('barang')" aria-label="Pilih barang yang sudah terinput" title="Pilih barang yang sudah terinput"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingBarangPicker" class="floating-barang-picker" role="listbox" aria-label="Daftar barang tersedia" hidden></div></div>
                     <div class="form-help" id="helpPilihStok">Pilih barang untuk diisi otomatis</div>
                 </div>
 
@@ -4906,7 +4906,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                 <div style="margin-bottom: 16px; background: var(--thead-bg); padding: 14px; border-radius: 12px; border: 1.5px solid var(--border-color);">
                     <div class="form-group pilih-stok-highlight" style="margin-bottom: 12px;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--primary);">Cari Stock Barang Tersedia</label>
-                        <input type="text" id="editSearchBarangKeluar" list="editListBarangStok" placeholder="Ketik kode, nama, atau warna..." oninput="handleEditBarangKeluarSelect(this.value)">
+                        <input type="text" id="editSearchBarangKeluar" list="editListBarangStok" placeholder="Search" oninput="handleEditBarangKeluarSelect(this.value)">
                         <datalist id="editListBarangStok"></datalist>
                     </div>
                     <div class="form-grid" style="grid-template-columns: 2fr 2fr 2fr 1fr; gap: 12px; align-items: flex-end;">
