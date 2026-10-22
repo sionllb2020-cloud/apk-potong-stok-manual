@@ -4672,7 +4672,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                     <span>Alamat Lengkap</span>
                     <span style="font-size: 11px; text-transform: none; color: var(--text-muted); font-weight: normal;">Jalan, No, RT/RW, Kel/Kec, Kota</span>
                 </label>
-                <textarea id="inputModalAlamatLengkap" rows="3" placeholder="Masukkan alamat lengkap customer." style="width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 13px; background: var(--input-bg); color: var(--text-dark); line-height: 1.5; resize: vertical; min-height: 85px; font-family: inherit;" oninput="deteksiAutoNoTelp(this.value); updatePreviewAlamatModal();"></textarea>
+                <textarea id="inputModalAlamatLengkap" rows="3" placeholder="Masukkan alamat lengkap customer." style="width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 13px; background: var(--input-bg); color: var(--text-dark); line-height: 1.5; resize: vertical; min-height: 85px; font-family: inherit;" oninput="formatAlamatHurufDepan(this); deteksiAutoNoTelp(this.value); updatePreviewAlamatModal();"></textarea>
             </div>
 
             <div class="form-group" style="margin-bottom: 14px;">
@@ -7973,6 +7973,20 @@ function updatePreviewAlamatModal() {
     }
 }
 
+/* Alamat: huruf pertama kalimat dan huruf pertama setelah koma / titik / baris baru otomatis kapital */
+function kapitalDepanAlamat(teks) {
+    return String(teks || '').replace(/(^\s*|[,.\n]\s*)(\p{Ll})/gu, (m, awal, huruf) => awal + huruf.toUpperCase());
+}
+
+function formatAlamatHurufDepan(el) {
+    if (!el) return;
+    const baru = kapitalDepanAlamat(el.value);
+    if (baru === el.value) return;
+    const mulai = el.selectionStart, akhir = el.selectionEnd; // panjang teks tetap, kursor aman
+    el.value = baru;
+    try { el.setSelectionRange(mulai, akhir); } catch (_) {}
+}
+
 function bukaModalAlamatCustomer(source, tanggal, customer, jam) {
     currentAlamatTarget = { source, tanggal, customer, jam };
 
@@ -8025,7 +8039,7 @@ function tutupModalAlamatCustomer() {
 function simpanModalAlamatCustomer() {
     if (!currentAlamatTarget) return;
 
-    const alamatLengkap = document.getElementById('inputModalAlamatLengkap').value.trim();
+    const alamatLengkap = kapitalDepanAlamat(document.getElementById('inputModalAlamatLengkap').value.trim());
     const noTelepon = document.getElementById('inputModalNoTelepon').value.trim();
     const hasilGabungan = gabungAlamatDanTelepon(alamatLengkap, noTelepon);
 
