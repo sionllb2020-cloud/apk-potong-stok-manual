@@ -6387,7 +6387,7 @@ function renderPilihanCustomer(query) {
         rowBaru.type = 'button';
         rowBaru.className = 'picker-row is-new';
         rowBaru.setAttribute('role', 'option');
-        const a = document.createElement('span'); a.className = 'picker-code'; a.textContent = '+ ' + qRaw.toUpperCase() + ' — gunakan sebagai customer baru';
+        const a = document.createElement('span'); a.className = 'picker-code'; a.textContent = '+ ' + qRaw.toUpperCase() + ' — Customer Baru';
         rowBaru.append(a);
         rowBaru.addEventListener('mousedown', e => e.preventDefault());
         rowBaru.addEventListener('click', () => pilihCustomerBaru(qRaw.toUpperCase()));
