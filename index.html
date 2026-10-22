@@ -4382,8 +4382,8 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
         </form>
         <div class="auth-links">
             <p>Belum Punya Akun?</p>
-            <p style="margin-top: 6px;"><a href="javascript:void(0)" onclick="showAuthCard('registerCard')">Buat Akun Baru</a></p>
-            <p style="margin-top: 10px;"><a href="javascript:void(0)" onclick="showAuthCard('forgotCard')">Lupa Password</a></p>
+            <p style="margin-top: 6px;"><a role="button" tabindex="0" onclick="showAuthCard('registerCard')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showAuthCard('registerCard')}">Buat Akun Baru</a></p>
+            <p style="margin-top: 10px;"><a role="button" tabindex="0" onclick="showAuthCard('forgotCard')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showAuthCard('forgotCard')}">Lupa Password</a></p>
         </div>
     </div>
 
@@ -4429,7 +4429,7 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
         </form>
         <div class="auth-links">
             <p>Sudah memiliki Akun?</p>
-            <p><a href="javascript:void(0)" onclick="showAuthCard('loginCard')">Masuk Kembali</a></p>
+            <p><a role="button" tabindex="0" onclick="showAuthCard('loginCard')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showAuthCard('loginCard')}">Masuk Kembali</a></p>
         </div>
     </div>
 
@@ -4480,7 +4480,7 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
         </form>
 
         <div class="auth-links">
-            <p><a href="javascript:void(0)" onclick="showAuthCard('loginCard')">Kembali ke Halaman LOGIN</a></p>
+            <p><a role="button" tabindex="0" onclick="showAuthCard('loginCard')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showAuthCard('loginCard')}">Kembali ke Halaman LOGIN</a></p>
         </div>
     </div>
 </div>
