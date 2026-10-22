@@ -4667,12 +4667,31 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                 <strong id="modalAlamatCustNameText" style="font-size: 14px; font-weight: 800; color: var(--primary);">-</strong>
             </div>
 
-            <div class="form-group" style="margin-bottom: 16px;">
-                <label for="inputModalAlamatLengkap" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Alamat Lengkap</span>
-                    <span style="font-size: 11px; text-transform: none; color: var(--text-muted); font-weight: normal;">Jalan, No, RT/RW, Kel/Kec, Kota</span>
-                </label>
-                <textarea id="inputModalAlamatLengkap" rows="3" placeholder="Masukkan alamat lengkap customer." style="width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 13px; background: var(--input-bg); color: var(--text-dark); line-height: 1.5; resize: vertical; min-height: 85px; font-family: inherit;" oninput="formatAlamatHurufDepan(this); deteksiAutoNoTelp(this.value); updatePreviewAlamatModal();"></textarea>
+            <div class="form-group" style="margin-bottom: 14px;">
+                <label for="inputModalAlamatLengkap">Alamat Jalan / Nama Jalan / Nomor Rumah</label>
+                <textarea id="inputModalAlamatLengkap" rows="2" placeholder="Contoh: Jl. Melati No. 10, Blok A" style="width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); outline: none; font-size: 13px; background: var(--input-bg); color: var(--text-dark); line-height: 1.5; resize: vertical; min-height: 65px; font-family: inherit;" oninput="formatAlamatHurufDepan(this); formatAwalanJalan(this); deteksiAutoNoTelp(this.value); updatePreviewAlamatModal();"></textarea>
+            </div>
+            <div class="form-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px;">
+                <div class="form-group">
+                    <label for="inputModalRTRW">RT/RW</label>
+                    <input type="text" id="inputModalRTRW" placeholder="Contoh: RT01/RW02" oninput="updatePreviewAlamatModal()">
+                </div>
+                <div class="form-group">
+                    <label for="inputModalKelurahan">Kelurahan</label>
+                    <input type="text" id="inputModalKelurahan" placeholder="Nama kelurahan" oninput="formatAlamatInputDepan(this); updatePreviewAlamatModal()">
+                </div>
+                <div class="form-group">
+                    <label for="inputModalKecamatan">Kecamatan</label>
+                    <input type="text" id="inputModalKecamatan" placeholder="Nama kecamatan" oninput="formatAlamatInputDepan(this); updatePreviewAlamatModal()">
+                </div>
+                <div class="form-group">
+                    <label for="inputModalKota">Kota</label>
+                    <input type="text" id="inputModalKota" placeholder="Nama kota/kabupaten" oninput="formatAlamatInputDepan(this); updatePreviewAlamatModal()">
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label for="inputModalKodePos">Kode Pos (Opsional)</label>
+                    <input type="text" id="inputModalKodePos" inputmode="numeric" maxlength="10" placeholder="Boleh dikosongkan" oninput="updatePreviewAlamatModal()">
+                </div>
             </div>
 
             <div class="form-group" style="margin-bottom: 14px;">
@@ -7957,12 +7976,98 @@ function deteksiAutoNoTelp(val) {
     }
 }
 
+function formatAlamatInputDepan(el) {
+    if (!el) return;
+    const pos = el.selectionStart;
+    el.value = kapitalDepanAlamat(el.value);
+    try { el.setSelectionRange(pos, pos); } catch (_) {}
+}
+
+function formatRT_RWPreview(nilai) {
+    const teks = String(nilai || '').trim();
+    if (!teks) return '';
+    // Terima input seperti 01/02, 001/002, RT01/RW02, atau RT 01 / RW 02.
+    const cocok = teks.match(/^(?:RT\s*)?(\d+)\s*\/\s*(?:RW\s*)?(\d+)$/i);
+    if (!cocok) return teks;
+    const rt = cocok[1].padStart(2, '0');
+    const rw = cocok[2].padStart(2, '0');
+    return 'RT' + rt + '/RW' + rw;
+}
+
+
+// Tambahkan titik otomatis setelah JL, JLN, atau JALAN saat pengguna menekan spasi.
+// Contoh: 'JL Hh' menjadi 'Jl. Hh', 'JLN Hh' menjadi 'Jln. Hh', 'JALAN Hh' menjadi 'Jalan. Hh'.
+function formatNamaJalan(teks) {
+    return String(teks || '').replace(/\b(JL|JLN|JALAN)(?=\s)/gi, kata => {
+        const huruf = kata.toUpperCase();
+        if (huruf === 'JL') return 'Jl.';
+        if (huruf === 'JLN') return 'Jln.';
+        return 'Jalan.';
+    });
+}
+
+function formatAwalanJalan(el) {
+    if (!el) return;
+    const awal = el.value;
+    const posisiAwal = el.selectionStart;
+    const baru = formatNamaJalan(awal);
+    if (baru === awal) return;
+    const selisih = baru.length - awal.length;
+    el.value = baru;
+    const posisi = Math.max(0, posisiAwal + selisih);
+    try { el.setSelectionRange(posisi, posisi); } catch (_) {}
+}
+
+function ambilDataAlamatModal() {
+    const jalan = formatNamaJalan(kapitalDepanAlamat(document.getElementById('inputModalAlamatLengkap').value.trim()));
+    const rtrw = formatRT_RWPreview(document.getElementById('inputModalRTRW').value.trim());
+    const kelurahan = kapitalDepanAlamat(document.getElementById('inputModalKelurahan').value.trim());
+    const kecamatan = kapitalDepanAlamat(document.getElementById('inputModalKecamatan').value.trim());
+    const kota = kapitalDepanAlamat(document.getElementById('inputModalKota').value.trim());
+    const kodepos = document.getElementById('inputModalKodePos').value.trim();
+    return [
+        jalan,
+        rtrw,
+        kelurahan ? 'Kel. ' + kelurahan : '',
+        kecamatan ? 'Kec. ' + kecamatan : '',
+        kota,
+        kodepos
+    ].filter(Boolean).join(', ');
+}
+
+function isiFormAlamatTerstruktur(alamat) {
+    const ids = ['inputModalRTRW','inputModalKelurahan','inputModalKecamatan','inputModalKota','inputModalKodePos'];
+    ids.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    let sisa = String(alamat || '').trim();
+    const pola = [
+        ['inputModalRTRW', /(?:^|,\s*)(?:RT\s*\/\s*RW:\s*)?(RT\s*\d+\s*\/\s*RW\s*\d+|\d+\s*\/\s*\d+)/i],
+        ['inputModalKelurahan', /(?:^|,\s*)(?:Kelurahan:|Kel\.)\s*([^,]*)/i],
+        ['inputModalKecamatan', /(?:^|,\s*)(?:Kecamatan:|Kec\.)\s*([^,]*)/i],
+        ['inputModalKota', /(?:^|,\s*)Kota:\s*([^,]*)/i],
+        ['inputModalKodePos', /(?:^|,\s*)(?:Kode Pos:\s*)?(\d{5})(?=\s*(?:,|$))/i]
+    ];    pola.forEach(([id, regex]) => {
+        const m = sisa.match(regex);
+        if (m) {
+            document.getElementById(id).value = m[1].trim();
+            sisa = sisa.replace(m[0], '').trim().replace(/^,\\s*|,\\s*$/g, '').trim();
+        }
+    });
+    // Pada format pratinjau baru, kota ditulis tanpa awalan "Kota:".
+    const kodeposTerisi = document.getElementById('inputModalKodePos').value.trim();
+    const kotaInput = document.getElementById('inputModalKota');
+    if (kodeposTerisi && !kotaInput.value.trim()) {
+        const bagian = sisa.split(',').map(x => x.trim()).filter(Boolean);
+        if (bagian.length > 1) kotaInput.value = bagian.pop();
+        sisa = bagian.join(', ');
+    }
+    document.getElementById('inputModalAlamatLengkap').value = sisa;
+}
+
 function updatePreviewAlamatModal() {
-    const alamat = document.getElementById('inputModalAlamatLengkap').value;
+    const alamat = ambilDataAlamatModal();
     const telp = document.getElementById('inputModalNoTelepon').value;
     const previewBox = document.getElementById('previewAlamatBox');
     const previewText = document.getElementById('previewAlamatText');
-
     const gabungan = gabungAlamatDanTelepon(alamat, telp);
     if (gabungan) {
         previewBox.style.display = 'block';
@@ -7975,7 +8080,8 @@ function updatePreviewAlamatModal() {
 
 /* Alamat: huruf pertama kalimat dan huruf pertama setelah koma / titik / baris baru otomatis kapital */
 function kapitalDepanAlamat(teks) {
-    return String(teks || '').replace(/(^\s*|[,.\n]\s*)(\p{Ll})/gu, (m, awal, huruf) => awal + huruf.toUpperCase());
+    // Kapitalisasi huruf pertama setiap kata saat alamat diketik.
+    return String(teks || '').replace(/(^|[\s,.\/\-])([\p{Ll}])/gu, (m, pemisah, huruf) => pemisah + huruf.toUpperCase());
 }
 
 function formatAlamatHurufDepan(el) {
@@ -8012,7 +8118,7 @@ function bukaModalAlamatCustomer(source, tanggal, customer, jam) {
     document.getElementById('modalAlamatCustNameText').textContent = customerName;
 
     const parsed = pisahAlamatDanTelepon(currentVal);
-    document.getElementById('inputModalAlamatLengkap').value = parsed.alamat;
+    isiFormAlamatTerstruktur(parsed.alamat);
     document.getElementById('inputModalNoTelepon').value = parsed.telepon;
 
     updatePreviewAlamatModal();
@@ -8039,7 +8145,7 @@ function tutupModalAlamatCustomer() {
 function simpanModalAlamatCustomer() {
     if (!currentAlamatTarget) return;
 
-    const alamatLengkap = kapitalDepanAlamat(document.getElementById('inputModalAlamatLengkap').value.trim());
+    const alamatLengkap = ambilDataAlamatModal();
     const noTelepon = document.getElementById('inputModalNoTelepon').value.trim();
     const hasilGabungan = gabungAlamatDanTelepon(alamatLengkap, noTelepon);
 
