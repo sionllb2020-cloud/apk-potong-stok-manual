@@ -4060,6 +4060,19 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
 }
 @media print { .m-ripple, .card::before { display: none !important; } }
 </style>
+<style id="sales-field-style">
+/* NAMA SALES — tampilan saja */
+#penjualanPage .input-sales { max-width: 100%; box-sizing: border-box; text-overflow: ellipsis; }
+#penjualanPage .input-sales:focus { border-color: var(--primary) !important; }
+.sj-info-grid .sj-info-item:first-child { flex: 1.8; }
+.sj-info-grid .sj-info-item.sj-sales-item { flex: 1; }
+@media print {
+    body.printing-surat-jalan .sj-info-grid .sj-info-item:first-child,
+    body.printing-all-sj .sj-info-grid .sj-info-item:first-child { flex: 1.8 !important; }
+    body.printing-surat-jalan .sj-info-grid .sj-info-item.sj-sales-item,
+    body.printing-all-sj .sj-info-grid .sj-info-item.sj-sales-item { flex: 1 !important; }
+}
+</style>
 </head>
 
 <body>
@@ -4302,6 +4315,10 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                     <strong>Tanggal Pembelian:</strong>
                     <span id="sjPrintTanggal" style="font-size: 12px; font-weight: 700;">-</span>
                 </div>
+                <div class="sj-info-item sj-sales-item">
+                    <strong>Sales:</strong>
+                    <span id="sjPrintSales" style="font-size: 12px; font-weight: 700;">-</span>
+                </div>
             </div>
 
             <table class="sj-table">
@@ -4385,6 +4402,12 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                         <button type="button" onclick="bukaModalAlamatCustomer('form')" style="position: absolute; right: 8px; background: transparent; border: none; padding: 6px; cursor: pointer; font-size: 16px; color: var(--primary); min-height: auto; box-shadow: none; transform: none;" title="Buka Form Input Alamat">🏠︎</button>
                     </div>
                     <div class="form-help" style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Klik kolom untuk mengisi Alamat Lengkap & No Telepon/HP</div>
+                </div>
+
+                <div class="form-group" id="containerSales" style="display:none;">
+                    <label for="salesCustomer">Nama Sales (Opsional)</label>
+                    <input type="text" id="salesCustomer" placeholder="Boleh dikosongkan" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
+                    <div class="form-help">Opsional, boleh dikosongkan. Jika diisi, tampil di Data Penjualan & Surat Jalan</div>
                 </div>
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
@@ -4643,7 +4666,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
       <p class="history-count" id="allHistoryCount">Memuat data...</p>
       <div class="table-wrapper">
         <table>
-          <thead><tr><th>No</th><th>Tanggal</th><th>Jam</th><th>Jenis Transaction</th><th>No Surat Jalan</th><th>Kode Barang</th><th>Nama Barang</th><th>Warna</th><th>Jumlah (Roll)</th><th>Yard & Total</th><th>Customer</th><th>Alamat Customer</th></tr></thead>
+          <thead><tr><th>No</th><th>Tanggal</th><th>Jam</th><th>Jenis Transaction</th><th>No Surat Jalan</th><th>Kode Barang</th><th>Nama Barang</th><th>Warna</th><th>Jumlah (Roll)</th><th>Yard & Total</th><th>Customer</th><th>Nama Sales</th><th>Alamat Customer</th></tr></thead>
           <tbody id="allHistoryBody"></tbody>
         </table>
       </div>
@@ -4674,7 +4697,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
             <div class="form-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px;">
                 <div class="form-group">
                     <label for="inputModalRTRW">RT/RW</label>
-                    <input type="text" id="inputModalRTRW" placeholder="Input 01/02 (Contoh) oninput="updatePreviewAlamatModal()">
+                    <input type="text" id="inputModalRTRW" placeholder="Input 01/02 (Contoh)" oninput="updatePreviewAlamatModal()">
                 </div>
                 <div class="form-group">
                     <label for="inputModalKelurahan">Kelurahan</label>
@@ -4895,6 +4918,10 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                 <div class="form-group">
                     <label>No Surat Jalan</label>
                     <input type="text" id="editNoSuratJalan" placeholder="-">
+                </div>
+                <div class="form-group">
+                    <label for="editSales">Nama Sales</label>
+                    <input type="text" id="editSales" placeholder="-" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
                 </div>
             </div>
 
@@ -5752,7 +5779,8 @@ function printSuratJalan(tanggal, customer, jam) {
         return;
     }
    
-    const alamatCust = (groupItems[0].alamatCustomer || "").trim();
+    const alamatItem = groupItems.find(i => i.alamatCustomer && String(i.alamatCustomer).trim() && String(i.alamatCustomer).trim() !== '-');
+    const alamatCust = alamatItem ? String(alamatItem.alamatCustomer).trim() : "";
     document.getElementById('sjPrintNo').textContent = "No Surat Jalan : " + sjNo;
     document.getElementById('sjPrintCustomer').textContent = customer;
     const alamatEl = document.getElementById('sjPrintAlamat');
@@ -5760,6 +5788,11 @@ function printSuratJalan(tanggal, customer, jam) {
         alamatEl.textContent = alamatCust ? "Alamat: " + alamatCust : "-";
     }
     document.getElementById('sjPrintTanggal').textContent = formatTanggalIndonesia(tanggal);
+    const salesPrintEl = document.getElementById('sjPrintSales');
+    if (salesPrintEl) {
+        const salesFound = groupItems.find(i => i.sales && String(i.sales).trim() && String(i.sales).trim() !== '-');
+        salesPrintEl.textContent = salesFound ? String(salesFound.sales).trim().toUpperCase() : '-';
+    }
 
     const tbody = document.getElementById('sjPrintTableBody');
     tbody.innerHTML = '';
@@ -5843,7 +5876,7 @@ function eksekusiCetakAllSuratJalan() {
             const matchKode = item.kode.toLowerCase().includes(query);
             const matchWarna = item.warna.toLowerCase().includes(query);
             const matchTgl = formatTanggalIndonesia(item.tanggal).toLowerCase().includes(query);
-            if (!matchCust && !matchSJ && !matchNama && !matchKode && !matchWarna && !matchTgl) return false;
+            if (!matchCust && !matchSJ && !matchNama && !matchKode && !matchWarna && !matchTgl && !(item.sales || '').toLowerCase().includes(query)) return false;
         }
 
         let matchDate = true;
@@ -5871,6 +5904,7 @@ function eksekusiCetakAllSuratJalan() {
                 tanggal: tglStr,
                 customer: custName,
                 alamatCustomer: (item.alamatCustomer || '').trim(),
+                sales: String(item.sales || '').replace(/^-$/, '').trim(),
                 jam: item.jam,
                 noSuratJalan: item.noSuratJalan || '',
                 items: []
@@ -5878,6 +5912,7 @@ function eksekusiCetakAllSuratJalan() {
         } else if (!groupedMap[groupKey].alamatCustomer && item.alamatCustomer) {
             groupedMap[groupKey].alamatCustomer = (item.alamatCustomer || '').trim();
         }
+        if (!groupedMap[groupKey].sales && item.sales && String(item.sales).trim() !== '-') groupedMap[groupKey].sales = String(item.sales).trim();
         groupedMap[groupKey].items.push(item);
     });
 
@@ -5949,6 +5984,10 @@ function eksekusiCetakAllSuratJalan() {
                     <div class="sj-info-item">
                         <strong>Tanggal Pembelian:</strong>
                         <span style="font-size: 12px; font-weight: 700;">${escapeHTML(tanggalStr)}</span>
+                    </div>
+                    <div class="sj-info-item sj-sales-item">
+                        <strong>Sales:</strong>
+                        <span style="font-size: 12px; font-weight: 700;">${escapeHTML(group.sales ? group.sales.toUpperCase() : '-')}</span>
                     </div>
                 </div>
 
@@ -6130,6 +6169,8 @@ function handleJenisChange() {
     if (jenis === 'keluar') {
         containerCustomer.style.display = 'flex';
         if (containerAlamatCustomer) containerAlamatCustomer.style.display = 'flex';
+        const containerSalesEl = document.getElementById('containerSales');
+        if (containerSalesEl) containerSalesEl.style.display = 'flex';
         containerBtnTambahItem.style.display = 'flex';
         containerKeranjang.style.display = 'block';
         labelPilihStok.textContent = 'Cari Stock Barang Tersedia';
@@ -6142,6 +6183,8 @@ function handleJenisChange() {
     } else {
         containerCustomer.style.display = 'none';
         if (containerAlamatCustomer) containerAlamatCustomer.style.display = 'none';
+        const containerSalesEl2 = document.getElementById('containerSales');
+        if (containerSalesEl2) containerSalesEl2.style.display = 'none';
         containerBtnTambahItem.style.display = 'none';
         containerKeranjang.style.display = 'none';
         keranjangBelanja = [];
@@ -6327,16 +6370,18 @@ function daftarPilihanCustomer() {
         if (item.jenis !== 'keluar') return;
         const nama = String(item.customer || '').trim().toUpperCase();
         if (!nama || nama === '-') return;
-        if (!map[nama]) map[nama] = { nama, alamat: '', transaksi: new Set() };
+        if (!map[nama]) map[nama] = { nama, alamat: '', sales: '', transaksi: new Set() };
         const alamat = String(item.alamatCustomer || '').trim();
         // transaksi disimpan terbaru di depan, jadi alamat non-kosong TERAKHIR yang ditemui = alamat saat pertama kali diinput
         if (alamat && alamat !== '-') map[nama].alamat = alamat;
+        const salesItem = String(item.sales || '').trim().toUpperCase();
+        if (salesItem && salesItem !== '-') map[nama].sales = salesItem;
         map[nama].transaksi.add(`${item.tanggal}___${item.jam}`);
     });
     return Object.values(map)
         .map(c => {
             const pecah = pisahAlamatDanTelepon(c.alamat);
-            return { nama: c.nama, alamat: c.alamat, alamatTampil: pecah.alamat, telepon: pecah.telepon, jumlahTransaksi: c.transaksi.size };
+            return { nama: c.nama, alamat: c.alamat, sales: c.sales, alamatTampil: pecah.alamat, telepon: pecah.telepon, jumlahTransaksi: c.transaksi.size };
         })
         .sort((a, b) => a.nama.localeCompare(b.nama, 'id', { sensitivity: 'base' }));
 }
@@ -6442,6 +6487,7 @@ function renderPilihanCustomer(query) {
 }
 
 let alamatOtomatis = '';
+let salesOtomatis = '';
 
 function pilihCustomerDariTabel(item) {
     const input = document.getElementById('customer');
@@ -6450,6 +6496,9 @@ function pilihCustomerDariTabel(item) {
     // alamat mengikuti data pertama kali customer ini diinput (kosong jika memang belum ada)
     if (alamat) alamat.value = item.alamat || '';
     alamatOtomatis = item.alamat || '';
+    const salesInput = document.getElementById('salesCustomer');
+    if (salesInput) salesInput.value = item.sales || '';
+    salesOtomatis = item.sales || '';
     tutupPilihanCustomer();
 }
 
@@ -6459,6 +6508,9 @@ function pilihCustomerBaru(nama) {
     if (input) input.value = nama;
     // bersihkan alamat yang tadinya terisi otomatis dari customer lain
     if (alamat && alamatOtomatis && alamat.value === alamatOtomatis) alamat.value = '';
+    const salesBaru = document.getElementById('salesCustomer');
+    if (salesBaru && salesOtomatis && salesBaru.value === salesOtomatis) salesBaru.value = '';
+    salesOtomatis = '';
     alamatOtomatis = '';
     tutupPilihanCustomer();
 }
@@ -6741,6 +6793,7 @@ function simpanTransaksi() {
     if (jenis === 'keluar') {
         const customer = document.getElementById('customer') ? document.getElementById('customer').value.trim().toUpperCase() : '';
         const alamatCustomer = document.getElementById('alamatCustomer') ? document.getElementById('alamatCustomer').value.trim() : '';
+        const sales = document.getElementById('salesCustomer') ? document.getElementById('salesCustomer').value.trim().toUpperCase() : '';
         if (!customer) {
             alert("Mohon isi Nama Customer terlebih dahulu!");
             return;
@@ -6761,6 +6814,7 @@ function simpanTransaksi() {
                 warna: item.warna,
                 customer: customer,
                 alamatCustomer: alamatCustomer,
+                sales: sales,
                 jumlah: item.jumlah,
                 yards: item.yards || [],
                 totalYard: item.totalYard || 0
@@ -6794,6 +6848,7 @@ function simpanTransaksi() {
             warna: warna,
             customer: '-',
             alamatCustomer: '-',
+            sales: '-',
             jumlah: jumlah,
             yards: [],
             totalYard: 0
@@ -6812,6 +6867,8 @@ function resetFormInput() {
     if (document.getElementById('searchBarangKeluar')) document.getElementById('searchBarangKeluar').value = '';
     if (document.getElementById('customer')) document.getElementById('customer').value = '';
     if (document.getElementById('alamatCustomer')) document.getElementById('alamatCustomer').value = '';
+    if (document.getElementById('salesCustomer')) document.getElementById('salesCustomer').value = '';
+    salesOtomatis = '';
    
     const inputKode = document.getElementById('kode');
     const inputNama = document.getElementById('nama');
@@ -6924,7 +6981,7 @@ function renderPenjualan() {
             const matchWarna = item.warna.toLowerCase().includes(query);
             const matchTgl = formatTanggalIndonesia(item.tanggal).toLowerCase().includes(query);
 
-            if (!matchCust && !matchSJ && !matchNama && !matchKode && !matchWarna && !matchTgl) {
+            if (!matchCust && !matchSJ && !matchNama && !matchKode && !matchWarna && !matchTgl && !(item.sales || '').toLowerCase().includes(query)) {
                 return false;
             }
         }
@@ -6956,6 +7013,7 @@ function renderPenjualan() {
                 tanggal: tglStr,
                 customer: custName,
                 alamatCustomer: (item.alamatCustomer || '').trim(),
+                sales: String(item.sales || '').replace(/^-$/, '').trim(),
                 jam: item.jam,
                 noSuratJalan: item.noSuratJalan || '',
                 items: []
@@ -6963,6 +7021,7 @@ function renderPenjualan() {
         } else if (!groupedMap[groupKey].alamatCustomer && item.alamatCustomer) {
             groupedMap[groupKey].alamatCustomer = (item.alamatCustomer || '').trim();
         }
+        if (!groupedMap[groupKey].sales && item.sales && String(item.sales).trim() !== '-') groupedMap[groupKey].sales = String(item.sales).trim();
         groupedMap[groupKey].items.push(item);
     });
 
@@ -7043,15 +7102,12 @@ function renderPenjualan() {
         const safeJam = escapeHTML(group.jam);
         const currentNoSJ = escapeHTML(group.noSuratJalan || '');
         const currentAlamat = escapeHTML(group.alamatCustomer || '');
+        const currentSales = escapeHTML(group.sales || '');
 
         tr.innerHTML = `
            <td style="text-align: center; vertical-align: middle;">${escapeHTML(formatTanggalIndonesia(group.tanggal))}</td>
            <td style="text-align: center; vertical-align: middle;">
-               <div style="font-weight: 800; font-size: 13px; margin-bottom: 4px;">${escapeHTML(group.customer)}</div>
-               <div style="position: relative; width: 92%; margin: 0 auto; display: flex; align-items: center;">
-                   <input type="text" class="input-alamat" value="${currentAlamat}" placeholder="Silahkan Isi Alamat & No Telp/HP" readonly style="display: block; width: 100%; padding: 6px 26px 6px 8px; font-size: 11px; font-weight: 700; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--input-bg); color: var(--text-dark); text-align: center; cursor: pointer; text-overflow: ellipsis;" onclick="bukaModalAlamatCustomer('penjualan', '${safeTanggal}', '${safeCustomer}', '${safeJam}')" title="Klik untuk membuka form input Alamat Lengkap & No Telepon/HP">
-                   <span style="position: absolute; right: 7px; font-size: 13px; color: var(--primary); pointer-events: none;" title="Buka Form Input Alamat">🏠︎</span>
-               </div>
+               <div style="font-weight: 800; font-size: 13px; margin-bottom: 0;">${escapeHTML(group.customer)}</div>
            </td>
            <td style="text-align: center; vertical-align: middle;">
                <input type="text" class="input-nosj" value="${currentNoSJ}" placeholder="Isi No Surat Jalan" style="display: block; margin: 0 auto; padding: 7px 12px; font-size: 13px; width: 85%; border: 1.5px solid var(--border-color); border-radius: 10px; background: var(--input-bg); color: var(--text-dark); font-weight: bold; text-align: center;" onchange="updateNoSuratJalanBaris('${safeTanggal}', '${safeCustomer}', '${safeJam}', this.value)">
@@ -7151,7 +7207,7 @@ function bukaSemuaRiwayat() {
     });
     tbody.innerHTML = '';
     if (!semua.length) {
-        tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;padding:24px;">Belum ada data transaksi.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="13" style="text-align:center;padding:24px;">Belum ada data transaksi.</td></tr>';
     } else {
         semua.forEach((item, i) => {
             const tr = document.createElement('tr');
@@ -7173,6 +7229,7 @@ function bukaSemuaRiwayat() {
               <td>${escapeHTML(formatAngka(item.jumlah ?? 0))} Roll</td>
               <td>${escapeHTML(yardText)}</td>
               <td><strong>${escapeHTML(item.customer || '-')}</strong></td>
+              <td>${escapeHTML(item.sales || '-')}</td>
               <td>${escapeHTML(item.alamatCustomer || '-')}</td>`;
             tbody.appendChild(tr);
         });
@@ -7271,6 +7328,7 @@ function renderTransaksi() {
     Object.values(groupedKeluarMap).forEach(group => {
         const matchGroupQuery = query === '' || group.customer.toLowerCase().includes(query) ||
             group.noSuratJalan.toLowerCase().includes(query) ||
+            group.items.some(it => (it.sales || '').toLowerCase().includes(query)) ||
             group.items.some(it => it.kode.toLowerCase().includes(query) || it.nama.toLowerCase().includes(query) || it.warna.toLowerCase().includes(query));
        
         if (matchGroupQuery) {
@@ -7387,6 +7445,8 @@ function bukaEditSingle(index) {
     document.getElementById('editCustomer').readOnly = true;
     document.getElementById('editNoSuratJalan').value = item.noSuratJalan || '';
     document.getElementById('editNoSuratJalan').readOnly = true;
+    const editSalesSingle = document.getElementById('editSales');
+    if (editSalesSingle) { editSalesSingle.value = '-'; editSalesSingle.readOnly = true; }
     kunciAlamatEditModal(true);
 
     document.getElementById('containerEditItemSingle').style.display = 'block';
@@ -7423,6 +7483,12 @@ function bukaEditGroup(groupKey) {
     if (editAlamatEl) editAlamatEl.value = first.alamatCustomer || '';
     document.getElementById('editNoSuratJalan').value = first.noSuratJalan || '';
     document.getElementById('editNoSuratJalan').readOnly = false;
+    const editSalesGroup = document.getElementById('editSales');
+    if (editSalesGroup) {
+        const salesAwal = groupItems.find(it => it.sales && String(it.sales).trim() && String(it.sales).trim() !== '-');
+        editSalesGroup.value = salesAwal ? String(salesAwal.sales).trim().toUpperCase() : '';
+        editSalesGroup.readOnly = false;
+    }
 
     document.getElementById('containerEditItemSingle').style.display = 'none';
     document.getElementById('containerEditItemMulti').style.display = 'block';
@@ -7695,6 +7761,7 @@ function simpanEdit() {
         const customer = document.getElementById('editCustomer').value.trim().toUpperCase();
         const editAlamatEl = document.getElementById('editAlamatCustomer');
         const alamatCustomer = editAlamatEl ? editAlamatEl.value.trim() : '';
+        const sales = document.getElementById('editSales') ? document.getElementById('editSales').value.trim().toUpperCase() : '';
         const noSuratJalan = document.getElementById('editNoSuratJalan').value.trim();
 
         if (!customer) {
@@ -7747,6 +7814,7 @@ function simpanEdit() {
                 warna: editedItem.warna.trim().toUpperCase(),
                 customer: customer,
                 alamatCustomer: alamatCustomer,
+                sales: sales,
                 jumlah: editedItem.jumlah,
                 yards: Array.isArray(editedItem.yards) ? editedItem.yards : [],
                 totalYard: editedItem.totalYard || 0
@@ -7896,6 +7964,17 @@ function simpanModalYard() {
         updateApp();
         showCustomPopup('success', 'Detail Yard Disimpan');
     }
+}
+
+function updateSalesBaris(tanggal, customer, jam, newSales) {
+    const cleanSales = String(newSales || '').trim().toUpperCase();
+    transaksi.forEach(item => {
+        if (item.jenis === 'keluar' && item.tanggal === tanggal && item.jam === jam && (item.customer || '-').trim() === customer) {
+            item.sales = cleanSales;
+        }
+    });
+    saveData();
+    renderPenjualan();
 }
 
 function updateAlamatCustomerBaris(tanggal, customer, jam, newAlamat) {
@@ -8316,6 +8395,7 @@ function exportExcel() {
         "No Surat Jalan": item.noSuratJalan || '-',
         "Nama Customer": item.customer ? item.customer.toUpperCase() : '-',
         "Alamat Customer": item.alamatCustomer || '-',
+        "Nama Sales": item.sales || '-',
         "Kode Barang": item.kode ? item.kode.toUpperCase() : '',
         "Nama Barang": item.nama ? item.nama.toUpperCase() : '',
         "Warna": item.warna ? item.warna.toUpperCase() : '',
@@ -8355,6 +8435,8 @@ function importExcel(event) {
                 const customer = String(row["Nama Customer"] || row["customer"] || "-").trim().toUpperCase();
                 const alamatCustomer = String(row["Alamat Customer"] || row["alamatCustomer"] || "").trim();
                 const noSuratJalan = String(row["No Surat Jalan"] || row["noSuratJalan"] || "").trim();
+                let sales = String(row["Nama Sales"] || row["sales"] || "").trim().toUpperCase();
+                if (sales === "-") sales = "";
                 const jumlah = parseInt(row["Jumlah (Roll)"] || row["Jumlah"] || row["jumlah"] || 0);
                 const jenisRaw = String(row["Jenis"] || row["jenis"] || "").toLowerCase();
                 const jenis = jenisRaw.includes('keluar') ? 'keluar' : 'masuk';
@@ -8375,6 +8457,7 @@ function importExcel(event) {
                         jam: row["Jam"] || time.jam,
                         jenis, noSuratJalan, kode, nama, warna, customer,
                         alamatCustomer: alamatCustomer || '',
+                        sales: sales,
                         jumlah,
                         yards: yards.length > 0 ? yards : [],
                         totalYard: totalYard || 0
