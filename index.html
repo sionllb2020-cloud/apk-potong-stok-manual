@@ -3461,6 +3461,29 @@ hr, .divider { border-color: var(--border-color); }
 .floating-barang-picker .picker-search-input:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }
 </style>
 <style id="customer-picker-style">
+.picker-field { position: relative; display: flex; align-items: center; width: 100%; }
+.picker-field > input { padding-right: 50px !important; }
+.picker-toggle-btn {
+    position: absolute; right: 8px; top: 50%; margin-top: -16px;
+    width: 32px; height: 32px; min-width: 32px; min-height: 32px; padding: 0;
+    border: 1px solid var(--border-color); border-radius: 9px;
+    background: var(--primary-light); color: var(--primary);
+    box-shadow: none; display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 2; transform: none !important; filter: none;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.picker-toggle-btn:hover:not(:disabled), .picker-toggle-btn:active:not(:disabled) {
+    transform: none !important; filter: none; background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: none;
+}
+.picker-toggle-btn svg { display: block; transition: transform .2s ease; pointer-events: none; }
+.picker-field:has(.floating-barang-picker:not([hidden])) .picker-toggle-btn svg  { transform: rotate(180deg); }
+/* Perbaikan: hiasan lingkaran header tidak boleh membuat halaman bergeser ke samping di HP */
+.header { overflow-x: clip; }
+html { overflow-x: hidden; }
+@keyframes pickerCenterIn { from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)) scale(.97); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+.floating-barang-picker { animation: pickerCenterIn .22s ease-out !important; }
+/* Perbaikan: popup pilihan (position:fixed) tidak boleh ikut terpotong / bergeser oleh efek hover kartu */
+#inputPage .card, #inputPage .card:hover { transform: none !important; overflow: visible !important; }
 .floating-customer-picker .picker-heading,
 .floating-customer-picker .picker-row { grid-template-columns: minmax(120px, 1.2fr) minmax(160px, 2fr) auto; }
 .floating-customer-picker .picker-address { opacity: .85; overflow-wrap: anywhere; font-size: 12px; }
@@ -3469,6 +3492,63 @@ hr, .divider { border-color: var(--border-color); }
 @media (max-width: 700px) {
     .floating-customer-picker .picker-heading,
     .floating-customer-picker .picker-row { grid-template-columns: minmax(90px, 1fr) minmax(110px, 1.6fr) auto; }
+}
+
+/* ===== TABEL PILIHAN RAPI & PRESISI (Barang & Customer) ===== */
+#floatingBarangPicker, #floatingCustomerPicker { overflow-x: hidden; }
+#floatingBarangPicker .picker-heading, #floatingBarangPicker .picker-row {
+    grid-template-columns: minmax(110px, 1fr) minmax(0, 2.2fr) minmax(100px, 1.1fr) 96px !important;
+}
+#floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
+    grid-template-columns: minmax(140px, 1.3fr) minmax(0, 2.2fr) minmax(120px, 1.1fr) 96px !important;
+}
+#floatingBarangPicker .picker-heading, #floatingBarangPicker .picker-row,
+#floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
+    gap: 0 !important; padding: 0 !important; align-items: stretch !important;
+}
+#floatingBarangPicker .picker-heading > span, #floatingCustomerPicker .picker-heading > span,
+#floatingBarangPicker .picker-row > span, #floatingCustomerPicker .picker-row > span {
+    display: flex; align-items: center; min-width: 0; padding: 13px 14px;
+    overflow-wrap: anywhere; line-height: 1.4; text-align: left; opacity: 1; font-size: 13px;
+}
+#floatingBarangPicker .picker-heading > span, #floatingCustomerPicker .picker-heading > span {
+    padding: 11px 14px; font-size: 11px; border-right: 1px solid rgba(255,255,255,.28);
+}
+#floatingBarangPicker .picker-row > span, #floatingCustomerPicker .picker-row > span {
+    border-right: 1px solid var(--border-color);
+}
+#floatingBarangPicker .picker-heading > span:last-child, #floatingCustomerPicker .picker-heading > span:last-child,
+#floatingBarangPicker .picker-row > span:last-child, #floatingCustomerPicker .picker-row > span:last-child {
+    border-right: 0; justify-content: center; text-align: center; white-space: nowrap;
+}
+#floatingBarangPicker .picker-row, #floatingCustomerPicker .picker-row {
+    border-bottom: 1px solid var(--border-color); min-height: 52px;
+    transition: background .15s ease !important;
+}
+#floatingBarangPicker .picker-row:nth-child(even), #floatingCustomerPicker .picker-row:nth-child(even) {
+    background: color-mix(in srgb, var(--primary-light) 35%, var(--card-bg));
+}
+#floatingBarangPicker .picker-row:hover, #floatingCustomerPicker .picker-row:hover,
+#floatingBarangPicker .picker-row:focus-visible, #floatingCustomerPicker .picker-row:focus-visible {
+    padding-left: 0 !important; transform: none !important; background: var(--primary-light);
+    box-shadow: inset 4px 0 0 var(--primary);
+}
+#floatingBarangPicker .picker-code, #floatingCustomerPicker .picker-code { font-weight: 800; }
+#floatingBarangPicker .picker-stock { color: var(--primary); font-weight: 800; }
+#floatingCustomerPicker .picker-count { font-weight: 800; color: var(--primary); }
+#floatingCustomerPicker .picker-phone { font-weight: 700; font-variant-numeric: tabular-nums; }
+#floatingCustomerPicker .picker-row.is-new { grid-template-columns: 1fr !important; }
+#floatingCustomerPicker .picker-row.is-new > span { border-right: 0; justify-content: flex-start !important; text-align: left !important; white-space: normal; }
+@media (max-width: 700px) {
+    #floatingBarangPicker .picker-heading, #floatingBarangPicker .picker-row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr) 60px !important;
+    }
+    #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) minmax(0, 1.1fr) 68px !important;
+    }
+    #floatingBarangPicker .picker-heading > span, #floatingCustomerPicker .picker-heading > span { padding: 9px 7px; font-size: 9.5px; }
+    #floatingBarangPicker .picker-row > span, #floatingCustomerPicker .picker-row > span { padding: 10px 7px; font-size: 11px; }
+    #floatingBarangPicker .picker-heading > span:last-child, #floatingCustomerPicker .picker-heading > span:last-child { padding-left: 2px; padding-right: 2px; white-space: nowrap; overflow-wrap: normal; font-size: 8.5px; letter-spacing: 0; }
 }
 </style>
 <style id="modern-ui-layer">
@@ -4294,8 +4374,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
 
                 <div class="form-group" id="containerCustomer" style="display:none;">
                     <label>Nama Customer</label>
-                    <input type="text" id="customer" placeholder="Ketik / pilih Nama Customer" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanCustomer()" onclick="bukaPilihanCustomer()" oninput="this.value = this.value.toUpperCase(); filterPilihanCustomer(this.value)" onkeydown="navigasiPilihanCustomer(event)">
-                    <div id="floatingCustomerPicker" class="floating-barang-picker floating-customer-picker" role="listbox" aria-label="Daftar customer" hidden></div>
+                    <div class="picker-field"><input type="text" id="customer" placeholder="Ketik / pilih Nama Customer" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanCustomer()" onclick="bukaPilihanCustomer()" oninput="this.value = this.value.toUpperCase(); filterPilihanCustomer(this.value)" onkeydown="navigasiPilihanCustomer(event)"><button type="button" class="picker-toggle-btn" onclick="togglePilihan('customer')" aria-label="Pilih customer" title="Pilih customer"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingCustomerPicker" class="floating-barang-picker floating-customer-picker" role="listbox" aria-label="Daftar customer" hidden></div></div>
                     <div class="form-help">Pilih customer yang pernah diinput, atau ketik nama customer baru</div>
                 </div>
 
@@ -4310,8 +4389,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
                     <label id="labelPilihStok">Barang Sudah Ada (Opsional)</label>
-                    <input type="text" id="searchBarangKeluar" placeholder="Ketik kode, nama, atau warna..." autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanBarang()" oninput="filterPilihanBarang(this.value)" onkeydown="navigasiPilihanBarang(event)">
-                    <div id="floatingBarangPicker" class="floating-barang-picker" role="listbox" aria-label="Daftar barang tersedia" hidden></div>
+                    <div class="picker-field"><input type="text" id="searchBarangKeluar" placeholder="Ketik kode, nama, atau warna..." autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanBarang()" oninput="filterPilihanBarang(this.value)" onkeydown="navigasiPilihanBarang(event)"><button type="button" class="picker-toggle-btn" onclick="togglePilihan('barang')" aria-label="Pilih barang yang sudah terinput" title="Pilih barang yang sudah terinput"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingBarangPicker" class="floating-barang-picker" role="listbox" aria-label="Daftar barang tersedia" hidden></div></div>
                     <div class="form-help" id="helpPilihStok">Pilih barang untuk diisi otomatis</div>
                 </div>
 
@@ -4816,7 +4894,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                         <input type="text" id="editSingleWarna" oninput="this.value = this.value.toUpperCase()">
                     </div>
                     <div class="form-group">
-                        <label>Jumlah Barang <span style="font-size:11px; color:var(--text-muted);"</span></label>
+                        <label>Jumlah Barang </label>
                         <input type="number" id="editSingleJumlah" readonly style="background: var(--readonly-bg); color: var(--text-muted); cursor: not-allowed;" title="Jumlah dikunci untuk menjaga keamanan stok">
                     </div>
                 </div>
@@ -6081,11 +6159,12 @@ function daftarPilihanBarang() {
     });
 }
 
-function bukaPilihanBarang() {
+function bukaPilihanBarang(tampilSemua) {
     const input = document.getElementById('searchBarangKeluar');
     if (!input) return;
+    tutupPilihanCustomer();
     floatingBarangItems = daftarPilihanBarang();
-    renderPilihanBarang(input.value || '');
+    renderPilihanBarang(tampilSemua === true ? '' : (input.value || ''));
 }
 
 function filterPilihanBarang(query) {
@@ -6231,20 +6310,24 @@ function daftarPilihanCustomer() {
         if (!nama || nama === '-') return;
         if (!map[nama]) map[nama] = { nama, alamat: '', transaksi: new Set() };
         const alamat = String(item.alamatCustomer || '').trim();
-        // transaksi disimpan terbaru di depan, jadi alamat non-kosong pertama = alamat terbaru
-        if (!map[nama].alamat && alamat && alamat !== '-') map[nama].alamat = alamat;
+        // transaksi disimpan terbaru di depan, jadi alamat non-kosong TERAKHIR yang ditemui = alamat saat pertama kali diinput
+        if (alamat && alamat !== '-') map[nama].alamat = alamat;
         map[nama].transaksi.add(`${item.tanggal}___${item.jam}`);
     });
     return Object.values(map)
-        .map(c => ({ nama: c.nama, alamat: c.alamat, jumlahTransaksi: c.transaksi.size }))
+        .map(c => {
+            const pecah = pisahAlamatDanTelepon(c.alamat);
+            return { nama: c.nama, alamat: c.alamat, alamatTampil: pecah.alamat, telepon: pecah.telepon, jumlahTransaksi: c.transaksi.size };
+        })
         .sort((a, b) => a.nama.localeCompare(b.nama, 'id', { sensitivity: 'base' }));
 }
 
-function bukaPilihanCustomer() {
+function bukaPilihanCustomer(tampilSemua) {
     const input = document.getElementById('customer');
     if (!input) return;
+    tutupPilihanBarang();
     floatingCustomerItems = daftarPilihanCustomer();
-    renderPilihanCustomer(input.value || '');
+    renderPilihanCustomer(tampilSemua === true ? '' : (input.value || ''));
 }
 
 function filterPilihanCustomer(query) {
@@ -6276,7 +6359,7 @@ function pastikanShellPilihanCustomer(popup) {
     wrap.appendChild(si);
     const heading = document.createElement('div');
     heading.className = 'picker-heading';
-    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT TERAKHIR</span><span>TRANSAKSI</span>';
+    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT</span><span>NO TELP / HP</span><span>TRANSAKSI</span>';
     sticky.append(wrap, heading);
     const list = document.createElement('div');
     list.id = 'pickerCustomerListBody';
@@ -6294,7 +6377,7 @@ function renderPilihanCustomer(query) {
     const list = document.getElementById('pickerCustomerListBody');
     const q = qRaw.toLocaleLowerCase('id');
     const found = floatingCustomerItems.filter(c =>
-        [c.nama, c.alamat].some(v => String(v || '').toLocaleLowerCase('id').includes(q))
+        [c.nama, c.alamatTampil, c.telepon].some(v => String(v || '').toLocaleLowerCase('id').includes(q))
     );
     list.innerHTML = '';
 
@@ -6304,10 +6387,8 @@ function renderPilihanCustomer(query) {
         rowBaru.type = 'button';
         rowBaru.className = 'picker-row is-new';
         rowBaru.setAttribute('role', 'option');
-        const a = document.createElement('span'); a.className = 'picker-code'; a.textContent = '+ ' + qRaw.toUpperCase();
-        const b = document.createElement('span'); b.className = 'picker-address'; b.textContent = 'Gunakan sebagai customer baru';
-        const c = document.createElement('span'); c.className = 'picker-count'; c.textContent = 'BARU';
-        rowBaru.append(a, b, c);
+        const a = document.createElement('span'); a.className = 'picker-code'; a.textContent = '+ ' + qRaw.toUpperCase() + ' — gunakan sebagai customer baru';
+        rowBaru.append(a);
         rowBaru.addEventListener('mousedown', e => e.preventDefault());
         rowBaru.addEventListener('click', () => pilihCustomerBaru(qRaw.toUpperCase()));
         list.appendChild(rowBaru);
@@ -6327,9 +6408,10 @@ function renderPilihanCustomer(query) {
             row.className = 'picker-row';
             row.setAttribute('role', 'option');
             const nama = document.createElement('span'); nama.className = 'picker-code'; nama.textContent = item.nama;
-            const alamat = document.createElement('span'); alamat.className = 'picker-address'; alamat.textContent = item.alamat || '-';
+            const alamat = document.createElement('span'); alamat.className = 'picker-address'; alamat.textContent = item.alamatTampil || '-';
+            const telp = document.createElement('span'); telp.className = 'picker-phone'; telp.textContent = item.telepon || '-';
             const jml = document.createElement('span'); jml.className = 'picker-count'; jml.textContent = formatAngka(item.jumlahTransaksi) + 'x';
-            row.append(nama, alamat, jml);
+            row.append(nama, alamat, telp, jml);
             row.addEventListener('mousedown', e => e.preventDefault());
             row.addEventListener('click', () => pilihCustomerDariTabel(item));
             list.appendChild(row);
@@ -6340,17 +6422,25 @@ function renderPilihanCustomer(query) {
     floatingCustomerIndex = -1;
 }
 
+let alamatOtomatis = '';
+
 function pilihCustomerDariTabel(item) {
     const input = document.getElementById('customer');
     const alamat = document.getElementById('alamatCustomer');
     if (input) input.value = item.nama;
-    if (alamat && item.alamat) alamat.value = item.alamat;
+    // alamat mengikuti data pertama kali customer ini diinput (kosong jika memang belum ada)
+    if (alamat) alamat.value = item.alamat || '';
+    alamatOtomatis = item.alamat || '';
     tutupPilihanCustomer();
 }
 
 function pilihCustomerBaru(nama) {
     const input = document.getElementById('customer');
+    const alamat = document.getElementById('alamatCustomer');
     if (input) input.value = nama;
+    // bersihkan alamat yang tadinya terisi otomatis dari customer lain
+    if (alamat && alamatOtomatis && alamat.value === alamatOtomatis) alamat.value = '';
+    alamatOtomatis = '';
     tutupPilihanCustomer();
 }
 
@@ -6378,7 +6468,12 @@ function navigasiPilihanCustomer(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         if (floatingCustomerIndex >= 0 && rows[floatingCustomerIndex]) rows[floatingCustomerIndex].click();
-        else tutupPilihanCustomer(); // pakai teks yang diketik sebagai customer baru
+        else {
+            const teks = (document.getElementById('customer')?.value || '').trim().toUpperCase();
+            const cocok = daftarPilihanCustomer().find(c => c.nama === teks);
+            if (cocok) pilihCustomerDariTabel(cocok);
+            else pilihCustomerBaru(teks);
+        }
     }
 }
 
@@ -6386,6 +6481,23 @@ document.addEventListener('click', function(event) {
     const wrapper = document.getElementById('containerCustomer');
     if (wrapper && !wrapper.contains(event.target)) tutupPilihanCustomer();
 });
+
+/* =========================================================
+   TOMBOL PILIH (barang & customer)
+========================================================= */
+/* Tombol pilih: buka jika tertutup, tutup jika sedang terbuka */
+function togglePilihan(which) {
+    const cfg = {
+        barang:   { id: 'floatingBarangPicker',   buka: bukaPilihanBarang,   tutup: tutupPilihanBarang,   search: 'pickerSearchInput' },
+        customer: { id: 'floatingCustomerPicker', buka: bukaPilihanCustomer, tutup: tutupPilihanCustomer, search: 'pickerCustomerSearchInput' }
+    }[which];
+    if (!cfg) return;
+    const popup = document.getElementById(cfg.id);
+    if (popup && !popup.hidden) { cfg.tutup(); return; }
+    cfg.buka(true); // tombol selalu menampilkan daftar lengkap
+    const box = document.getElementById(cfg.search);
+    if (box) box.focus();
+}
 
 function populateDatalistStok() {
     const list = document.getElementById('listBarangStok');
@@ -6676,6 +6788,7 @@ function simpanTransaksi() {
 }
 
 function resetFormInput() {
+    alamatOtomatis = '';
     const jenis = document.getElementById('jenis') ? document.getElementById('jenis').value : 'masuk';
     if (document.getElementById('searchBarangKeluar')) document.getElementById('searchBarangKeluar').value = '';
     if (document.getElementById('customer')) document.getElementById('customer').value = '';
