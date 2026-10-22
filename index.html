@@ -103,12 +103,21 @@ body.theme-sunset {
     --header-grad: linear-gradient(135deg, #78350f, #d97706);
 }
 
-/* 6. TEMA ROSE PINK */
-body.theme-rose {
-    --primary: #e11d48;
-    --primary-dark: #be123c;
-    --primary-light: #ffe4e6;
-    --header-grad: linear-gradient(135deg, #881337, #e11d48);
+/* 6. TEMA DARK CHOCOLATE */
+body.theme-chocolate {
+    --primary: #8b5e3c;
+    --primary-dark: #6f451f;
+    --primary-light: #f3e5d8;
+    --text-dark: #2b211b;
+    --text-muted: #79685b;
+    --bg-main: #f5eee8;
+    --card-bg: #fffaf6;
+    --border-color: #dfcbbb;
+    --input-bg: #fffaf6;
+    --readonly-bg: #eadbce;
+    --table-hover: #f3e5d8;
+    --thead-bg: #eadbce;
+    --header-grad: linear-gradient(135deg, #2b1b12, #8b5e3c);
 }
 
 /* 7. TEMA SLATE GRAY */
@@ -750,6 +759,16 @@ button:active {
 
 .btn-save { background: var(--primary); color: white; }
 .btn-save:hover { background: var(--primary-dark); }
+/* Tombol tambah barang tetap mengikuti tema dan tidak berubah warna saat disentuh */
+.btn-tambah-keranjang,
+.btn-tambah-keranjang:hover,
+.btn-tambah-keranjang:active,
+.btn-tambah-keranjang:focus,
+.btn-tambah-keranjang:focus-visible {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    outline-color: var(--primary);
+}
 
 .btn-reset { background: var(--readonly-bg); color: var(--text-dark); border: 1px solid var(--border-color); }
 .btn-reset:hover { background: var(--border-color); }
@@ -4072,7 +4091,245 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
     body.printing-surat-jalan .sj-info-grid .sj-info-item.sj-sales-item,
     body.printing-all-sj .sj-info-grid .sj-info-item.sj-sales-item { flex: 1 !important; }
 }
+
+/* PEMILIH NAMA SALES */
+.floating-sales-picker { width: min(440px, 92vw) !important; max-width: 440px !important; }
+.floating-sales-picker .picker-heading,
+.floating-sales-picker .picker-row { grid-template-columns: 56px minmax(0, 1fr) !important; gap: 0 !important; padding: 0 !important; align-items: stretch !important; }
+.floating-sales-picker .picker-heading > span,
+.floating-sales-picker .picker-row > span { display: flex; align-items: center; padding: 13px 16px; font-size: 14px; line-height: 1.4; }
+.floating-sales-picker .picker-heading > span { font-size: 11px; padding: 11px 16px; }
+.floating-sales-picker .picker-heading > span:first-child,
+.floating-sales-picker .picker-row > span:first-child { justify-content: center; padding-left: 8px; padding-right: 8px; border-right: 1px solid var(--border-color); }
+.floating-sales-picker .picker-heading > span:first-child { border-right-color: rgba(255,255,255,.28); }
+.floating-sales-picker .picker-row > span:last-child { font-weight: 800; }
+.floating-sales-picker .picker-row:nth-child(even) { background: color-mix(in srgb, var(--primary-light) 35%, var(--card-bg)); }
+.floating-sales-picker .picker-row:hover { padding-left: 0 !important; box-shadow: inset 4px 0 0 var(--primary); }
+.floating-sales-picker .picker-row.is-selected { background: var(--primary-light); box-shadow: inset 4px 0 0 var(--primary); }
+.floating-sales-picker .picker-add-bar { position: sticky; bottom: 0; z-index: 3; display: flex; gap: 8px; padding: 10px 12px; background: var(--card-bg, #fff); border-top: 1px solid var(--border-color, #e2e8f0); box-shadow: 0 -6px 14px rgba(15,23,42,.06); }
+.floating-sales-picker .picker-add-bar .picker-search-input { flex: 1 1 auto; min-width: 0; text-transform: none; }
+.floating-sales-picker .picker-add-btn { flex: 0 0 auto; min-height: 44px; padding: 8px 14px; border-radius: 10px; border: 0; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; font-size: 12px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.floating-sales-picker .picker-row.is-new > span:last-child { color: var(--primary); }
+.picker-field.sales-field:has(input[readonly]) .picker-toggle-btn { opacity: .35; pointer-events: none; }
+.picker-field:has(.floating-sales-picker:not([hidden])) .picker-toggle-btn svg { transform: rotate(180deg); }
+
+/* TOMBOL YARD: warna & bayangan tetap, tidak berubah saat hover / klik */
+.btn-yard,
+.btn-yard:hover,
+.btn-yard:focus,
+.btn-yard:active,
+.btn-edit.btn-yard[style*="#0284c7"],
+.btn-edit.btn-yard[style*="#0284c7"]:hover,
+.btn-edit.btn-yard[style*="#0284c7"]:active {
+    background: linear-gradient(135deg, #38bdf8, #0284c7) !important;
+    color: #fff !important;
+    filter: none !important;
+    box-shadow: 0 5px 12px -3px rgba(2,132,199,.5) !important;
+}
+.btn-yard:hover:not(:disabled),
+.btn-yard:active:not(:disabled) { transform: none !important; }
+.btn-yard::after { display: none !important; }
+.btn-yard .m-ripple { display: none !important; }
+
+/* REPORT STOCK BARANG: Kode Barang hitam, Sisa Stock mengikuti warna tema, habis = merah */
+body #stokPage .table-wrapper tbody td:first-child strong { color: #000000 !important; }
+body.theme-dark #stokPage .table-wrapper tbody td:first-child strong { color: var(--text-dark) !important; }
+body #stokPage .stok-box {
+    color: var(--primary-dark) !important;
+    background: var(--primary-light) !important;
+    border-color: color-mix(in srgb, var(--primary) 45%, var(--border-color)) !important;
+}
+body.theme-dark #stokPage .stok-box { color: var(--primary) !important; }
+body #stokPage .stok-habis-box {
+    color: #dc2626 !important;
+    background: #fee2e2 !important;
+    border-color: #fca5a5 !important;
+}
+body.theme-dark #stokPage .stok-habis-box {
+    color: #fca5a5 !important;
+    background: #7f1d1d !important;
+    border-color: #ef4444 !important;
+}
+@media print {
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage .stok-box,
+    body:not(.printing-surat-jalan):not(.printing-all-sj) #stokPage .stok-habis-box { color: #000000 !important; background: transparent !important; border: 0 !important; }
+}
 </style>
+
+<style id="premium-login-theme">
+/* LOGIN AWAL — tema premium Dark Chocolate & Champagne Gold; hanya visual */
+#authContainer.auth-wrapper {
+    background:
+        radial-gradient(ellipse at 14% 18%, rgba(184, 115, 51, .28), transparent 34%),
+        radial-gradient(ellipse at 88% 82%, rgba(218, 165, 90, .20), transparent 32%),
+        linear-gradient(135deg, #100b08 0%, #24150f 42%, #3a2418 72%, #120c09 100%) !important;
+    isolation: isolate;
+}
+#authContainer.auth-wrapper::before {
+    width: min(560px, 70vw); height: min(560px, 70vw);
+    top: -210px; left: -150px;
+    background: radial-gradient(circle, rgba(212, 160, 93, .34), rgba(139, 94, 60, .08) 48%, transparent 72%);
+    filter: blur(28px); opacity: .95;
+    animation: loginGlowDrift 12s ease-in-out infinite alternate;
+}
+#authContainer.auth-wrapper::after {
+    width: min(620px, 78vw); height: min(620px, 78vw);
+    right: -220px; bottom: -270px;
+    background: radial-gradient(circle, rgba(156, 94, 48, .32), rgba(76, 46, 29, .10) 52%, transparent 73%);
+    filter: blur(32px); opacity: .9;
+    animation: loginGlowDrift 15s ease-in-out infinite alternate-reverse;
+}
+#loginCard.auth-card {
+    width: min(100%, 448px);
+    padding: 34px 34px 28px;
+    overflow: hidden;
+    border-radius: 30px;
+    border: 1px solid rgba(214, 174, 119, .58);
+    background: linear-gradient(145deg, rgba(255, 252, 246, .985), rgba(245, 233, 216, .97)) !important;
+    box-shadow: 0 34px 90px rgba(0,0,0,.52), 0 0 0 7px rgba(215,174,119,.055), inset 0 1px 0 rgba(255,255,255,.98) !important;
+    color: #2b1b12;
+}
+#loginCard.auth-card::before {
+    content: "";
+    position: absolute; inset: 0 0 auto; height: 5px;
+    background: linear-gradient(90deg, #6b4226, #d6ae77, #f0d7a8, #8b5e3c);
+}
+#loginCard .auth-brand { margin-bottom: 17px; }
+#loginCard .auth-brand .brand-icon {
+    width: 72px; height: 72px; border-radius: 23px;
+    color: #fff8ec;
+    font-size: 25px; letter-spacing: -1px;
+    background: linear-gradient(145deg, #d8b579 0%, #9a6a3d 42%, #4a2b1b 100%) !important;
+    border: 1px solid rgba(255,255,255,.58);
+    box-shadow: 0 13px 28px rgba(91,53,27,.30), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -7px 12px rgba(39,22,13,.2) !important;
+    position: relative;
+}
+#loginCard .auth-brand .brand-icon::after {
+    content: ""; position: absolute; inset: 5px; border: 1px solid rgba(255,238,204,.38); border-radius: 18px; pointer-events: none;
+}
+#loginCard .auth-header { margin-bottom: 25px; }
+#loginCard .auth-header::before {
+    content: "INVENTORY • STOCK CONTROL";
+    display: block; margin: 0 0 8px;
+    color: #987047; font-size: 9px; font-weight: 800; letter-spacing: 2.1px;
+}
+#loginCard .auth-header h2 { color: #2a1a11; font-size: clamp(23px, 4vw, 27px); letter-spacing: -.8px; }
+#loginCard .auth-header p { color: #806d5c; font-size: 12px; }
+#loginCard .auth-form label { color: #65462f; letter-spacing: .9px; }
+#loginCard .auth-form input {
+    min-height: 48px; padding: 13px 15px;
+    border: 1px solid #ddcbb4 !important;
+    background: rgba(255,255,255,.78) !important;
+    color: #2b211b !important; border-radius: 14px !important;
+    box-shadow: inset 0 1px 2px rgba(69,42,22,.035);
+}
+#loginCard .auth-form input::placeholder { color: #a79583; }
+#loginCard .auth-form input:focus {
+    border-color: #a97845 !important; background: #fffdf9 !important;
+    box-shadow: 0 0 0 4px rgba(169,120,69,.14) !important;
+}
+#loginCard .password-wrapper { position: relative; }
+#loginCard .toggle-password { color: #7b5b3e !important; }
+#loginCard .auth-form .btn-primary {
+    min-height: 49px; margin-top: 10px; border-radius: 14px !important;
+    color: #fff9ef !important;
+    background: linear-gradient(115deg, #4b2c1b, #8b5e3c 48%, #b48653) !important;
+    box-shadow: 0 12px 24px rgba(92,57,32,.26), inset 0 1px 0 rgba(255,255,255,.2) !important;
+    letter-spacing: 1.6px; font-weight: 800;
+}
+#loginCard .auth-form .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
+#loginCard .auth-links { border-top-color: #e5d5c2; color: #887462; padding-top: 17px; margin-top: 20px; }
+#loginCard .auth-links a { color: #83542f; }
+#loginCard .auth-links a:hover { color: #4b2c1b; }
+@keyframes loginGlowDrift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(22px,18px,0) scale(1.08); } }
+@media (max-width: 480px) {
+    #authContainer.auth-wrapper { padding: 18px; }
+    #loginCard.auth-card { padding: 29px 22px 23px; border-radius: 25px; }
+    #loginCard .auth-brand .brand-icon { width: 64px; height: 64px; border-radius: 20px; }
+    #loginCard .auth-header { margin-bottom: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #authContainer.auth-wrapper::before, #authContainer.auth-wrapper::after { animation: none !important; }
+}
+</style>
+
+
+<style id="auth-theme-selector-and-all-auth-themes">
+#authContainer.auth-wrapper {
+  --auth-accent:#2563eb; --auth-accent-dark:#1d4ed8; --auth-accent-soft:#dbeafe;
+  --auth-glow:rgba(59,130,246,.28); --auth-card-top:#ffffff; --auth-card-bottom:#eff6ff;
+  --auth-ink:#172554; --auth-muted:#64748b; --auth-label:#334155; --auth-input:#ffffff;
+  --auth-input-border:#cbd5e1; --auth-link:#1d4ed8; --auth-edge:rgba(255,255,255,.55);
+  position:relative; min-height:100vh; padding:72px 20px 28px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:radial-gradient(ellipse at 14% 18%,var(--auth-glow),transparent 34%),
+             radial-gradient(ellipse at 88% 82%,rgba(255,255,255,.09),transparent 32%),
+             linear-gradient(135deg,#0f172a 0%,#1e293b 48%,#334155 100%) !important;
+  transition:background .25s ease;
+}
+#authContainer .auth-theme-control {
+  position:absolute; z-index:5; top:20px; right:22px; display:flex; align-items:center; gap:9px;
+  padding:8px 10px 8px 13px; border-radius:16px; border:1px solid rgba(255,255,255,.25);
+  background:rgba(15,23,42,.48); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 8px 26px rgba(0,0,0,.18); color:#fff; font-size:12px; font-weight:800;
+}
+#authContainer .auth-theme-control .theme-select {
+  min-width:145px; max-width:190px; padding:9px 32px 9px 11px; border-radius:10px !important;
+  border:1px solid rgba(255,255,255,.32) !important; color:#fff !important;
+  background:rgba(255,255,255,.13) !important; box-shadow:none !important; font-size:12px;
+}
+#authContainer .auth-theme-control .theme-select option { background:#fff; color:#172033; }
+#authContainer .auth-card {
+  color:var(--auth-ink) !important; background:linear-gradient(145deg,var(--auth-card-top),var(--auth-card-bottom)) !important;
+  border:1px solid color-mix(in srgb,var(--auth-accent) 35%,white) !important;
+  box-shadow:0 34px 90px rgba(0,0,0,.42),0 0 0 7px color-mix(in srgb,var(--auth-accent) 10%,transparent),inset 0 1px 0 var(--auth-edge) !important;
+}
+#authContainer .auth-card::before { background:linear-gradient(90deg,var(--auth-accent-dark),var(--auth-accent),color-mix(in srgb,var(--auth-accent) 35%,white)) !important; }
+#authContainer .auth-card .brand-icon {
+  background:linear-gradient(145deg,color-mix(in srgb,var(--auth-accent) 35%,white),var(--auth-accent),var(--auth-accent-dark)) !important;
+  box-shadow:0 13px 28px color-mix(in srgb,var(--auth-accent) 28%,transparent),inset 0 1px 0 rgba(255,255,255,.4) !important;
+}
+#authContainer .auth-card .auth-header::before { color:var(--auth-accent) !important; }
+#authContainer .auth-card .auth-header h2 { color:var(--auth-ink) !important; }
+#authContainer .auth-card .auth-header p { color:var(--auth-muted) !important; }
+#authContainer .auth-card .auth-form label { color:var(--auth-label) !important; }
+#authContainer .auth-card .auth-form input,
+#authContainer .auth-card .auth-form select {
+  color:var(--auth-ink) !important; background:var(--auth-input) !important;
+  border-color:var(--auth-input-border) !important;
+}
+#authContainer .auth-card .auth-form input::placeholder { color:var(--auth-muted) !important; opacity:.75; }
+#authContainer .auth-card .auth-form input:focus,
+#authContainer .auth-card .auth-form select:focus {
+  border-color:var(--auth-accent) !important;
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--auth-accent) 16%,transparent) !important;
+}
+#authContainer .auth-card .toggle-password { color:var(--auth-accent-dark) !important; }
+#authContainer .auth-card .auth-form .btn-primary {
+  color:#fff !important; background:linear-gradient(115deg,var(--auth-accent-dark),var(--auth-accent) 60%,color-mix(in srgb,var(--auth-accent) 65%,white)) !important;
+  box-shadow:0 12px 24px color-mix(in srgb,var(--auth-accent) 26%,transparent),inset 0 1px 0 rgba(255,255,255,.2) !important;
+}
+#authContainer .auth-card .auth-links { border-top-color:color-mix(in srgb,var(--auth-accent) 22%,white) !important; color:var(--auth-muted) !important; }
+#authContainer .auth-card .auth-links a { color:var(--auth-link) !important; }
+#authContainer .auth-card .auth-links a:hover { filter:brightness(.82); }
+#authContainer #displaySecurityQuestion { color:var(--auth-accent-dark) !important; background:var(--auth-accent-soft) !important; }
+#authContainer .password-requirements { background:color-mix(in srgb,var(--auth-accent-soft) 65%,white) !important; }
+/* Palet warna yang sama digunakan pada login, buat akun, dan semua langkah lupa password. */
+body.theme-dark #authContainer { --auth-accent:#60a5fa;--auth-accent-dark:#2563eb;--auth-accent-soft:#1e3a8a;--auth-glow:rgba(96,165,250,.28);--auth-card-top:#1e293b;--auth-card-bottom:#0f172a;--auth-ink:#f1f5f9;--auth-muted:#a8b5c7;--auth-label:#dbeafe;--auth-input:#0f172a;--auth-input-border:#475569;--auth-link:#93c5fd;--auth-edge:rgba(255,255,255,.08); }
+body.theme-ocean #authContainer { --auth-accent:#0284c7;--auth-accent-dark:#0369a1;--auth-accent-soft:#e0f2fe;--auth-glow:rgba(2,132,199,.38);--auth-card-top:#fff;--auth-card-bottom:#e0f2fe;--auth-ink:#082f49;--auth-muted:#64748b;--auth-label:#075985;--auth-input:#fff;--auth-input-border:#bae6fd;--auth-link:#0369a1; }
+body.theme-forest #authContainer { --auth-accent:#059669;--auth-accent-dark:#047857;--auth-accent-soft:#d1fae5;--auth-glow:rgba(5,150,105,.34);--auth-card-top:#fff;--auth-card-bottom:#ecfdf5;--auth-ink:#064e3b;--auth-muted:#64786e;--auth-label:#065f46;--auth-input:#fff;--auth-input-border:#a7f3d0;--auth-link:#047857; }
+body.theme-purple #authContainer { --auth-accent:#7c3aed;--auth-accent-dark:#6d28d9;--auth-accent-soft:#ede9fe;--auth-glow:rgba(124,58,237,.38);--auth-card-top:#fff;--auth-card-bottom:#f5f3ff;--auth-ink:#2e1065;--auth-muted:#716582;--auth-label:#5b21b6;--auth-input:#fff;--auth-input-border:#ddd6fe;--auth-link:#6d28d9; }
+body.theme-sunset #authContainer { --auth-accent:#d97706;--auth-accent-dark:#b45309;--auth-accent-soft:#fef3c7;--auth-glow:rgba(217,119,6,.36);--auth-card-top:#fff;--auth-card-bottom:#fffbeb;--auth-ink:#451a03;--auth-muted:#85715d;--auth-label:#92400e;--auth-input:#fff;--auth-input-border:#fcd34d;--auth-link:#b45309; }
+body.theme-chocolate #authContainer { --auth-accent:#b48653;--auth-accent-dark:#4b2c1b;--auth-accent-soft:#f3e5d8;--auth-glow:rgba(184,115,51,.32);--auth-card-top:#fffaf2;--auth-card-bottom:#f1dfc8;--auth-ink:#2b1b12;--auth-muted:#806d5c;--auth-label:#65462f;--auth-input:#fffdf9;--auth-input-border:#ddcbb4;--auth-link:#83542f;--auth-edge:rgba(255,255,255,.65); }
+body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#334155;--auth-accent-soft:#e2e8f0;--auth-glow:rgba(100,116,139,.34);--auth-card-top:#fff;--auth-card-bottom:#f1f5f9;--auth-ink:#1e293b;--auth-muted:#64748b;--auth-label:#334155;--auth-input:#fff;--auth-input-border:#cbd5e1;--auth-link:#334155; }
+@media(max-width:520px) {
+ #authContainer.auth-wrapper { padding:84px 14px 22px; }
+ #authContainer .auth-theme-control { top:12px; right:12px; left:12px; justify-content:space-between; }
+ #authContainer .auth-theme-control .theme-select { flex:1; min-width:0; max-width:220px; }
+ #authContainer .auth-card { padding-left:22px; padding-right:22px; }
+}
+</style>
+
 </head>
 
 <body>
@@ -4089,6 +4346,19 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
      SISTEM AUTENTIKASI: LOGIN, BUAT AKUN, LUPA PASSWORD
 ========================================================= -->
 <div id="authContainer" class="auth-wrapper">
+    <div class="auth-theme-control">
+        <label for="authThemeSelect">🎨 Tema</label>
+        <select class="theme-select" id="authThemeSelect" onchange="changeTheme(this.value)">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="ocean">Ocean Blue</option>
+            <option value="forest">Forest Green</option>
+            <option value="purple">Royal Purple</option>
+            <option value="sunset">Sunset Amber</option>
+            <option value="chocolate">Dark Chocolate</option>
+            <option value="slate">Slate Gray</option>
+        </select>
+    </div>
     <div class="auth-card" id="loginCard">
         <div class="auth-brand">
             <div class="brand-icon">NS</div>
@@ -4242,7 +4512,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                 <option value="forest">Forest Green</option>
                 <option value="purple">Royal Purple</option>
                 <option value="sunset">Sunset Amber</option>
-                <option value="rose">Rose Pink</option>
+                <option value="chocolate">Dark Chocolate</option>
                 <option value="slate">Slate Gray</option>
             </select>
             <div class="user-badge-top-right">
@@ -4406,8 +4676,8 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
 
                 <div class="form-group" id="containerSales" style="display:none;">
                     <label for="salesCustomer">Nama Sales (Opsional)</label>
-                    <input type="text" id="salesCustomer" placeholder="Boleh dikosongkan" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
-                    <div class="form-help">Opsional, boleh dikosongkan. Jika diisi, tampil di Data Penjualan & Surat Jalan</div>
+                    <div class="picker-field sales-field"><input type="text" id="salesCustomer" placeholder="Pilih Sales / ketik nama sales" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanSales('form', true)" onclick="bukaPilihanSales('form', true)" oninput="this.value = this.value.toUpperCase(); filterPilihanSales('form')" onkeydown="navigasiPilihanSales(event,'form')"><button type="button" class="picker-toggle-btn" onclick="togglePilihanSales('form')" aria-label="Pilih sales" title="Pilih sales"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingSalesPicker" class="floating-barang-picker floating-sales-picker" role="listbox" aria-label="Daftar sales" hidden></div></div>
+                    <div class="form-help">Opsional, boleh dikosongkan. Pilih dari daftar atau ketik nama lain. Tampil di hasil print Surat Jalan</div>
                 </div>
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
@@ -4438,7 +4708,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
             </div>
 
             <div class="button-area" id="containerBtnTambahItem" style="display:none;">
-                <button class="btn-save" type="button" onclick="tambahItemKeKeranjang()" style="background: #0284c7;">+ Tambah Barang ke Pembelian Customer</button>
+                <button class="btn-save btn-tambah-keranjang" type="button" onclick="tambahItemKeKeranjang()">+ Tambah Barang ke Pembelian Customer</button>
             </div>
 
             <div id="containerKeranjang" style="display:none; margin-top: 28px;">
@@ -4697,7 +4967,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
             <div class="form-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px;">
                 <div class="form-group">
                     <label for="inputModalRTRW">RT/RW</label>
-                    <input type="text" id="inputModalRTRW" placeholder="Input 01/02 (Contoh)" oninput="updatePreviewAlamatModal()">
+                    <input type="text" id="inputModalRTRW" placeholder="Input 01/02 (Contoh) oninput="updatePreviewAlamatModal()">
                 </div>
                 <div class="form-group">
                     <label for="inputModalKelurahan">Kelurahan</label>
@@ -4921,7 +5191,7 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
                 </div>
                 <div class="form-group">
                     <label for="editSales">Nama Sales</label>
-                    <input type="text" id="editSales" placeholder="-" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
+                    <div class="picker-field sales-field"><input type="text" id="editSales" placeholder="Pilih Sales / ketik nama sales" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanSales('edit', true)" onclick="bukaPilihanSales('edit', true)" oninput="this.value = this.value.toUpperCase(); filterPilihanSales('edit')" onkeydown="navigasiPilihanSales(event,'edit')"><button type="button" class="picker-toggle-btn" onclick="togglePilihanSales('edit')" aria-label="Pilih sales" title="Pilih sales"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingSalesPickerEdit" class="floating-barang-picker floating-sales-picker" role="listbox" aria-label="Daftar sales" hidden></div></div>
                 </div>
             </div>
 
@@ -5450,18 +5720,26 @@ function togglePasswordVisibility(inputId, btn) {
 }
 
 function initTheme() {
-    const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+    let savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+    if (savedTheme === 'rose') savedTheme = 'chocolate';
     changeTheme(savedTheme);
     const themeSelect = document.getElementById('themeSelect');
     if (themeSelect) themeSelect.value = savedTheme;
+    const authThemeSelect = document.getElementById('authThemeSelect');
+    if (authThemeSelect) authThemeSelect.value = savedTheme;
 }
 
 function changeTheme(themeName) {
+    if (themeName === 'rose') themeName = 'chocolate';
     document.body.className = '';
     if (themeName !== 'light') {
         document.body.classList.add('theme-' + themeName);
     }
     localStorage.setItem(THEME_KEY, themeName);
+    const themeSelect = document.getElementById('themeSelect');
+    if (themeSelect) themeSelect.value = themeName;
+    const authThemeSelect = document.getElementById('authThemeSelect');
+    if (authThemeSelect) authThemeSelect.value = themeName;
 }
 
 function getStoredPin() {
@@ -6165,6 +6443,7 @@ function handleJenisChange() {
     if (searchInput) searchInput.value = '';
     tutupPilihanBarang();
     tutupPilihanCustomer();
+    if (typeof tutupPilihanSales === 'function') tutupPilihanSales('form');
 
     if (jenis === 'keluar') {
         containerCustomer.style.display = 'flex';
@@ -6225,6 +6504,7 @@ function bukaPilihanBarang(tampilSemua) {
     const input = document.getElementById('searchBarangKeluar');
     if (!input) return;
     tutupPilihanCustomer();
+    tutupPilihanSales('form');
     floatingBarangItems = daftarPilihanBarang();
     renderPilihanBarang(tampilSemua === true ? '' : (input.value || ''));
 }
@@ -6390,6 +6670,7 @@ function bukaPilihanCustomer(tampilSemua) {
     const input = document.getElementById('customer');
     if (!input) return;
     tutupPilihanBarang();
+    tutupPilihanSales('form');
     floatingCustomerItems = daftarPilihanCustomer();
     renderPilihanCustomer(tampilSemua === true ? '' : (input.value || ''));
 }
@@ -7068,6 +7349,9 @@ function renderPenjualan() {
             const safeJam = escapeHTML(group.jam);
             const safeKode = escapeHTML(it.kode).replace(/'/g, "\\'");
             const safeWarna = escapeHTML(it.warna).replace(/'/g, "\\'");
+            // Indeks transaksi menjaga input Yard tetap terikat pada barang yang dipilih,
+            // termasuk jika ada barang dengan kode/warna sama dalam transaksi yang sama.
+            const yardTransactionIndex = transaksi.indexOf(it);
 
             subTableHtml += `
                 <tr style="border-bottom: 1px dashed var(--border-color) !important;">
@@ -7077,7 +7361,7 @@ function renderPenjualan() {
                     </td>
                     <td style="text-align: right; font-weight: 700; width: 140px; vertical-align: middle; white-space: nowrap;">
                         <span>${formatAngka(qty)} Roll</span>
-                        <button type="button" class="btn-edit" style="padding: 4px 8px; font-size: 11px; margin-left: 6px; background: #0284c7;" onclick="bukaModalInputYard('${safeTanggal}', '${safeCustomer}', '${safeJam}', '${safeKode}', '${safeWarna}')" title="Input nilai yard per roll"><strong>Yard</strong></button>
+                        <button type="button" class="btn-edit btn-yard" style="padding: 4px 8px; font-size: 11px; margin-left: 6px; background: #0284c7;" onclick="bukaModalInputYard('${safeTanggal}', '${safeCustomer}', '${safeJam}', '${safeKode}', '${safeWarna}', ${yardTransactionIndex})" title="Input nilai yard per roll"><strong>Yard</strong></button>
                     </td>
                 </tr>
             `;
@@ -7667,7 +7951,7 @@ function renderEditKeranjang() {
                 <input type="number" min="1" value="${item.jumlah}" style="width: 100px; padding: 6px; text-align: center; border: 1.5px solid var(--border-color); border-radius: 6px; background: var(--input-bg); color: var(--text-dark); font-weight: bold;" onchange="updateEditJumlahItem(${idx}, this.value)">
             </td>
             <td class="text-center">
-                <button type="button" class="btn-edit" style="padding: 5px 10px; font-size:11px; background:#0284c7;" onclick="bukaModalEditYardItem(${idx})">${escapeHTML(yardLabel)}</button>
+                <button type="button" class="btn-edit btn-yard" style="padding: 5px 10px; font-size:11px; background:#0284c7;" onclick="bukaModalEditYardItem(${idx})">${escapeHTML(yardLabel)}</button>
             </td>
             <td class="text-center">
                 <button type="button" class="btn-delete" style="padding: 5px 10px; font-size:11px;" onclick="hapusEditKeranjangItem(${idx})">Delete</button>
@@ -7722,6 +8006,7 @@ function hapusEditKeranjangItem(idx) {
 }
 
 function tutupEdit() {
+    if (typeof tutupPilihanSales === 'function') tutupPilihanSales('edit');
     editGroupKey = null;
     editSingleIndex = null;
     editKeranjangTemp = [];
@@ -7764,10 +8049,8 @@ function simpanEdit() {
         const sales = document.getElementById('editSales') ? document.getElementById('editSales').value.trim().toUpperCase() : '';
         const noSuratJalan = document.getElementById('editNoSuratJalan').value.trim();
 
-        if (!customer) {
-            alert("Nama Customer tidak boleh kosong!");
-            return;
-        }
+        // Nama Customer boleh dikosongkan untuk menghapus data customer dari transaksi.
+        // Perubahan nama/alamat/sales akan disinkronkan ke seluruh transaksi customer terkait.
         if (editKeranjangTemp.length === 0) {
             alert("Daftar barang tidak boleh kosong!");
             return;
@@ -7790,7 +8073,35 @@ function simpanEdit() {
         });
 
         const first = existingGroupItems[0] || {};
+        const oldCustomerName = String(first.customer || '').trim().toUpperCase();
+        const oldSalesName = String(first.sales || '').trim().toUpperCase();
         const targetJam = waktuSekarang.jam;
+
+        // Sinkronkan data master customer ke semua transaksi terkait agar pilihan customer,
+        // alamat, sales, riwayat transaksi, penjualan, dan surat jalan tetap konsisten.
+        if (oldCustomerName) {
+            transaksi.forEach(item => {
+                if (item.jenis !== 'keluar' || String(item.customer || '').trim().toUpperCase() !== oldCustomerName) return;
+                const itemGroupKey = `${item.tanggal}___${(item.customer || '-').trim()}___${item.jam}`;
+                if (itemGroupKey === editGroupKey) return; // grup yang sedang diedit dibuat ulang di bawah
+                item.customer = customer;
+                item.alamatCustomer = alamatCustomer;
+                item.sales = sales;
+            });
+        }
+
+        // Jika nama sales diganti, perbarui daftar sales tambahan. Jika dikosongkan,
+        // hapus nama tersebut dari daftar tambahan (nama default tetap dikelola sistem).
+        if (oldSalesName && oldSalesName !== sales.toUpperCase()) {
+            try {
+                const tambahan = JSON.parse(localStorage.getItem(SALES_LIST_KEY) || '[]');
+                const filtered = (Array.isArray(tambahan) ? tambahan : []).filter(n => String(n).trim().toUpperCase() !== oldSalesName);
+                if (sales) {
+                    if (!filtered.some(n => String(n).trim().toUpperCase() === sales.toUpperCase())) filtered.push(sales);
+                }
+                localStorage.setItem(SALES_LIST_KEY, JSON.stringify(filtered));
+            } catch (e) { console.warn('Daftar sales belum dapat disinkronkan:', e); }
+        }
 
         transaksi = transaksi.filter(item => {
             const k = `${item.tanggal}___${(item.customer || '-').trim()}___${item.jam}`;
@@ -7831,15 +8142,30 @@ function simpanEdit() {
 let currentYardTarget = null;
 let currentEditYardIndex = null;
 
-function bukaModalInputYard(tanggal, customer, jam, kode, warna) {
-    const item = transaksi.find(t =>
-        t.jenis === 'keluar' &&
-        t.tanggal === tanggal &&
-        t.jam === jam &&
-        (t.customer || '-').trim() === customer &&
-        normalizeKode(t.kode) === normalizeKode(kode) &&
-        normalizeWarna(t.warna) === normalizeWarna(warna)
-    );
+function bukaModalInputYard(tanggal, customer, jam, kode, warna, transactionIndex = null) {
+    // Utamakan indeks baris transaksi yang tepat supaya Yard barang A tidak
+    // tersalin/tertimpa ke barang B yang kebetulan memiliki kode/warna sama.
+    let item = Number.isInteger(transactionIndex) && transactionIndex >= 0
+        ? transaksi[transactionIndex]
+        : null;
+
+    // Kompatibilitas untuk pemanggilan lama yang belum mengirim indeks.
+    if (!item || item.jenis !== 'keluar' ||
+        item.tanggal !== tanggal ||
+        item.jam !== jam ||
+        (item.customer || '-').trim() !== customer ||
+        normalizeKode(item.kode) !== normalizeKode(kode) ||
+        normalizeWarna(item.warna) !== normalizeWarna(warna)) {
+        item = transaksi.find(t =>
+            t.jenis === 'keluar' &&
+            t.tanggal === tanggal &&
+            t.jam === jam &&
+            (t.customer || '-').trim() === customer &&
+            normalizeKode(t.kode) === normalizeKode(kode) &&
+            normalizeWarna(t.warna) === normalizeWarna(warna)
+        );
+        transactionIndex = item ? transaksi.indexOf(item) : null;
+    }
 
     if (!item) {
         alert("Data barang tidak ditemukan!");
@@ -7850,6 +8176,7 @@ function bukaModalInputYard(tanggal, customer, jam, kode, warna) {
     const existingYards = Array.isArray(item.yards) ? item.yards : [];
 
     currentYardTarget = {
+        transactionIndex: transaksi.indexOf(item),
         tanggal, customer, jam, kode: item.kode, warna: item.warna, qty
     };
     currentEditYardIndex = null;
@@ -7872,7 +8199,22 @@ function bukaModalInputYard(tanggal, customer, jam, kode, warna) {
     }
 
     hitungTotalYardModal();
-    document.getElementById('yardModal').classList.add('active');
+    const yardModal = document.getElementById('yardModal');
+    yardModal.classList.add('active');
+    // Reset dilakukan SETELAH modal ditampilkan. Saat modal display:none,
+    // scrollTop yang diatur sebelumnya dapat diabaikan oleh browser.
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            container.scrollTop = 0;
+            container.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            const yardModalBody = yardModal.querySelector('.modal-body');
+            const yardModalBox = yardModal.querySelector('.modal-box');
+            if (yardModalBody) yardModalBody.scrollTop = 0;
+            if (yardModalBox) yardModalBox.scrollTop = 0;
+            const firstRollInput = container.querySelector('.input-yard-pc[data-idx="0"]');
+            if (firstRollInput) firstRollInput.focus({ preventScroll: true });
+        });
+    });
 }
 
 function bukaModalEditYardItem(idx) {
@@ -7902,7 +8244,22 @@ function bukaModalEditYardItem(idx) {
     }
 
     hitungTotalYardModal();
-    document.getElementById('yardModal').classList.add('active');
+    const yardModal = document.getElementById('yardModal');
+    yardModal.classList.add('active');
+    // Reset dilakukan SETELAH modal ditampilkan. Saat modal display:none,
+    // scrollTop yang diatur sebelumnya dapat diabaikan oleh browser.
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            container.scrollTop = 0;
+            container.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            const yardModalBody = yardModal.querySelector('.modal-body');
+            const yardModalBox = yardModal.querySelector('.modal-box');
+            if (yardModalBody) yardModalBody.scrollTop = 0;
+            if (yardModalBox) yardModalBox.scrollTop = 0;
+            const firstRollInput = container.querySelector('.input-yard-pc[data-idx="0"]');
+            if (firstRollInput) firstRollInput.focus({ preventScroll: true });
+        });
+    });
 }
 
 function hitungTotalYardModal() {
@@ -7928,13 +8285,42 @@ function tutupModalYard() {
 }
 
 function simpanModalYard() {
-    const inputs = document.querySelectorAll('.input-yard-pc');
-    const newYards = [];
-    inputs.forEach(inp => {
-        const val = parseFloat(inp.value);
-        newYards.push(!isNaN(val) ? Math.round(val * 100) / 100 : 0);
+    const inputs = Array.from(document.querySelectorAll('.input-yard-pc'));
+
+    // WAJIB isi setiap roll. Kosong, nol, atau angka negatif dianggap belum diisi.
+    // Validasi dilakukan sebelum membentuk data atau menyimpan perubahan apa pun.
+    const incompleteInput = inputs.find(inp => {
+        const raw = String(inp.value ?? '').trim();
+        const value = raw === '' ? NaN : Number(raw);
+        return raw === '' || !Number.isFinite(value) || value <= 0;
     });
+    if (incompleteInput) {
+        const rollNumber = Number(incompleteInput.dataset.idx) + 1;
+        const message = `Yard ROLL Ke ${rollNumber} belum diisi dengan benar. Isi Yard lebih dari 0 pada semua roll sebelum menekan SAVE YARD.`;
+        if (typeof showCustomPopup === 'function') {
+            showCustomPopup('warning', message);
+        } else {
+            alert(message);
+        }
+        incompleteInput.focus({ preventScroll: true });
+        incompleteInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    const newYards = inputs.map(inp => Math.round(Number(inp.value) * 100) / 100);
     const totalYard = Math.round(newYards.reduce((a, b) => a + b, 0) * 100) / 100;
+
+    // Perlindungan tambahan: total Yard harus tetap positif.
+    if (totalYard <= 0) {
+        if (typeof showCustomPopup === 'function') {
+            showCustomPopup('warning', 'Yard belum diisi. Masukkan nilai Yard lebih dari 0 sebelum menekan SAVE YARD.');
+        } else {
+            alert('Yard belum diisi. Masukkan nilai Yard lebih dari 0 sebelum menekan SAVE YARD.');
+        }
+        const firstRollInput = document.querySelector('#yardInputsContainer .input-yard-pc[data-idx="0"]');
+        if (firstRollInput) firstRollInput.focus({ preventScroll: true });
+        return;
+    }
 
     if (currentEditYardIndex !== null && editKeranjangTemp[currentEditYardIndex]) {
         editKeranjangTemp[currentEditYardIndex].yards = newYards;
@@ -7946,25 +8332,277 @@ function simpanModalYard() {
     }
 
     if (currentYardTarget !== null) {
-        transaksi.forEach(t => {
-            if (
-                t.jenis === 'keluar' &&
-                t.tanggal === currentYardTarget.tanggal &&
-                t.jam === currentYardTarget.jam &&
-                (t.customer || '-').trim() === currentYardTarget.customer &&
-                normalizeKode(t.kode) === normalizeKode(currentYardTarget.kode) &&
-                normalizeWarna(t.warna) === normalizeWarna(currentYardTarget.warna)
-            ) {
-                t.yards = newYards;
-                t.totalYard = totalYard;
-            }
-        });
+        // Simpan hanya ke satu item transaksi yang sedang diedit, bukan semua
+        // transaksi yang kebetulan cocok pada tanggal/customer/kode/warna.
+        const targetIndex = currentYardTarget.transactionIndex;
+        const targetItem = Number.isInteger(targetIndex) ? transaksi[targetIndex] : null;
+        if (targetItem &&
+            targetItem.jenis === 'keluar' &&
+            targetItem.tanggal === currentYardTarget.tanggal &&
+            targetItem.jam === currentYardTarget.jam &&
+            normalizeKode(targetItem.kode) === normalizeKode(currentYardTarget.kode) &&
+            normalizeWarna(targetItem.warna) === normalizeWarna(currentYardTarget.warna)) {
+            targetItem.yards = newYards;
+            targetItem.totalYard = totalYard;
+        } else {
+            alert("Barang yang dipilih tidak ditemukan. Silakan buka kembali input Yard.");
+            return;
+        }
         saveData();
         tutupModalYard();
         updateApp();
         showCustomPopup('success', 'Detail Yard Disimpan');
     }
 }
+
+/* =========================================================
+   PEMILIH NAMA SALES (opsional: boleh pilih dari daftar, ketik nama lain, atau dikosongkan)
+========================================================= */
+const DAFTAR_SALES_DEFAULT = ['Acu', 'Aliang', 'Benny', 'Dodi', 'Lucky', 'Marwan', 'Risman', 'Thomas S', 'Very', 'Wawan', 'Wendi'];
+const SALES_LIST_KEY = 'SISTEM_STOK_DAFTAR_SALES_TAMBAHAN';
+
+function getSalesTambahan() {
+    try {
+        const raw = JSON.parse(localStorage.getItem(SALES_LIST_KEY) || '[]');
+        return Array.isArray(raw) ? raw.filter(n => typeof n === 'string' && n.trim()) : [];
+    } catch (e) { return []; }
+}
+
+function getDaftarSales() {
+    const hasil = [];
+    [...DAFTAR_SALES_DEFAULT, ...getSalesTambahan()].forEach(n => {
+        if (!hasil.some(x => x.toLocaleLowerCase('id') === n.toLocaleLowerCase('id'))) hasil.push(n);
+    });
+    return hasil;
+}
+
+function formatNamaSalesBaru(teks) {
+    return String(teks || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('id')
+        .replace(/(^|\s)(\p{L})/gu, (m, sp, h) => sp + h.toLocaleUpperCase('id'));
+}
+
+// Tambah sales baru ke daftar permanen; jika sudah ada, pakai nama yang sudah ada.
+function tambahSalesBaru(teks) {
+    const nama = formatNamaSalesBaru(teks).slice(0, 30);
+    if (!nama) return '';
+    const ada = getDaftarSales().find(n => n.toLocaleLowerCase('id') === nama.toLocaleLowerCase('id'));
+    if (ada) return ada;
+    const tambahan = getSalesTambahan();
+    tambahan.push(nama);
+    try { localStorage.setItem(SALES_LIST_KEY, JSON.stringify(tambahan)); } catch (e) { alert('Gagal menyimpan sales baru!'); return ''; }
+    return nama;
+}
+
+function tambahSalesDariBar(key) {
+    const bar = document.getElementById('salesAddInput_' + key);
+    const nama = tambahSalesBaru(bar ? bar.value : '');
+    if (!nama) { if (bar) bar.focus(); return; }
+    if (bar) bar.value = '';
+    pilihSales(key, nama);
+    showCustomPopup('success', 'Sales Baru Ditambahkan');
+}
+const SALES_PICKER_CFG = {
+    form: { input: 'salesCustomer', popup: 'floatingSalesPicker' },
+    edit: { input: 'editSales', popup: 'floatingSalesPickerEdit' }
+};
+let salesPickerIndex = -1;
+
+function bukaPilihanSales(key, tampilSemua) {
+    const cfg = SALES_PICKER_CFG[key];
+    const input = document.getElementById(cfg.input);
+    if (!input || input.readOnly) return;
+    if (key === 'form') { tutupPilihanBarang(); tutupPilihanCustomer(); }
+    Object.keys(SALES_PICKER_CFG).forEach(k => { if (k !== key) tutupPilihanSales(k); });
+    renderPilihanSales(key, tampilSemua === true ? '' : input.value);
+}
+
+function filterPilihanSales(key) {
+    const input = document.getElementById(SALES_PICKER_CFG[key].input);
+    if (!input || input.readOnly) return;
+    renderPilihanSales(key, input.value);
+}
+
+// Kerangka popup (Search di atas, daftar di tengah, kolom tambah sales di bawah) dibuat sekali.
+function pastikanShellSales(key) {
+    const popup = document.getElementById(SALES_PICKER_CFG[key].popup);
+    if (!popup || popup.querySelector('.picker-sticky')) return popup;
+    popup.innerHTML = '';
+    const sticky = document.createElement('div');
+    sticky.className = 'picker-sticky';
+    const wrap = document.createElement('div');
+    wrap.className = 'picker-search-wrap';
+    const si = document.createElement('input');
+    si.type = 'text';
+    si.id = 'salesSearchInput_' + key;
+    si.className = 'picker-search-input';
+    si.placeholder = 'Search nama sales...';
+    si.autocomplete = 'off';
+    si.setAttribute('aria-label', 'Search nama sales');
+    si.addEventListener('input', () => renderDaftarSales(key));
+    si.addEventListener('keydown', e => {
+        e.stopPropagation();
+        const rows = [...popup.querySelectorAll('#salesListBody_' + key + ' .picker-row')];
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (salesPickerIndex >= 0 && rows[salesPickerIndex]) rows[salesPickerIndex].click();
+            else if (rows.length === 1) rows[0].click();
+        } else {
+            navigasiPilihanSales(e, key);
+        }
+    });
+    wrap.appendChild(si);
+    const heading = document.createElement('div');
+    heading.className = 'picker-heading';
+    heading.innerHTML = '<span>NO</span><span>NAMA SALES</span>';
+    sticky.append(wrap, heading);
+
+    const list = document.createElement('div');
+    list.id = 'salesListBody_' + key;
+
+    const bar = document.createElement('div');
+    bar.className = 'picker-add-bar';
+    const addInput = document.createElement('input');
+    addInput.type = 'text';
+    addInput.id = 'salesAddInput_' + key;
+    addInput.className = 'picker-search-input';
+    addInput.placeholder = 'Ketik nama sales baru...';
+    addInput.maxLength = 30;
+    addInput.autocomplete = 'off';
+    addInput.setAttribute('aria-label', 'Nama sales baru');
+    addInput.addEventListener('keydown', e => {
+        e.stopPropagation();
+        if (e.key === 'Enter') { e.preventDefault(); tambahSalesDariBar(key); }
+        if (e.key === 'Escape') tutupPilihanSales(key);
+    });
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'picker-add-btn';
+    addBtn.textContent = '+ Tambah Sales';
+    addBtn.addEventListener('click', () => tambahSalesDariBar(key));
+    bar.append(addInput, addBtn);
+
+    popup.append(sticky, list, bar);
+    return popup;
+}
+
+function renderPilihanSales(key, query) {
+    const cfg = SALES_PICKER_CFG[key];
+    const input = document.getElementById(cfg.input);
+    const popup = pastikanShellSales(key);
+    if (!popup || !input) return;
+    const searchBox = document.getElementById('salesSearchInput_' + key);
+    if (searchBox && searchBox.value !== String(query || '')) searchBox.value = String(query || '');
+    renderDaftarSales(key);
+    popup.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    salesPickerIndex = -1;
+}
+
+function renderDaftarSales(key) {
+    const cfg = SALES_PICKER_CFG[key];
+    const input = document.getElementById(cfg.input);
+    const list = document.getElementById('salesListBody_' + key);
+    const searchBox = document.getElementById('salesSearchInput_' + key);
+    if (!list || !input) return;
+    const daftar = getDaftarSales();
+    const q = String(searchBox ? searchBox.value : '').trim().toLocaleLowerCase('id');
+    const aktif = String(input.value || '').trim().toLocaleLowerCase('id');
+    const found = daftar.filter(n => n.toLocaleLowerCase('id').includes(q));
+    list.innerHTML = '';
+    salesPickerIndex = -1;
+
+    // Nama yang diketik di kolom utama tetapi belum ada di daftar: tawarkan untuk ditambahkan.
+    const ketik = formatNamaSalesBaru(input.value);
+    if (ketik && !daftar.some(n => n.toLocaleLowerCase('id') === ketik.toLocaleLowerCase('id'))) {
+        const rowBaru = document.createElement('button');
+        rowBaru.type = 'button';
+        rowBaru.className = 'picker-row is-new';
+        rowBaru.setAttribute('role', 'option');
+        const plus = document.createElement('span'); plus.textContent = '+';
+        const lbl = document.createElement('span'); lbl.textContent = 'Tambah "' + ketik + '" sebagai sales baru';
+        rowBaru.append(plus, lbl);
+        rowBaru.addEventListener('mousedown', e => e.preventDefault());
+        rowBaru.addEventListener('click', () => { const n = tambahSalesBaru(ketik); if (n) { pilihSales(key, n); showCustomPopup('success', 'Sales Baru Ditambahkan'); } });
+        list.appendChild(rowBaru);
+    }
+
+    if (!found.length) {
+        if (!list.children.length) {
+            const empty = document.createElement('div');
+            empty.className = 'picker-empty';
+            empty.textContent = 'Sales tidak ditemukan. Gunakan kolom di bawah untuk menambah sales baru.';
+            list.appendChild(empty);
+        }
+    } else {
+        found.forEach(nama => {
+            const row = document.createElement('button');
+            row.type = 'button';
+            row.className = 'picker-row' + (nama.toLocaleLowerCase('id') === aktif ? ' is-selected' : '');
+            row.setAttribute('role', 'option');
+            const no = document.createElement('span'); no.textContent = String(daftar.indexOf(nama) + 1);
+            const nm = document.createElement('span'); nm.textContent = nama;
+            row.append(no, nm);
+            row.addEventListener('mousedown', e => e.preventDefault());
+            row.addEventListener('click', () => pilihSales(key, nama));
+            list.appendChild(row);
+        });
+    }
+}
+
+function pilihSales(key, nama) {
+    const input = document.getElementById(SALES_PICKER_CFG[key].input);
+    if (input) input.value = String(nama).toUpperCase();
+    tutupPilihanSales(key);
+}
+
+function tutupPilihanSales(key) {
+    const cfg = SALES_PICKER_CFG[key];
+    const popup = document.getElementById(cfg.popup);
+    const input = document.getElementById(cfg.input);
+    if (popup) popup.hidden = true;
+    if (input) input.setAttribute('aria-expanded', 'false');
+}
+
+function togglePilihanSales(key) {
+    const popup = document.getElementById(SALES_PICKER_CFG[key].popup);
+    if (popup && !popup.hidden) { tutupPilihanSales(key); return; }
+    bukaPilihanSales(key, true);
+}
+
+function navigasiPilihanSales(event, key) {
+    const popup = document.getElementById(SALES_PICKER_CFG[key].popup);
+    if (!popup || popup.hidden) {
+        if (event.key === 'ArrowDown') { event.preventDefault(); bukaPilihanSales(key, true); }
+        return;
+    }
+    const rows = [...popup.querySelectorAll('#salesListBody_' + key + ' .picker-row')];
+    if (event.key === 'Escape') { tutupPilihanSales(key); return; }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (!rows.length) return;
+        salesPickerIndex = Math.max(0, Math.min(rows.length - 1, salesPickerIndex + (event.key === 'ArrowDown' ? 1 : -1)));
+        rows.forEach((row, i) => row.style.background = i === salesPickerIndex ? 'var(--primary-light, #e0f2fe)' : '');
+        rows[salesPickerIndex].scrollIntoView({ block: 'nearest' });
+    }
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        if (salesPickerIndex >= 0 && rows[salesPickerIndex]) rows[salesPickerIndex].click();
+        else {
+            const input = document.getElementById(SALES_PICKER_CFG[key].input);
+            const ketik = input ? input.value.trim() : '';
+            if (ketik) { const n = tambahSalesBaru(ketik); if (n) input.value = n.toUpperCase(); }
+            tutupPilihanSales(key);
+        }
+    }
+}
+
+document.addEventListener('click', function(event) {
+    Object.keys(SALES_PICKER_CFG).forEach(key => {
+        const input = document.getElementById(SALES_PICKER_CFG[key].input);
+        const field = input ? input.closest('.picker-field') : null;
+        if (field && !field.contains(event.target)) tutupPilihanSales(key);
+    });
+});
 
 function updateSalesBaris(tanggal, customer, jam, newSales) {
     const cleanSales = String(newSales || '').trim().toUpperCase();
