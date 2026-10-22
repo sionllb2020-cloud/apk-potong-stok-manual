@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Manual Stock Management System</title>
+<meta name="description" content="Sistem Pencatatan & Operasional Stock Barang, Penjualan, Surat Jalan, dan Kartu Stock">
+<meta property="og:title" content="Manual Stock Management System">
+<meta property="og:description" content="Sistem Pencatatan & Operasional Stock Barang, Penjualan, Surat Jalan, dan Kartu Stock">
 
 <!-- META & WEB APP INSTALL (MENU CAST, SAVE, AND SHARE) -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -2033,17 +2036,27 @@ body.sidebar-menu-open { overflow: hidden; }
 
 /* EDIT PROFILE NAME DIALOG */
 .edit-profile-overlay{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(15,23,42,.58);backdrop-filter:blur(4px)}
-.edit-profile-card{position:relative;width:min(100%,430px);background:var(--card-bg,#fff);color:var(--text-color,#1f2937);border:1px solid rgba(148,163,184,.28);border-radius:20px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.25)}
-.edit-profile-card h2{margin:8px 0;font-size:22px;font-weight:800;text-align:center}
-.edit-profile-card p{margin:0 0 22px;text-align:center;line-height:1.5;opacity:.75;font-size:14px}
+.edit-profile-card{position:relative;width:min(100%,430px);background:var(--card-bg,#fff);color:var(--text-dark,#1f2937);border:1px solid var(--border-color,#cbd5e1);border-radius:20px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.25)}
+.edit-profile-card h2{margin:8px 0;font-size:22px;font-weight:800;text-align:center;color:var(--text-dark,#0f172a)}
+.edit-profile-card p{margin:0 0 22px;text-align:center;line-height:1.5;color:var(--text-muted,#64748b);font-size:14px}
 .edit-profile-icon{margin:0 auto;width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:rgba(37,99,235,.12);font-size:27px}
-.edit-profile-close{position:absolute;right:12px;top:10px;border:0;background:transparent;font-size:28px;cursor:pointer;color:inherit;min-width:38px;min-height:38px}
-.edit-profile-card label{display:block;font-weight:800;margin-bottom:8px}
-.edit-profile-card input{box-sizing:border-box;width:100%;min-height:46px;padding:11px 13px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;color:#111827;background:#fff;outline-offset:2px}
+.edit-profile-close{position:absolute;right:12px;top:10px;border:0;background:transparent;font-size:28px;cursor:pointer;color:var(--text-dark,#64748b);min-width:38px;min-height:38px}
+.edit-profile-card label{display:block;font-weight:800;margin-bottom:8px;color:var(--text-dark,#334155)}
+.edit-profile-card input{box-sizing:border-box;width:100%;min-height:46px;padding:11px 13px;border:1.5px solid var(--border-color,#cbd5e1);border-radius:10px;font:inherit;color:var(--text-dark,#111827);background:var(--input-bg,#fff);outline-offset:2px}
 .edit-profile-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
 .edit-profile-actions button{min-height:44px;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer;border:0}
-.edit-profile-cancel{background:#e5e7eb;color:#1f2937}.edit-profile-save{background:#2563eb;color:#fff}
+.edit-profile-cancel{background:var(--readonly-bg,#e5e7eb);color:var(--text-dark,#1f2937)}.edit-profile-save{background:#2563eb;color:#fff}
 #displayLoggedInUser:focus-visible{outline:2px solid #3b82f6;outline-offset:4px;border-radius:4px}
+body.theme-dark .edit-profile-card{background:#1e293b !important;border-color:#475569 !important;color:#f8fafc !important;box-shadow:0 24px 70px rgba(0,0,0,.65) !important}
+body.theme-dark .edit-profile-card h2{color:#ffffff !important;font-weight:900 !important}
+body.theme-dark .edit-profile-card p{color:#cbd5e1 !important;opacity:.95 !important;font-weight:500 !important}
+body.theme-dark .edit-profile-card label{color:#ffffff !important;font-weight:800 !important;letter-spacing:.3px !important}
+body.theme-dark .edit-profile-card input{background:#0f172a !important;color:#ffffff !important;border-color:#64748b !important;font-weight:700 !important}
+body.theme-dark .edit-profile-card input:focus{border-color:#60a5fa !important;box-shadow:0 0 0 3px rgba(96,165,250,.25) !important}
+body.theme-dark .edit-profile-close{color:#f1f5f9 !important}
+body.theme-dark .edit-profile-close:hover{color:#ffffff !important}
+body.theme-dark .edit-profile-cancel{background:#334155 !important;color:#f8fafc !important}
+body.theme-dark .edit-profile-cancel:hover{background:#475569 !important}
 @media(max-width:480px){.edit-profile-card{padding:24px 18px;border-radius:16px}.edit-profile-card h2{font-size:20px}.edit-profile-actions{flex-direction:column-reverse}.edit-profile-actions button{width:100%}}
 
 
@@ -3465,8 +3478,8 @@ hr, .divider { border-color: var(--border-color); }
 }
 
 
-/* Modal Alamat & Yard tampil di atas modal Edit saat dibuka dari dalamnya */
-#modalAlamatCustomer, #yardModal { z-index: 10002; }
+/* Modal Alamat & Yard tampil di atas modal Edit dan picker saat dibuka */
+#modalAlamatCustomer, #yardModal { z-index: 100050 !important; }
 /* Kolom Search di dalam daftar pilihan barang */
 .floating-barang-picker .picker-sticky { position: sticky; top: 0; z-index: 3; background: var(--card-bg, #fff); }
 .floating-barang-picker .picker-sticky .picker-heading { position: static; }
@@ -3519,7 +3532,7 @@ html { overflow-x: hidden; }
     grid-template-columns: minmax(110px, 1fr) minmax(0, 2.2fr) minmax(100px, 1.1fr) 96px !important;
 }
 #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
-    grid-template-columns: minmax(140px, 1.3fr) minmax(0, 2.2fr) minmax(120px, 1.1fr) 96px !important;
+    grid-template-columns: minmax(130px, 1.2fr) minmax(0, 2fr) minmax(110px, 1fr) 72px 54px !important;
 }
 #floatingBarangPicker .picker-heading, #floatingBarangPicker .picker-row,
 #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
@@ -3556,6 +3569,22 @@ html { overflow-x: hidden; }
 #floatingBarangPicker .picker-stock { color: var(--primary); font-weight: 800; }
 #floatingCustomerPicker .picker-count { font-weight: 800; color: var(--primary); }
 #floatingCustomerPicker .picker-phone { font-weight: 700; font-variant-numeric: tabular-nums; }
+#floatingCustomerPicker .picker-edit-btn {
+    min-width: 44px; height: 26px; padding: 2px 8px;
+    border: 1px solid var(--primary); border-radius: 7px;
+    background: var(--primary-light); color: var(--primary-dark);
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.2px; transition: background 0.15s, color 0.15s, transform 0.15s; box-shadow: none;
+}
+#floatingCustomerPicker .picker-edit-btn:hover {
+    background: var(--primary); color: #ffffff; transform: translateY(-1px);
+}
+body.theme-dark #floatingCustomerPicker .picker-edit-btn {
+    background: #334155 !important; color: #60a5fa !important; border-color: #60a5fa !important;
+}
+body.theme-dark #floatingCustomerPicker .picker-edit-btn:hover {
+    background: #2563eb !important; color: #ffffff !important;
+}
 #floatingCustomerPicker .picker-row.is-new { grid-template-columns: 1fr !important; }
 #floatingCustomerPicker .picker-row.is-new > span { border-right: 0; justify-content: flex-start !important; text-align: left !important; white-space: normal; }
 @media (max-width: 700px) {
@@ -3563,7 +3592,7 @@ html { overflow-x: hidden; }
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr) 60px !important;
     }
     #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) minmax(0, 1.1fr) 68px !important;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1fr) 46px 46px !important;
     }
     #floatingBarangPicker .picker-heading > span, #floatingCustomerPicker .picker-heading > span { padding: 9px 7px; font-size: 9.5px; }
     #floatingBarangPicker .picker-row > span, #floatingCustomerPicker .picker-row > span { padding: 10px 7px; font-size: 11px; }
@@ -4093,19 +4122,33 @@ button:not(:disabled), .tab-btn, select, .picker-row { cursor: pointer; }
 }
 
 /* PEMILIH NAMA SALES */
-.floating-sales-picker { width: min(440px, 92vw) !important; max-width: 440px !important; }
+.floating-sales-picker { width: min(460px, 92vw) !important; max-width: 460px !important; }
 .floating-sales-picker .picker-heading,
-.floating-sales-picker .picker-row { grid-template-columns: 56px minmax(0, 1fr) !important; gap: 0 !important; padding: 0 !important; align-items: stretch !important; }
+.floating-sales-picker .picker-row { grid-template-columns: 50px minmax(0, 1fr) 44px !important; gap: 0 !important; padding: 0 !important; align-items: stretch !important; }
 .floating-sales-picker .picker-heading > span,
-.floating-sales-picker .picker-row > span { display: flex; align-items: center; padding: 13px 16px; font-size: 14px; line-height: 1.4; }
-.floating-sales-picker .picker-heading > span { font-size: 11px; padding: 11px 16px; }
+.floating-sales-picker .picker-row > span { display: flex; align-items: center; padding: 13px 14px; font-size: 14px; line-height: 1.4; }
+.floating-sales-picker .picker-heading > span { font-size: 11px; padding: 11px 14px; }
 .floating-sales-picker .picker-heading > span:first-child,
-.floating-sales-picker .picker-row > span:first-child { justify-content: center; padding-left: 8px; padding-right: 8px; border-right: 1px solid var(--border-color); }
+.floating-sales-picker .picker-row > span:first-child { justify-content: center; padding-left: 6px; padding-right: 6px; border-right: 1px solid var(--border-color); }
 .floating-sales-picker .picker-heading > span:first-child { border-right-color: rgba(255,255,255,.28); }
-.floating-sales-picker .picker-row > span:last-child { font-weight: 800; }
+.floating-sales-picker .picker-heading > span:last-child { border-left: 1px solid rgba(255,255,255,.28); justify-content: center; text-align: center; }
+.floating-sales-picker .picker-row > span:last-child { border-left: 1px solid var(--border-color); justify-content: center; padding: 4px; }
+.floating-sales-picker .picker-row > span:nth-child(2) { font-weight: 800; }
 .floating-sales-picker .picker-row:nth-child(even) { background: color-mix(in srgb, var(--primary-light) 35%, var(--card-bg)); }
 .floating-sales-picker .picker-row:hover { padding-left: 0 !important; box-shadow: inset 4px 0 0 var(--primary); }
 .floating-sales-picker .picker-row.is-selected { background: var(--primary-light); box-shadow: inset 4px 0 0 var(--primary); }
+.floating-sales-picker .picker-row.is-clear { grid-template-columns: 1fr !important; border-bottom: 2px solid var(--border-color) !important; }
+.floating-sales-picker .picker-row.is-clear > span { justify-content: center !important; font-size: 12px; font-weight: 700; color: var(--danger, #ef4444); border: 0 !important; }
+.floating-sales-picker .picker-row.is-clear:hover { background: var(--danger-light, #fee2e2); }
+.floating-sales-picker .picker-del-btn {
+    width: 30px; height: 30px; min-width: 30px; min-height: 30px; padding: 0;
+    border: none; border-radius: 8px; background: transparent; color: var(--danger, #ef4444);
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    font-size: 14px; transition: background 0.15s, transform 0.15s, color 0.15s; box-shadow: none;
+}
+.floating-sales-picker .picker-del-btn:hover {
+    background: var(--danger-light, #fee2e2); color: #dc2626; transform: scale(1.15);
+}
 .floating-sales-picker .picker-add-bar { position: sticky; bottom: 0; z-index: 3; display: flex; gap: 8px; padding: 10px 12px; background: var(--card-bg, #fff); border-top: 1px solid var(--border-color, #e2e8f0); box-shadow: 0 -6px 14px rgba(15,23,42,.06); }
 .floating-sales-picker .picker-add-bar .picker-search-input { flex: 1 1 auto; min-width: 0; text-transform: none; }
 .floating-sales-picker .picker-add-btn { flex: 0 0 auto; min-height: 44px; padding: 8px 14px; border-radius: 10px; border: 0; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; font-size: 12px; font-weight: 800; white-space: nowrap; cursor: pointer; }
@@ -6651,10 +6694,15 @@ function daftarPilihanCustomer() {
         if (!nama || nama === '-') return;
         if (!map[nama]) map[nama] = { nama, alamat: '', sales: '', transaksi: new Set() };
         const alamat = String(item.alamatCustomer || '').trim();
-        // transaksi disimpan terbaru di depan, jadi alamat non-kosong TERAKHIR yang ditemui = alamat saat pertama kali diinput
-        if (alamat && alamat !== '-') map[nama].alamat = alamat;
+        // Transaksi disimpan terbaru di depan (index 0 = transaksi terbaru).
+        // Simpan alamat TERBARU yang pertama kali ditemui
+        if (alamat && alamat !== '-' && !map[nama].alamat) {
+            map[nama].alamat = alamat;
+        }
         const salesItem = String(item.sales || '').trim().toUpperCase();
-        if (salesItem && salesItem !== '-') map[nama].sales = salesItem;
+        if (salesItem && salesItem !== '-' && !map[nama].sales) {
+            map[nama].sales = salesItem;
+        }
         map[nama].transaksi.add(`${item.tanggal}___${item.jam}`);
     });
     return Object.values(map)
@@ -6703,7 +6751,7 @@ function pastikanShellPilihanCustomer(popup) {
     wrap.appendChild(si);
     const heading = document.createElement('div');
     heading.className = 'picker-heading';
-    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT</span><span>NO TELP / HP</span><span>TRANSAKSI</span>';
+    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT</span><span>NO TELP / HP</span><span>TRANSAKSI</span><span>EDIT</span>';
     sticky.append(wrap, heading);
     const list = document.createElement('div');
     list.id = 'pickerCustomerListBody';
@@ -6755,7 +6803,23 @@ function renderPilihanCustomer(query) {
             const alamat = document.createElement('span'); alamat.className = 'picker-address'; alamat.textContent = item.alamatTampil || '-';
             const telp = document.createElement('span'); telp.className = 'picker-phone'; telp.textContent = item.telepon || '-';
             const jml = document.createElement('span'); jml.className = 'picker-count'; jml.textContent = formatAngka(item.jumlahTransaksi) + 'x';
-            row.append(nama, alamat, telp, jml);
+            const act = document.createElement('span');
+            act.style.justifyContent = 'center';
+            act.style.padding = '4px';
+            const editBtn = document.createElement('button');
+            editBtn.type = 'button';
+            editBtn.className = 'picker-edit-btn';
+            editBtn.title = `Edit alamat ${item.nama}`;
+            editBtn.setAttribute('aria-label', `Edit alamat customer ${item.nama}`);
+            editBtn.textContent = 'Edit';
+            editBtn.addEventListener('mousedown', e => e.stopPropagation());
+            editBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                tutupPilihanCustomer();
+                bukaModalAlamatCustomer('picker', null, item.nama, null);
+            });
+            act.appendChild(editBtn);
+            row.append(nama, alamat, telp, jml, act);
             row.addEventListener('mousedown', e => e.preventDefault());
             row.addEventListener('click', () => pilihCustomerDariTabel(item));
             list.appendChild(row);
@@ -8359,6 +8423,14 @@ function simpanModalYard() {
 ========================================================= */
 const DAFTAR_SALES_DEFAULT = ['Acu', 'Aliang', 'Benny', 'Dodi', 'Lucky', 'Marwan', 'Risman', 'Thomas S', 'Very', 'Wawan', 'Wendi'];
 const SALES_LIST_KEY = 'SISTEM_STOK_DAFTAR_SALES_TAMBAHAN';
+const SALES_DELETED_KEY = 'SISTEM_STOK_DAFTAR_SALES_DIHAPUS';
+
+function getSalesDihapus() {
+    try {
+        const raw = JSON.parse(localStorage.getItem(SALES_DELETED_KEY) || '[]');
+        return Array.isArray(raw) ? raw.map(n => String(n).trim().toUpperCase()) : [];
+    } catch (e) { return []; }
+}
 
 function getSalesTambahan() {
     try {
@@ -8368,9 +8440,13 @@ function getSalesTambahan() {
 }
 
 function getDaftarSales() {
+    const dihapus = getSalesDihapus();
     const hasil = [];
     [...DAFTAR_SALES_DEFAULT, ...getSalesTambahan()].forEach(n => {
-        if (!hasil.some(x => x.toLocaleLowerCase('id') === n.toLocaleLowerCase('id'))) hasil.push(n);
+        const upper = String(n).trim().toUpperCase();
+        if (!dihapus.includes(upper) && !hasil.some(x => x.toLocaleLowerCase('id') === n.toLocaleLowerCase('id'))) {
+            hasil.push(n);
+        }
     });
     return hasil;
 }
@@ -8384,12 +8460,57 @@ function formatNamaSalesBaru(teks) {
 function tambahSalesBaru(teks) {
     const nama = formatNamaSalesBaru(teks).slice(0, 30);
     if (!nama) return '';
+    const upper = nama.toUpperCase();
+
+    // Hapus dari daftar deleted jika sebelumnya pernah dihapus
+    const deleted = getSalesDihapus().filter(n => n !== upper);
+    try {
+        localStorage.setItem(SALES_DELETED_KEY, JSON.stringify(deleted));
+    } catch (e) {}
+
     const ada = getDaftarSales().find(n => n.toLocaleLowerCase('id') === nama.toLocaleLowerCase('id'));
     if (ada) return ada;
+
     const tambahan = getSalesTambahan();
     tambahan.push(nama);
     try { localStorage.setItem(SALES_LIST_KEY, JSON.stringify(tambahan)); } catch (e) { alert('Gagal menyimpan sales baru!'); return ''; }
     return nama;
+}
+
+function hapusSalesPermanen(nama, key) {
+    const namaUpper = String(nama || '').trim().toUpperCase();
+    if (!namaUpper) return;
+
+    if (!confirm(`Apakah Anda yakin ingin menghapus sales "${nama}" dari daftar pilihan?`)) {
+        return;
+    }
+
+    // 1. Hapus dari daftar sales tambahan jika ada
+    const tambahan = getSalesTambahan().filter(n => String(n).trim().toUpperCase() !== namaUpper);
+    try {
+        localStorage.setItem(SALES_LIST_KEY, JSON.stringify(tambahan));
+    } catch (e) {}
+
+    // 2. Simpan ke daftar sales yang dihapus agar sales default juga terhapus permanen
+    const deleted = getSalesDihapus();
+    if (!deleted.includes(namaUpper)) {
+        deleted.push(namaUpper);
+        try {
+            localStorage.setItem(SALES_DELETED_KEY, JSON.stringify(deleted));
+        } catch (e) {}
+    }
+
+    // 3. Jika input saat ini sedang memilih sales ini, kosongkan
+    ['form', 'edit'].forEach(k => {
+        const inputId = SALES_PICKER_CFG[k]?.input;
+        const input = document.getElementById(inputId);
+        if (input && input.value.trim().toUpperCase() === namaUpper) {
+            input.value = '';
+        }
+    });
+
+    renderDaftarSales(key);
+    showCustomPopup('danger', `Sales ${nama} Berhasil Dihapus`);
 }
 
 function tambahSalesDariBar(key) {
@@ -8452,7 +8573,7 @@ function pastikanShellSales(key) {
     wrap.appendChild(si);
     const heading = document.createElement('div');
     heading.className = 'picker-heading';
-    heading.innerHTML = '<span>NO</span><span>NAMA SALES</span>';
+    heading.innerHTML = '<span>NO</span><span>NAMA SALES</span><span>HAPUS</span>';
     sticky.append(wrap, heading);
 
     const list = document.createElement('div');
@@ -8510,6 +8631,21 @@ function renderDaftarSales(key) {
     list.innerHTML = '';
     salesPickerIndex = -1;
 
+    // Baris untuk mengosongkan / menghapus sales dari pilihan
+    const rowClear = document.createElement('button');
+    rowClear.type = 'button';
+    rowClear.className = 'picker-row is-clear';
+    rowClear.setAttribute('role', 'option');
+    const spanClear = document.createElement('span');
+    spanClear.textContent = '— Kosongkan / Hapus Sales dari Form —';
+    rowClear.appendChild(spanClear);
+    rowClear.addEventListener('mousedown', e => e.preventDefault());
+    rowClear.addEventListener('click', () => {
+        pilihSales(key, '');
+        showCustomPopup('success', 'Sales Dikosongkan');
+    });
+    list.appendChild(rowClear);
+
     // Nama yang diketik di kolom utama tetapi belum ada di daftar: tawarkan untuk ditambahkan.
     const ketik = formatNamaSalesBaru(input.value);
     if (ketik && !daftar.some(n => n.toLocaleLowerCase('id') === ketik.toLocaleLowerCase('id'))) {
@@ -8540,7 +8676,22 @@ function renderDaftarSales(key) {
             row.setAttribute('role', 'option');
             const no = document.createElement('span'); no.textContent = String(daftar.indexOf(nama) + 1);
             const nm = document.createElement('span'); nm.textContent = nama;
-            row.append(no, nm);
+            const act = document.createElement('span');
+            act.style.justifyContent = 'center';
+            act.style.padding = '4px';
+            const delBtn = document.createElement('button');
+            delBtn.type = 'button';
+            delBtn.className = 'picker-del-btn';
+            delBtn.title = `Hapus "${nama}" dari daftar sales`;
+            delBtn.setAttribute('aria-label', `Hapus sales ${nama}`);
+            delBtn.innerHTML = '🗑';
+            delBtn.addEventListener('mousedown', e => e.stopPropagation());
+            delBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hapusSalesPermanen(nama, key);
+            });
+            act.appendChild(delBtn);
+            row.append(no, nm, act);
             row.addEventListener('mousedown', e => e.preventDefault());
             row.addEventListener('click', () => pilihSales(key, nama));
             list.appendChild(row);
@@ -8808,7 +8959,29 @@ function formatAlamatHurufDepan(el) {
     try { el.setSelectionRange(mulai, akhir); } catch (_) {}
 }
 
+function updateAlamatCustomerGlobal(customerName, alamatBaru) {
+    if (!customerName || customerName === '-' || customerName.toUpperCase() === 'CUSTOMER BARU') return;
+    const cleanCust = customerName.trim().toUpperCase();
+    const cleanAlamat = String(alamatBaru || '').trim();
+    let updated = false;
+    transaksi.forEach(item => {
+        if (item.jenis === 'keluar' && String(item.customer || '').trim().toUpperCase() === cleanCust) {
+            item.alamatCustomer = cleanAlamat;
+            updated = true;
+        }
+    });
+    if (updated) {
+        saveData();
+    }
+}
+
 function bukaModalAlamatCustomer(source, tanggal, customer, jam) {
+    tutupPilihanCustomer();
+    tutupPilihanBarang();
+    if (typeof tutupPilihanSales === 'function') {
+        tutupPilihanSales('form');
+        tutupPilihanSales('edit');
+    }
     currentAlamatTarget = { source, tanggal, customer, jam };
 
     let currentVal = '';
@@ -8828,6 +9001,11 @@ function bukaModalAlamatCustomer(source, tanggal, customer, jam) {
         customerName = custInput ? (custInput.value.trim().toUpperCase() || '-') : '-';
         const alamatInput = document.getElementById('editAlamatCustomer');
         currentVal = alamatInput ? alamatInput.value : '';
+    } else if (source === 'picker') {
+        customerName = customer || '-';
+        const custUpper = customerName.trim().toUpperCase();
+        const item = transaksi.find(t => t.jenis === 'keluar' && String(t.customer || '').trim().toUpperCase() === custUpper && t.alamatCustomer && t.alamatCustomer.trim() && t.alamatCustomer !== '-');
+        currentVal = item ? item.alamatCustomer : '';
     }
 
     document.getElementById('modalAlamatCustNameText').textContent = customerName;
@@ -8865,22 +9043,51 @@ function simpanModalAlamatCustomer() {
     const hasilGabungan = gabungAlamatDanTelepon(alamatLengkap, noTelepon);
 
     const source = currentAlamatTarget.source;
+    let customerName = currentAlamatTarget.customer || '';
 
     if (source === 'form') {
+        const custInput = document.getElementById('customer');
+        customerName = custInput ? custInput.value.trim().toUpperCase() : '';
         const inputAlamat = document.getElementById('alamatCustomer');
         if (inputAlamat) inputAlamat.value = hasilGabungan;
+        alamatOtomatis = hasilGabungan;
+        if (customerName && customerName !== 'CUSTOMER BARU' && customerName !== '-') {
+            updateAlamatCustomerGlobal(customerName, hasilGabungan);
+            updateApp();
+        }
         tutupModalAlamatCustomer();
-        showCustomPopup('success', 'Alamat Customer Disimpan');
+        showCustomPopup('success', 'Alamat Customer Disimpan (Terbaru)');
     } else if (source === 'penjualan') {
         const { tanggal, customer, jam } = currentAlamatTarget;
         updateAlamatCustomerBaris(tanggal, customer, jam, hasilGabungan);
+        updateAlamatCustomerGlobal(customer, hasilGabungan);
+        updateApp();
         tutupModalAlamatCustomer();
-        showCustomPopup('success', 'Alamat Customer Disimpan');
+        showCustomPopup('success', 'Alamat Customer Disimpan (Terbaru)');
     } else if (source === 'editModal') {
+        const custInput = document.getElementById('editCustomer');
+        customerName = custInput ? custInput.value.trim().toUpperCase() : '';
         const inputAlamat = document.getElementById('editAlamatCustomer');
         if (inputAlamat) inputAlamat.value = hasilGabungan;
+        if (customerName && customerName !== '-') {
+            updateAlamatCustomerGlobal(customerName, hasilGabungan);
+        }
         tutupModalAlamatCustomer();
-        showCustomPopup('success', 'Alamat Customer Disimpan');
+        showCustomPopup('success', 'Alamat Customer Disimpan (Terbaru)');
+    } else if (source === 'picker') {
+        if (customerName) {
+            updateAlamatCustomerGlobal(customerName, hasilGabungan);
+            const currentFormCust = document.getElementById('customer')?.value.trim().toUpperCase();
+            if (currentFormCust === customerName.toUpperCase()) {
+                const formAlamat = document.getElementById('alamatCustomer');
+                if (formAlamat) formAlamat.value = hasilGabungan;
+                alamatOtomatis = hasilGabungan;
+            }
+            updateApp();
+            tutupPilihanCustomer();
+        }
+        tutupModalAlamatCustomer();
+        showCustomPopup('success', 'Alamat Customer Disimpan (Terbaru)');
     }
 }
 
@@ -9130,7 +9337,7 @@ function backupJSON() {
 
 function downloadFileHTML() {
     const filename = "Manual_Stock_Management_System.html";
-    fetch('/assets/aistudio/index_484309d7.html')
+    fetch('/assets/aistudio/index_f2a54f6a.html')
         .then(res => {
             if (!res.ok) throw new Error('Network response not ok');
             return res.text();
@@ -9148,12 +9355,17 @@ function downloadFileHTML() {
             showCustomPopup('success', 'File HTML Berhasil Diunduh!');
         })
         .catch(() => {
+            const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = '/assets/aistudio/index_484309d7.html';
+            a.href = url;
             a.download = filename;
             document.body.appendChild(a);
             a.click();
             a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
+            showCustomPopup('success', 'File HTML Berhasil Diunduh!');
         });
 }
 
