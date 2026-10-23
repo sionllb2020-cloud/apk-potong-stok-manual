@@ -2060,12 +2060,6 @@ body.theme-dark .edit-profile-cancel:hover{background:#475569 !important}
 @media(max-width:480px){.edit-profile-card{padding:24px 18px;border-radius:16px}.edit-profile-card h2{font-size:20px}.edit-profile-actions{flex-direction:column-reverse}.edit-profile-actions button{width:100%}}
 
 
-/* MINI GAME SNAKE — responsive, isolated from stock workflows */
-.game-hub-card{overflow:hidden}.game-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}.game-heading h2{margin:5px 0 8px;font-size:clamp(22px,3vw,30px);font-weight:900}.game-heading p{margin:0;max-width:680px;line-height:1.6;opacity:.78}.game-eyebrow{font-size:11px;letter-spacing:2px;font-weight:900;color:#16a34a}.game-score-box{min-width:100px;padding:14px 18px;border-radius:16px;background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#14532d;text-align:center}.game-score-box span{display:block;font-size:11px;font-weight:900;letter-spacing:1.4px}.game-score-box strong{display:block;font-size:32px;font-weight:900}.snake-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(240px,.85fr);gap:24px;align-items:center}.snake-board-wrap{position:relative;width:min(100%,480px);margin:0 auto;aspect-ratio:1;background:#0b1220;border:5px solid #263548;border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(2,6,23,.22)}#snakeCanvas{display:block;width:100%;height:100%;touch-action:none}.snake-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(5,12,25,.74);backdrop-filter:blur(5px);color:#fff;text-align:center}.snake-overlay.is-hidden{display:none}.snake-overlay-card{max-width:300px}.snake-overlay-icon{font-size:48px}.snake-overlay-card h3{font-size:24px;margin:8px 0}.snake-overlay-card p{font-size:14px;line-height:1.6;color:#dbeafe}.snake-primary-btn,.snake-secondary-btn{border:0;border-radius:12px;min-height:44px;padding:12px 17px;font-weight:900;cursor:pointer;transition:transform .15s,filter .15s}.snake-primary-btn{background:#22c55e;color:#052e16;margin-top:7px}.snake-secondary-btn{background:#e2e8f0;color:#0f172a}.snake-primary-btn:hover,.snake-secondary-btn:hover{filter:brightness(.96);transform:translateY(-1px)}.snake-controls-panel{padding:22px;border:1px solid var(--border-color,#e2e8f0);border-radius:18px;background:var(--card-bg,#fff)}.snake-controls-panel h3{margin:0 0 12px;font-size:19px;font-weight:900}.snake-controls-panel p{font-size:14px;line-height:1.5;margin:6px 0;opacity:.78}.snake-dpad{display:grid;grid-template-columns:repeat(3,58px);grid-template-rows:repeat(2,52px);justify-content:center;gap:8px;margin:20px auto}.snake-dpad button{border:1px solid #cbd5e1;border-radius:12px;background:#f1f5f9;color:#0f172a;font-size:20px;font-weight:900;box-shadow:0 3px 0 #cbd5e1;touch-action:manipulation;cursor:pointer}.snake-dpad button:active{transform:translateY(2px);box-shadow:0 1px 0 #cbd5e1}.snake-game-actions{display:flex;gap:9px;flex-wrap:wrap}.snake-game-actions button{flex:1}.snake-tip{margin-top:18px;padding:12px;border-radius:12px;background:rgba(34,197,94,.1);font-size:13px;line-height:1.5}.dark-theme .snake-controls-panel{background:var(--card-bg,#1e293b)}.dark-theme .snake-secondary-btn{background:#334155;color:#f8fafc}.dark-theme .snake-dpad button{background:#334155;color:#f8fafc;border-color:#475569;box-shadow:0 3px 0 #1e293b}
-@media(max-width:760px){.snake-layout{grid-template-columns:1fr}.snake-board-wrap{width:min(100%,430px)}.snake-controls-panel{padding:18px}.game-heading{align-items:flex-start}.game-score-box{min-width:76px;padding:10px}.game-score-box strong{font-size:26px}}
-@media(max-width:420px){.game-heading{gap:10px}.game-heading h2{font-size:21px}.game-heading p{font-size:13px}.game-score-box{min-width:65px}.snake-board-wrap{border-width:3px;border-radius:14px}.snake-dpad{grid-template-columns:repeat(3,54px);grid-template-rows:repeat(2,49px);gap:7px}.snake-game-actions{flex-direction:column}}
-
-
 /* CETAK SELALU PUTIH-HITAM, TIDAK MENGIKUTI TEMA DARK */
 @media print {
   html, body, body * {
@@ -3532,7 +3526,7 @@ html { overflow-x: hidden; }
     grid-template-columns: minmax(110px, 1fr) minmax(0, 2.2fr) minmax(100px, 1.1fr) 96px !important;
 }
 #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
-    grid-template-columns: minmax(130px, 1.2fr) minmax(0, 2fr) minmax(110px, 1fr) 72px 54px !important;
+    grid-template-columns: minmax(130px, 1.2fr) minmax(0, 2fr) minmax(110px, 1fr) !important;
 }
 #floatingBarangPicker .picker-heading, #floatingBarangPicker .picker-row,
 #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
@@ -3592,7 +3586,7 @@ body.theme-dark #floatingCustomerPicker .picker-edit-btn:hover {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr) 60px !important;
     }
     #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1fr) 46px 46px !important;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1fr) !important;
     }
     #floatingBarangPicker .picker-heading > span, #floatingCustomerPicker .picker-heading > span { padding: 9px 7px; font-size: 9.5px; }
     #floatingBarangPicker .picker-row > span, #floatingCustomerPicker .picker-row > span { padding: 10px 7px; font-size: 11px; }
@@ -3920,11 +3914,6 @@ tbody tr:hover { background: color-mix(in srgb, var(--primary-light) 55%, var(--
 }
 .password-requirements { border-radius: 12px; }
 
-/* ---------- Mini Game ---------- */
-.game-score-box { border-radius: 18px; box-shadow: var(--m-shadow-1); }
-.snake-board-wrap { border-radius: 24px; box-shadow: var(--m-shadow-2); }
-.snake-controls-panel { border-radius: 22px; box-shadow: var(--m-shadow-1); }
-.snake-dpad button { border-radius: 14px; }
 
 /* ---------- Footer ---------- */
 .footer { color: var(--text-muted); letter-spacing: .01em; }
@@ -3988,7 +3977,7 @@ body.theme-dark .sidebar-overlay { background: rgba(2,6,23,.7); }
 /* Tombol: kilau menyapu + ripple + spotlight mengikuti kursor */
 .btn-save, .btn-reset, .btn-excel, .btn-upload, .btn-print, .btn-backup,
 .btn-edit, .btn-delete, .btn-clear-all, .btn-lock, .btn-surat-jalan,
-.btn-logout, .btn-primary, .snake-primary-btn, .snake-secondary-btn {
+.btn-logout, .btn-primary {
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -3996,7 +3985,7 @@ body.theme-dark .sidebar-overlay { background: rgba(2,6,23,.7); }
 }
 .btn-save::after, .btn-reset::after, .btn-excel::after, .btn-upload::after, .btn-print::after,
 .btn-backup::after, .btn-edit::after, .btn-delete::after, .btn-clear-all::after, .btn-lock::after,
-.btn-surat-jalan::after, .btn-logout::after, .btn-primary::after, .snake-primary-btn::after, .snake-secondary-btn::after {
+.btn-surat-jalan::after, .btn-logout::after, .btn-primary::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -4010,7 +3999,7 @@ body.theme-dark .sidebar-overlay { background: rgba(2,6,23,.7); }
 .btn-save:hover::after, .btn-reset:hover::after, .btn-excel:hover::after, .btn-upload:hover::after,
 .btn-print:hover::after, .btn-backup:hover::after, .btn-edit:hover::after, .btn-delete:hover::after,
 .btn-clear-all:hover::after, .btn-lock:hover::after, .btn-surat-jalan:hover::after, .btn-logout:hover::after,
-.btn-primary:hover::after, .snake-primary-btn:hover::after, .snake-secondary-btn:hover::after { opacity: 1; }
+.btn-primary:hover::after { opacity: 1; }
 button:hover:not(:disabled) { transform: translateY(-3px) scale(1.025); }
 button:active:not(:disabled) { transform: translateY(0) scale(.96); transition-duration: .08s !important; }
 .toggle-password:hover, .close-modal:hover, .sidebar-toggle:hover { transform: none; }
@@ -4080,11 +4069,6 @@ button:active:not(:disabled) { transform: translateY(0) scale(.96); transition-d
 
 /* Picker barang & kontrol game */
 .floating-barang-picker .picker-row:hover { transform: none; padding-left: 28px; box-shadow: inset 4px 0 0 var(--primary); }
-.snake-dpad button { transition: transform .2s var(--m-spring), box-shadow .2s, background .2s; }
-.snake-dpad button:hover { transform: translateY(-3px) scale(1.08); background: var(--primary-light); }
-.game-score-box, .snake-board-wrap, .snake-controls-panel { transition: transform .35s var(--m-ease), box-shadow .35s var(--m-ease); }
-.game-score-box:hover, .snake-controls-panel:hover { transform: translateY(-3px); box-shadow: var(--m-shadow-2); }
-.snake-board-wrap:hover { transform: scale(1.015); }
 
 /* Login */
 .auth-card { transition: transform .4s var(--m-ease), box-shadow .4s var(--m-ease); }
@@ -4373,6 +4357,117 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
 }
 </style>
 
+<style id="customer-report-style">
+/* REPORT CUSTOMER — tampilan saja */
+#customerPage .customer-actions { display: inline-flex; gap: 6px; flex-wrap: nowrap; justify-content: center; }
+#customerPage .customer-actions button { padding: 6px 12px; font-size: 11px; min-height: 34px; }
+#customerPage td.cust-alamat { white-space: normal; min-width: 280px; overflow-wrap: anywhere; }
+#customerPage .table-wrapper table { min-width: 860px; }
+</style>
+
+<style id="popup-theme-fix">
+/* NOTIFIKASI SIMPAN / HAPUS: mengikuti tema aktif */
+#customCenterOverlay { background: rgba(15, 23, 42, .5); }
+.custom-popup-box {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-dark) !important;
+}
+.custom-popup-text { color: var(--text-dark) !important; }
+body.theme-dark #customCenterOverlay { background: rgba(2, 6, 23, .72); }
+body.theme-dark .custom-popup-box {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, .65) !important;
+}
+body.theme-dark .custom-popup-text { color: #f8fafc !important; }
+body.theme-dark .success-anim-icon { background: #059669; box-shadow: 0 10px 22px rgba(5, 150, 105, .45); }
+body.theme-dark .danger-anim-icon { background: #dc2626; box-shadow: 0 10px 22px rgba(220, 38, 38, .45); }
+</style>
+
+<style id="sub-tabs-style">
+/* SUB-HALAMAN (Report Customer / Data Customer) dalam satu navigasi */
+.sub-tabs {
+    display: flex; gap: 6px; width: max-content; max-width: 100%;
+    margin-bottom: 20px; padding: 6px; overflow-x: auto;
+    background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+}
+.sub-tab-btn {
+    flex: 0 0 auto; min-height: 42px; padding: 10px 22px; border-radius: 10px;
+    background: transparent; color: var(--text-dark); font-size: 13px; font-weight: 800;
+    box-shadow: none; white-space: nowrap;
+}
+.sub-tab-btn:hover:not(:disabled) {
+    background: var(--primary-light); color: var(--primary-dark); transform: none !important; filter: none; box-shadow: none;
+}
+.sub-tab-btn.active, .sub-tab-btn.active:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff;
+    box-shadow: 0 8px 18px -6px color-mix(in srgb, var(--primary) 65%, transparent);
+}
+body.theme-dark .sub-tab-btn:hover:not(:disabled):not(.active) { color: #f8fafc; }
+@media (max-width: 640px) {
+    .sub-tabs { width: 100%; }
+    .sub-tab-btn { flex: 1 1 0; padding: 10px 12px; font-size: 12px; }
+}
+@media print { .sub-tabs { display: none !important; } }
+</style>
+
+<style id="pin-modal-theme">
+/* KOLOM PIN ACCESS & MODAL PIN: mengikuti tema aktif */
+#pinModal .modal-box, #deletePinModal .modal-box, #clearAllModal .modal-box,
+#clearAllCustomerModal .modal-box, #ubahPinModal .modal-box {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-dark);
+}
+#pinModal .modal-body, #deletePinModal .modal-body, #clearAllModal .modal-body,
+#clearAllCustomerModal .modal-body, #ubahPinModal .modal-body { background: var(--card-bg); }
+#pinModal .modal-footer, #deletePinModal .modal-footer, #clearAllModal .modal-footer,
+#clearAllCustomerModal .modal-footer, #ubahPinModal .modal-footer {
+    background: var(--thead-bg) !important; border-top: 1px solid var(--border-color);
+}
+#pinModal .form-group label, #deletePinModal .form-group label, #clearAllModal .form-group label,
+#clearAllCustomerModal .form-group label, #ubahPinModal .form-group label {
+    color: var(--text-dark) !important; font-weight: 800;
+}
+#pinModal .password-wrapper input, #deletePinModal .password-wrapper input, #clearAllModal .password-wrapper input,
+#clearAllCustomerModal .password-wrapper input, #ubahPinModal .password-wrapper input {
+    background: var(--input-bg) !important;
+    color: var(--text-dark) !important;
+    border: 1.5px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: 700; letter-spacing: 1px;
+    caret-color: var(--primary);
+}
+#pinModal .password-wrapper input::placeholder, #deletePinModal .password-wrapper input::placeholder,
+#clearAllModal .password-wrapper input::placeholder, #clearAllCustomerModal .password-wrapper input::placeholder,
+#ubahPinModal .password-wrapper input::placeholder {
+    color: var(--text-muted) !important; opacity: .85; letter-spacing: 0; font-weight: 500;
+}
+#pinModal .password-wrapper input:focus, #ubahPinModal .password-wrapper input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 20%, transparent) !important;
+}
+#deletePinModal .password-wrapper input:focus, #clearAllModal .password-wrapper input:focus,
+#clearAllCustomerModal .password-wrapper input:focus {
+    border-color: var(--danger) !important;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--danger) 22%, transparent) !important;
+}
+#pinModal .toggle-password, #deletePinModal .toggle-password, #clearAllModal .toggle-password,
+#clearAllCustomerModal .toggle-password, #ubahPinModal .toggle-password { color: var(--text-muted) !important; }
+#pinModal .toggle-password:hover, #deletePinModal .toggle-password:hover, #clearAllModal .toggle-password:hover,
+#clearAllCustomerModal .toggle-password:hover, #ubahPinModal .toggle-password:hover {
+    color: var(--primary) !important; background: var(--primary-light) !important;
+}
+body.theme-dark #deletePinModal .modal-header, body.theme-dark #clearAllModal .modal-header,
+body.theme-dark #clearAllCustomerModal .modal-header { background: linear-gradient(135deg, #dc2626, #991b1b) !important; color: #fff; }
+body.theme-dark #clearAllModal .modal-body p[style*="#dc2626"],
+body.theme-dark #clearAllCustomerModal .modal-body p[style*="#dc2626"] { color: #fca5a5 !important; }
+body.theme-dark #pinModal .password-wrapper input, body.theme-dark #deletePinModal .password-wrapper input,
+body.theme-dark #clearAllModal .password-wrapper input, body.theme-dark #clearAllCustomerModal .password-wrapper input,
+body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !important; color: #ffffff !important; border-color: #64748b !important; }
+</style>
 </head>
 
 <body>
@@ -4577,8 +4672,8 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
             <button class="tab-btn" id="tabStokBtn" onclick="switchPage('stokPage'); closeSidebar()">
                 Report Stock Barang
             </button>
-            <button class="tab-btn" id="tabGameBtn" onclick="switchPage('gamePage'); closeSidebar()">
-                🎮 Mini Game
+            <button class="tab-btn" id="tabCustomerBtn" onclick="switchPage('customerPage'); closeSidebar()">
+                Report Customer
             </button>
             <button class="tab-btn" id="tabTransaksiBtn" onclick="tryAccessTransaksi(); closeSidebar()">
                 🔒︎ Transaction History
@@ -4703,17 +4798,17 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
 
                 <div class="form-group" id="containerCustomer" style="display:none;">
                     <label>Nama Customer</label>
-                    <div class="picker-field"><input type="text" id="customer" placeholder="Pilih Customer / Buat Customer Baru" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanCustomer()" onclick="bukaPilihanCustomer()" oninput="this.value = this.value.toUpperCase(); filterPilihanCustomer(this.value)" onkeydown="navigasiPilihanCustomer(event)"><button type="button" class="picker-toggle-btn" onclick="togglePilihan('customer')" aria-label="Pilih customer" title="Pilih customer"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingCustomerPicker" class="floating-barang-picker floating-customer-picker" role="listbox" aria-label="Daftar customer" hidden></div></div>
-                    <div class="form-help">Pilih customer yang pernah diinput, atau ketik nama customer baru</div>
+                    <div class="picker-field"><input type="text" id="customer" placeholder="Pilih Customer" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanCustomer()" onclick="bukaPilihanCustomer()" oninput="this.value = this.value.toUpperCase(); filterPilihanCustomer(this.value)" onkeydown="navigasiPilihanCustomer(event)"><button type="button" class="picker-toggle-btn" onclick="togglePilihan('customer')" aria-label="Pilih customer" title="Pilih customer"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingCustomerPicker" class="floating-barang-picker floating-customer-picker" role="listbox" aria-label="Daftar customer" hidden></div></div>
+                    <div class="form-help">Pilih customer dari daftar. Customer baru ditambahkan di menu Report Customer</div>
                 </div>
 
                 <div class="form-group" id="containerAlamatCustomer" style="display:none;">
                     <label for="alamatCustomer">Alamat Customer</label>
                     <div style="position: relative; display: flex; align-items: center; width: 100%;">
-                        <input type="text" id="alamatCustomer" placeholder="Klik untuk isi Alamat & No Telp" autocomplete="off" readonly style="cursor: pointer; padding-right: 40px; background: var(--input-bg); font-weight: 600;" onclick="bukaModalAlamatCustomer('form')" title="Klik untuk membuka form input alamat dan nomor telepon/HP">
-                        <button type="button" onclick="bukaModalAlamatCustomer('form')" style="position: absolute; right: 8px; background: transparent; border: none; padding: 6px; cursor: pointer; font-size: 16px; color: var(--primary); min-height: auto; box-shadow: none; transform: none;" title="Buka Form Input Alamat">🏠︎</button>
+                        <input type="text" id="alamatCustomer" placeholder="Alamat terisi otomatis dari data customer" autocomplete="off" readonly style="cursor: not-allowed; background: var(--readonly-bg); color: var(--text-muted); font-weight: 600;" title="Alamat diambil otomatis dari Report Customer">
+                        
                     </div>
-                    <div class="form-help" style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Klik kolom untuk mengisi Alamat Lengkap & No Telepon/HP</div>
+                    <div class="form-help" style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Alamat & No Telp/HP terisi otomatis dari data customer</div>
                 </div>
 
                 <div class="form-group" id="containerSales" style="display:none;">
@@ -4870,36 +4965,67 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
     </div>
 
     <!-- =========================================================
-         HALAMAN MINI GAME
+         HALAMAN REPORT CUSTOMER
     ========================================================= -->
-    <div class="page" id="gamePage">
-        <div class="card game-hub-card">
-            <div class="game-heading">
-                <div>
-                    <span class="game-eyebrow">BREAK TIME</span>
-                    <h2>🎮 Mini Game — Snake</h2>
-                    <p>Bisa dimainkan dengan Keyboard atau tombol arah di Tablet / Handphone.</p>
-                </div>
-                <div class="game-score-box"><span>SCORE</span><strong id="snakeScore">0</strong></div>
+    <div class="page" id="customerPage">
+        <div class="sub-tabs" id="customerSubTabs">
+            <button type="button" class="sub-tab-btn active" data-sub="form" onclick="switchSubPage('customer','form')">Report Customer</button>
+            <button type="button" class="sub-tab-btn" data-sub="data" onclick="switchSubPage('customer','data')">Data Customer</button>
+        </div>
+        <div class="card" id="customerFormCard">
+            <div class="card-title">
+                <span>Report Customer</span>
+                <div class="badge-total-stok" id="displayTotalCustomer">Total Customer <strong>0</strong></div>
             </div>
-            <div class="snake-layout">
-                <div class="snake-board-wrap">
-                    <canvas id="snakeCanvas" width="360" height="360" aria-label="Area permainan Snake"></canvas>
-                    <div class="snake-overlay" id="snakeOverlay">
-                        <div class="snake-overlay-card"><div class="snake-overlay-icon">🐍</div><h3 id="snakeOverlayTitle">Siap bermain?</h3><p id="snakeOverlayText">Makan titik makanan, tambah skor, dan jangan menabrak dinding atau tubuh sendiri.</p><button type="button" class="snake-primary-btn" id="snakeStartBtn" onclick="startSnakeGame()">▶ Play Game</button></div>
-                    </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="custNama">Nama Customer</label>
+                    <input type="text" id="custNama" placeholder="Masukkan Nama Customer" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
                 </div>
-                <div class="snake-controls-panel">
-                    <h3>Kontrol Permainan</h3>
-                    <p>Komputer: gunakan tombol panah atau tombol WASD.</p>
-                    <p>Handphone / Tablet: gunakan tombol arah berikut.</p>
-                    <div class="snake-dpad" aria-label="Kontrol arah Snake">
-                        <span></span><button type="button" onclick="setSnakeDirection('up')" aria-label="Atas">▲</button><span></span>
-                        <button type="button" onclick="setSnakeDirection('left')" aria-label="Kiri">◀</button><button type="button" onclick="setSnakeDirection('down')" aria-label="Bawah">▼</button><button type="button" onclick="setSnakeDirection('right')" aria-label="Kanan">▶</button>
+                <div class="form-group">
+                    <label for="custAlamat">Alamat Customer</label>
+                    <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                        <input type="text" id="custAlamat" placeholder="Klik untuk isi Alamat & No Telp" autocomplete="off" readonly style="cursor: pointer; padding-right: 40px; background: var(--input-bg); font-weight: 600;" onclick="bukaModalAlamatCustomer('customerPage')" title="Klik untuk membuka form input alamat dan nomor telepon/HP">
+                        <button type="button" onclick="bukaModalAlamatCustomer('customerPage')" style="position: absolute; right: 8px; background: transparent; border: none; padding: 6px; cursor: pointer; font-size: 16px; color: var(--primary); min-height: auto; box-shadow: none; transform: none;" title="Buka Form Input Alamat">🏠</button>
                     </div>
-                    <div class="snake-game-actions"><button type="button" class="snake-secondary-btn" onclick="startSnakeGame()">↻ Mulai Ulang</button><button type="button" class="snake-secondary-btn" onclick="pauseSnakeGame()">Ⅱ Jeda</button></div>
-                    <div class="snake-tip">💡 Tips: Arahkan ular menuju makanan berwarna merah. Semakin banyak makanan yang didapat, semakin tinggi skor Anda.</div>
+                    <div class="form-help">Klik kolom untuk mengisi Alamat Lengkap & No Telepon/HP</div>
                 </div>
+                <div class="form-group">
+                    <label for="custTelp">No Telp / HP</label>
+                    <input type="text" id="custTelp" placeholder="Terisi dari form alamat" readonly style="cursor: not-allowed;">
+                </div>
+            </div>
+
+            <div class="button-area">
+                <button class="btn-save" id="btnSimpanCustomer" onclick="simpanCustomer()"><strong>SAVE CUSTOMER</strong></button>
+                <button class="btn-reset" onclick="resetFormCustomer()"><strong>RESET FORM</strong></button>
+            </div>
+        </div>
+
+        <div class="card" id="customerTableCard" style="display:none;">
+            <div class="card-title">
+                <span>Data Customer</span>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-area">
+                    <input type="text" id="searchCustomer" placeholder="Search" oninput="renderCustomer()">
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 5%;">No</th>
+                            <th style="width: 28%;">Nama Customer</th>
+                            <th style="width: 45%;">Alamat</th>
+                            <th style="width: 22%;">No Telp / HP</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerBody"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -4908,7 +5034,11 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
          HALAMAN 3: Transaction History
     ========================================================= -->
     <div class="page" id="transaksiPage">
-        <div class="card">
+        <div class="sub-tabs" id="transaksiSubTabs">
+            <button type="button" class="sub-tab-btn active" data-sub="form" onclick="switchSubPage('transaksi','form')">Transaction History</button>
+            <button type="button" class="sub-tab-btn" data-sub="data" onclick="switchSubPage('transaksi','data')">Data Customer</button>
+        </div>
+        <div class="card" id="transaksiMainCard">
             <div class="card-title">
                 <span>Transaction History Barang</span>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -4960,6 +5090,39 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
                         </tr>
                     </thead>
                     <tbody id="transaksiBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card" id="customerDataCard" style="display:none;">
+            <div class="card-title">
+                <span>Data Customer</span>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-area">
+                    <input type="text" id="searchCustomerData" placeholder="Search" oninput="renderCustomerData()">
+                </div>
+                <div class="button-area" style="margin-top:0;">
+                    <button class="btn-upload" onclick="document.getElementById('custUploadInput').click()"><strong>UPLOAD EXCEL</strong></button>
+                    <input type="file" id="custUploadInput" accept=".xlsx,.xls" style="display:none;" onchange="importCustomerExcel(event)">
+                    <button class="btn-excel" onclick="exportCustomerExcel()"><strong>EXPORT EXCEL</strong></button>
+                    <button class="btn-clear-all" onclick="konfirmasiHapusSemuaCustomer()"><strong>DELETE ALL CUSTOMER</strong></button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 6%;">No</th>
+                            <th style="width: 24%;">Nama Customer</th>
+                            <th style="width: 34%;">Alamat</th>
+                            <th style="width: 18%;">No Telp / HP</th>
+                            <th class="text-center" style="width: 18%;">Edit / Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerDataBody"></tbody>
                 </table>
             </div>
         </div>
@@ -5194,6 +5357,62 @@ body.theme-slate #authContainer { --auth-accent:#64748b;--auth-accent-dark:#3341
     </div>
 </div>
 
+<!-- MODAL HAPUS SEMUA DATA CUSTOMER -->
+<div class="modal" id="clearAllCustomerModal">
+    <div class="modal-box" style="max-width: 440px;">
+        <div class="modal-header" style="background: #dc2626;">
+            <h2>⚠️ DELETE ALL CUSTOMER</h2>
+            <button class="close-modal" onclick="tutupModalClearCustomer()">⛌</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:13px; color:#dc2626; margin-bottom:10px; font-weight: 800;">VERY IMPORTANT WARNING</p>
+            <p style="font-size:13px; color:var(--text-dark); margin-bottom:16px;">This action will permanently delete all Data Customer. Transaction history will not be deleted.</p>
+            <div class="form-group">
+                <label>PIN Access</label>
+                <div class="password-wrapper">
+                    <input type="password" id="inputPinClearCustomer" placeholder="Masukkan PIN Access" maxlength="10" autocomplete="off" onkeyup="if(event.key==='Enter') eksekusiHapusSemuaCustomer()">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('inputPinClearCustomer', this)">👁</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-reset" onclick="tutupModalClearCustomer()">CANCEL</button>
+            <button class="btn-clear-all" style="padding: 10px 18px; font-size: 13px; font-weight:700;" onclick="eksekusiHapusSemuaCustomer()">DELETE</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDIT DATA CUSTOMER -->
+<div class="modal" id="editCustomerModal">
+    <div class="modal-box" style="max-width: 520px;">
+        <div class="modal-header">
+            <h2>Edit Data Customer</h2>
+            <button class="close-modal" onclick="tutupEditCustomerData()">⛌</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group" style="margin-bottom: 14px;">
+                <label for="ceNama">Nama Customer</label>
+                <input type="text" id="ceNama" placeholder="Nama Customer" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div class="form-group" style="margin-bottom: 14px;">
+                <label for="ceAlamat">Alamat Customer</label>
+                <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                    <input type="text" id="ceAlamat" placeholder="Klik untuk isi Alamat & No Telp" autocomplete="off" readonly style="cursor: pointer; padding-right: 40px; background: var(--input-bg); font-weight: 600;" onclick="bukaModalAlamatCustomer('customerEdit')" title="Klik untuk membuka form input alamat dan nomor telepon/HP">
+                    <button type="button" onclick="bukaModalAlamatCustomer('customerEdit')" style="position: absolute; right: 8px; background: transparent; border: none; padding: 6px; cursor: pointer; font-size: 16px; color: var(--primary); min-height: auto; box-shadow: none; transform: none;" title="Buka Form Input Alamat">🏠</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ceTelp">No Telp / HP</label>
+                <input type="text" id="ceTelp" readonly style="cursor: not-allowed;" placeholder="Terisi dari form alamat">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-reset" onclick="tutupEditCustomerData()"><strong>CANCEL</strong></button>
+            <button class="btn-save" onclick="simpanEditCustomerData()"><strong>SAVE CHANGES</strong></button>
+        </div>
+    </div>
+</div>
+
 <!-- MODAL EDIT MULTI-ITEM -->
 <div class="modal" id="editModal">
     <div class="modal-box" style="max-width: 860px;">
@@ -5348,6 +5567,9 @@ const THEME_KEY = "SISTEM_STOK_THEME_MODE";
 const PAGE_KEY = "SISTEM_STOK_LAST_ACTIVE_PAGE";
 const AUTH_STATUS_KEY = "SISTEM_STOK_IS_AUTHORIZED";
 const DEFAULT_PIN = "1234";
+const CUSTOMER_KEY = "SISTEM_STOK_DATA_CUSTOMER";
+let customerList = [];
+let editCustomerIndex = null;
 
 const OLD_STORAGE_KEYS = [
     "stok_barang_local_storage_v4",
@@ -5717,6 +5939,7 @@ function checkSession() {
         setupAvatarImages(loggedUser);
         initTheme();
         loadData();
+        loadCustomers();
         updateClock();
        
         if (sessionStorage.getItem(AUTH_STATUS_KEY) === 'true') {
@@ -5724,7 +5947,8 @@ function checkSession() {
             document.getElementById('tabTransaksiBtn').innerHTML = "Transaction History";
         }
 
-        const savedPage = localStorage.getItem(PAGE_KEY) || 'inputPage';
+        let savedPage = localStorage.getItem(PAGE_KEY) || 'inputPage';
+        if (!document.getElementById(savedPage)) savedPage = 'inputPage';
         if (savedPage === 'transaksiPage' && !isAuthorized) {
             switchPage('inputPage');
         } else {
@@ -5895,9 +6119,9 @@ function switchPage(pageId) {
     } else if (pageId === 'transaksiPage') {
         document.getElementById('tabTransaksiBtn').classList.add('active');
         renderTransaksi();
-    } else if (pageId === 'gamePage') {
-        document.getElementById('tabGameBtn').classList.add('active');
-        drawSnakeBoard();
+    } else if (pageId === 'customerPage') {
+        document.getElementById('tabCustomerBtn').classList.add('active');
+        renderCustomer();
     }
 }
 
@@ -6687,29 +6911,31 @@ let floatingCustomerIndex = -1;
 let floatingCustomerItems = [];
 
 function daftarPilihanCustomer() {
-    const map = {};
+    const hitung = {};
+    const salesMap = {};
     transaksi.forEach(item => {
         if (item.jenis !== 'keluar') return;
         const nama = String(item.customer || '').trim().toUpperCase();
         if (!nama || nama === '-') return;
-        if (!map[nama]) map[nama] = { nama, alamat: '', sales: '', transaksi: new Set() };
-        const alamat = String(item.alamatCustomer || '').trim();
-        // Transaksi disimpan terbaru di depan (index 0 = transaksi terbaru).
-        // Simpan alamat TERBARU yang pertama kali ditemui
-        if (alamat && alamat !== '-' && !map[nama].alamat) {
-            map[nama].alamat = alamat;
-        }
+        if (!hitung[nama]) hitung[nama] = new Set();
+        hitung[nama].add(`${item.tanggal}___${item.jam}`);
         const salesItem = String(item.sales || '').trim().toUpperCase();
-        if (salesItem && salesItem !== '-' && !map[nama].sales) {
-            map[nama].sales = salesItem;
-        }
-        map[nama].transaksi.add(`${item.tanggal}___${item.jam}`);
+        // Transaksi disimpan terbaru di depan, jadi sales pertama yang ditemui adalah yang terbaru.
+        if (salesItem && salesItem !== '-' && !salesMap[nama]) salesMap[nama] = salesItem;
     });
-    return Object.values(map)
+    return customerList
         .map(c => {
-            const pecah = pisahAlamatDanTelepon(c.alamat);
-            return { nama: c.nama, alamat: c.alamat, sales: c.sales, alamatTampil: pecah.alamat, telepon: pecah.telepon, jumlahTransaksi: c.transaksi.size };
+            const nama = String(c.nama || '').trim().toUpperCase();
+            return {
+                nama,
+                alamat: gabungAlamatDanTelepon(c.alamat, c.telepon),
+                sales: salesMap[nama] || '',
+                alamatTampil: c.alamat || '',
+                telepon: c.telepon || '',
+                jumlahTransaksi: hitung[nama] ? hitung[nama].size : 0
+            };
         })
+        .filter(c => c.nama)
         .sort((a, b) => a.nama.localeCompare(b.nama, 'id', { sensitivity: 'base' }));
 }
 
@@ -6725,6 +6951,23 @@ function bukaPilihanCustomer(tampilSemua) {
 function filterPilihanCustomer(query) {
     floatingCustomerItems = daftarPilihanCustomer();
     renderPilihanCustomer(query || '');
+    sinkronAlamatCustomerForm();
+}
+
+// Alamat & sales di Form Input selalu mengikuti data customer yang cocok persis dengan nama yang dipilih/diketik.
+function sinkronAlamatCustomerForm() {
+    const input = document.getElementById('customer');
+    const alamat = document.getElementById('alamatCustomer');
+    if (!input || !alamat) return;
+    const nama = input.value.trim().toUpperCase();
+    const cocok = nama ? daftarPilihanCustomer().find(c => c.nama === nama) : null;
+    alamat.value = cocok ? cocok.alamat : '';
+    alamatOtomatis = alamat.value;
+    const salesInput = document.getElementById('salesCustomer');
+    if (salesInput && (!salesInput.value || salesInput.value === salesOtomatis)) {
+        salesInput.value = cocok ? cocok.sales : '';
+        salesOtomatis = salesInput.value;
+    }
 }
 
 function pastikanShellPilihanCustomer(popup) {
@@ -6738,7 +6981,7 @@ function pastikanShellPilihanCustomer(popup) {
     si.type = 'text';
     si.id = 'pickerCustomerSearchInput';
     si.className = 'picker-search-input';
-    si.placeholder = 'Search / ketik nama customer baru...';
+    si.placeholder = 'Search customer...';
     si.autocomplete = 'off';
     si.setAttribute('aria-label', 'Search customer');
     si.addEventListener('input', function () {
@@ -6751,7 +6994,7 @@ function pastikanShellPilihanCustomer(popup) {
     wrap.appendChild(si);
     const heading = document.createElement('div');
     heading.className = 'picker-heading';
-    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT</span><span>NO TELP / HP</span><span>TXN</span><span>EDIT</span>';
+    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT</span><span>NO TELP / HP</span>';
     sticky.append(wrap, heading);
     const list = document.createElement('div');
     list.id = 'pickerCustomerListBody';
@@ -6773,26 +7016,13 @@ function renderPilihanCustomer(query) {
     );
     list.innerHTML = '';
 
-    const exact = floatingCustomerItems.some(c => c.nama.toLocaleLowerCase('id') === q);
-    if (qRaw && !exact) {
-        const rowBaru = document.createElement('button');
-        rowBaru.type = 'button';
-        rowBaru.className = 'picker-row is-new';
-        rowBaru.setAttribute('role', 'option');
-        const a = document.createElement('span'); a.className = 'picker-code'; a.textContent = '+ ' + qRaw.toUpperCase() + ' — Customer Baru';
-        rowBaru.append(a);
-        rowBaru.addEventListener('mousedown', e => e.preventDefault());
-        rowBaru.addEventListener('click', () => pilihCustomerBaru(qRaw.toUpperCase()));
-        list.appendChild(rowBaru);
-    }
-
     if (!found.length) {
-        if (!qRaw) {
-            const empty = document.createElement('div');
-            empty.className = 'picker-empty';
-            empty.textContent = 'Belum ada customer. Ketik nama customer baru.';
-            list.appendChild(empty);
-        }
+        const empty = document.createElement('div');
+        empty.className = 'picker-empty';
+        empty.textContent = qRaw
+            ? 'Customer tidak ditemukan. Tambahkan customer baru di menu Report Customer.'
+            : 'Belum ada customer. Tambahkan customer di menu Report Customer.';
+        list.appendChild(empty);
     } else {
         found.forEach(item => {
             const row = document.createElement('button');
@@ -6802,24 +7032,7 @@ function renderPilihanCustomer(query) {
             const nama = document.createElement('span'); nama.className = 'picker-code'; nama.textContent = item.nama;
             const alamat = document.createElement('span'); alamat.className = 'picker-address'; alamat.textContent = item.alamatTampil || '-';
             const telp = document.createElement('span'); telp.className = 'picker-phone'; telp.textContent = item.telepon || '-';
-            const jml = document.createElement('span'); jml.className = 'picker-count'; jml.textContent = formatAngka(item.jumlahTransaksi) + 'x';
-            const act = document.createElement('span');
-            act.style.justifyContent = 'center';
-            act.style.padding = '4px';
-            const editBtn = document.createElement('button');
-            editBtn.type = 'button';
-            editBtn.className = 'picker-edit-btn';
-            editBtn.title = `Edit alamat ${item.nama}`;
-            editBtn.setAttribute('aria-label', `Edit alamat customer ${item.nama}`);
-            editBtn.textContent = 'Edit';
-            editBtn.addEventListener('mousedown', e => e.stopPropagation());
-            editBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                tutupPilihanCustomer();
-                bukaModalAlamatCustomer('picker', null, item.nama, null);
-            });
-            act.appendChild(editBtn);
-            row.append(nama, alamat, telp, jml, act);
+            row.append(nama, alamat, telp);
             row.addEventListener('mousedown', e => e.preventDefault());
             row.addEventListener('click', () => pilihCustomerDariTabel(item));
             list.appendChild(row);
@@ -6846,18 +7059,7 @@ function pilihCustomerDariTabel(item) {
     tutupPilihanCustomer();
 }
 
-function pilihCustomerBaru(nama) {
-    const input = document.getElementById('customer');
-    const alamat = document.getElementById('alamatCustomer');
-    if (input) input.value = nama;
-    // bersihkan alamat yang tadinya terisi otomatis dari customer lain
-    if (alamat && alamatOtomatis && alamat.value === alamatOtomatis) alamat.value = '';
-    const salesBaru = document.getElementById('salesCustomer');
-    if (salesBaru && salesOtomatis && salesBaru.value === salesOtomatis) salesBaru.value = '';
-    salesOtomatis = '';
-    alamatOtomatis = '';
-    tutupPilihanCustomer();
-}
+
 
 function tutupPilihanCustomer() {
     const popup = document.getElementById('floatingCustomerPicker');
@@ -6887,7 +7089,7 @@ function navigasiPilihanCustomer(event) {
             const teks = (document.getElementById('customer')?.value || '').trim().toUpperCase();
             const cocok = daftarPilihanCustomer().find(c => c.nama === teks);
             if (cocok) pilihCustomerDariTabel(cocok);
-            else pilihCustomerBaru(teks);
+            else if (rows.length === 1) rows[0].click();
         }
     }
 }
@@ -7136,7 +7338,8 @@ function simpanTransaksi() {
 
     if (jenis === 'keluar') {
         const customer = document.getElementById('customer') ? document.getElementById('customer').value.trim().toUpperCase() : '';
-        const alamatCustomer = document.getElementById('alamatCustomer') ? document.getElementById('alamatCustomer').value.trim() : '';
+        const customerMaster = customer ? daftarPilihanCustomer().find(c => c.nama === customer) : null;
+        const alamatCustomer = customerMaster ? customerMaster.alamat : '';
         const sales = document.getElementById('salesCustomer') ? document.getElementById('salesCustomer').value.trim().toUpperCase() : '';
         if (!customer) {
             alert("Mohon isi Nama Customer terlebih dahulu!");
@@ -7144,6 +7347,11 @@ function simpanTransaksi() {
         }
         if (keranjangBelanja.length === 0) {
             alert("Keranjang belanja masih kosong!");
+            return;
+        }
+
+        if (!customerMaster) {
+            alert("Customer belum terdaftar! Pilih customer dari daftar atau tambahkan dulu di menu Report Customer.");
             return;
         }
 
@@ -7594,6 +7802,7 @@ function tutupSemuaRiwayat() {
 }
 
 function renderTransaksi() {
+    if (typeof renderCustomerData === 'function') renderCustomerData();
     const tbody = document.getElementById('transaksiBody');
     if (!tbody) return;
     const query = (document.getElementById('searchTransaksi').value || '').toLowerCase();
@@ -8139,6 +8348,22 @@ function simpanEdit() {
         const oldCustomerName = String(first.customer || '').trim().toUpperCase();
         const oldSalesName = String(first.sales || '').trim().toUpperCase();
         const targetJam = waktuSekarang.jam;
+
+        // Sinkronkan ke Report Customer / Data Customer (nama, alamat, no telp/hp).
+        if (customer) {
+            const pecah = pisahAlamatDanTelepon(alamatCustomer);
+            const idxLama = oldCustomerName ? cariCustomerIndex(oldCustomerName) : -1;
+            const idxBaru = cariCustomerIndex(customer);
+            if (idxLama !== -1 && (idxBaru === -1 || idxBaru === idxLama)) {
+                customerList[idxLama] = { nama: customer, alamat: pecah.alamat, telepon: pecah.telepon };
+            } else if (idxBaru !== -1) {
+                if (pecah.alamat) customerList[idxBaru].alamat = pecah.alamat;
+                if (pecah.telepon) customerList[idxBaru].telepon = pecah.telepon;
+            } else {
+                customerList.push({ nama: customer, alamat: pecah.alamat, telepon: pecah.telepon });
+            }
+            saveCustomers();
+        }
 
         // Sinkronkan data master customer ke semua transaksi terkait agar pilihan customer,
         // alamat, sales, riwayat transaksi, penjualan, dan surat jalan tetap konsisten.
@@ -8963,6 +9188,13 @@ function updateAlamatCustomerGlobal(customerName, alamatBaru) {
     if (!customerName || customerName === '-' || customerName.toUpperCase() === 'CUSTOMER BARU') return;
     const cleanCust = customerName.trim().toUpperCase();
     const cleanAlamat = String(alamatBaru || '').trim();
+    const masterCust = customerList.find(c => String(c.nama || '').trim().toUpperCase() === cleanCust);
+    if (masterCust) {
+        const pecahAlamat = pisahAlamatDanTelepon(cleanAlamat);
+        masterCust.alamat = pecahAlamat.alamat;
+        masterCust.telepon = pecahAlamat.telepon;
+        saveCustomers();
+    }
     let updated = false;
     transaksi.forEach(item => {
         if (item.jenis === 'keluar' && String(item.customer || '').trim().toUpperCase() === cleanCust) {
@@ -8983,6 +9215,28 @@ function bukaModalAlamatCustomer(source, tanggal, customer, jam) {
         tutupPilihanSales('edit');
     }
     currentAlamatTarget = { source, tanggal, customer, jam };
+
+    if (source === 'customerPage' || source === 'customerEdit') {
+        const idNama = source === 'customerEdit' ? 'ceNama' : 'custNama';
+        const idAlamat = source === 'customerEdit' ? 'ceAlamat' : 'custAlamat';
+        const namaInput = document.getElementById(idNama);
+        const namaCust = namaInput ? (namaInput.value.trim().toUpperCase() || 'Customer Baru') : 'Customer Baru';
+        const nilaiAlamat = document.getElementById(idAlamat) ? document.getElementById(idAlamat).value : '';
+        document.getElementById('modalAlamatCustNameText').textContent = namaCust;
+        const hasilParse = pisahAlamatDanTelepon(nilaiAlamat);
+        isiFormAlamatTerstruktur(hasilParse.alamat);
+        document.getElementById('inputModalNoTelepon').value = hasilParse.telepon;
+        updatePreviewAlamatModal();
+        const modalCust = document.getElementById('modalAlamatCustomer');
+        if (modalCust) {
+            modalCust.classList.add('active');
+            setTimeout(() => {
+                const txt = document.getElementById('inputModalAlamatLengkap');
+                if (txt) { txt.focus(); txt.setSelectionRange(txt.value.length, txt.value.length); }
+            }, 120);
+        }
+        return;
+    }
 
     let currentVal = '';
     let customerName = '-';
@@ -9044,6 +9298,16 @@ function simpanModalAlamatCustomer() {
 
     const source = currentAlamatTarget.source;
     let customerName = currentAlamatTarget.customer || '';
+
+    if (source === 'customerPage' || source === 'customerEdit') {
+        const fieldAlamat = document.getElementById(source === 'customerEdit' ? 'ceAlamat' : 'custAlamat');
+        if (fieldAlamat) fieldAlamat.value = hasilGabungan;
+        const fieldTelp = document.getElementById(source === 'customerEdit' ? 'ceTelp' : 'custTelp');
+        if (fieldTelp) fieldTelp.value = noTelepon;
+        tutupModalAlamatCustomer();
+        showCustomPopup('success', 'Alamat Customer Disimpan');
+        return;
+    }
 
     if (source === 'form') {
         const custInput = document.getElementById('customer');
@@ -9140,7 +9404,12 @@ function eksekusiHapusDenganPin() {
     const storedPin = getStoredPin();
 
     if (inputPin === storedPin) {
-        if (typeof deleteTargetIndex === 'number') {
+        if (deleteTargetIndex !== null && typeof deleteTargetIndex === 'object') {
+            if (customerList[deleteTargetIndex.customerIndex]) {
+                customerList.splice(deleteTargetIndex.customerIndex, 1);
+                saveCustomers();
+            }
+        } else if (typeof deleteTargetIndex === 'number') {
             const itemDihapus = transaksi[deleteTargetIndex];
             if (itemDihapus && itemDihapus.jenis === 'masuk') {
                 const tempTransaksis = transaksi.filter((_, idx) => idx !== deleteTargetIndex);
@@ -9251,6 +9520,9 @@ function exportExcel() {
     const worksheet = XLSX.utils.json_to_sheet(dataExcel);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Riwayat Stok");
+    if (customerList.length > 0) {
+        XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(customerExportRows()), "Data Customer");
+    }
    
     let filenameSuffix = "Semua_Transaksi";
     if (filterJenis === 'masuk') filenameSuffix = "Barang_Masuk";
@@ -9270,6 +9542,11 @@ function importExcel(event) {
             const workbook = XLSX.read(data, { type: 'array' });
             const sheet = workbook.Sheets[workbook.SheetNames[0]];
             const json = XLSX.utils.sheet_to_json(sheet);
+
+            let customerImported = 0;
+            if (workbook.Sheets["Data Customer"]) {
+                customerImported += importCustomerRows(XLSX.utils.sheet_to_json(workbook.Sheets["Data Customer"]));
+            }
 
             let counter = 0;
             json.forEach(row => {
@@ -9306,13 +9583,14 @@ function importExcel(event) {
                         yards: yards.length > 0 ? yards : [],
                         totalYard: totalYard || 0
                     });
+                    if (jenis === 'keluar') tambahCustomerOtomatis(customer, alamatCustomer);
                     counter++;
                 }
             });
 
             saveData();
             updateApp();
-            showCustomPopup('success', `Berhasil Upload ${counter} Data`);
+            showCustomPopup('success', `Berhasil Upload ${counter} Data` + (customerImported ? ` & ${customerImported} Customer` : ''));
         } catch (err) {
             alert("Gagal membaca file Excel!");
         }
@@ -9369,6 +9647,366 @@ function downloadFileHTML() {
         });
 }
 
+/* =========================================================
+   REPORT CUSTOMER: data master customer (nama, alamat, no telp/hp)
+========================================================= */
+function saveCustomers() {
+    try {
+        localStorage.setItem(CUSTOMER_KEY, JSON.stringify(customerList));
+    } catch (e) {
+        alert("Gagal menyimpan data customer!");
+    }
+}
+
+function loadCustomers() {
+    try {
+        const raw = localStorage.getItem(CUSTOMER_KEY);
+        if (raw !== null) {
+            const parsed = JSON.parse(raw);
+            customerList = Array.isArray(parsed) ? parsed : [];
+            return;
+        }
+    } catch (e) {
+        customerList = [];
+        return;
+    }
+    // Pertama kali dipakai: ambil customer yang sebelumnya sudah ada di transaksi agar tidak hilang.
+    const seen = {};
+    transaksi.forEach(item => { // transaksi terbaru berada di depan
+        if (item.jenis !== 'keluar') return;
+        const nama = String(item.customer || '').trim().toUpperCase();
+        if (!nama || nama === '-') return;
+        if (!seen[nama]) seen[nama] = { nama, alamat: '', telepon: '', terisi: false };
+        const al = String(item.alamatCustomer || '').trim();
+        if (!seen[nama].terisi && al && al !== '-') {
+            const p = pisahAlamatDanTelepon(al);
+            seen[nama].alamat = p.alamat;
+            seen[nama].telepon = p.telepon;
+            seen[nama].terisi = true;
+        }
+    });
+    customerList = Object.values(seen).map(c => ({ nama: c.nama, alamat: c.alamat, telepon: c.telepon }));
+    saveCustomers();
+}
+
+function cariCustomerIndex(nama) {
+    const n = String(nama || '').trim().toUpperCase();
+    return customerList.findIndex(c => String(c.nama || '').trim().toUpperCase() === n);
+}
+
+function tambahCustomerOtomatis(nama, alamatGabungan) {
+    const n = String(nama || '').trim().toUpperCase();
+    if (!n || n === '-' || cariCustomerIndex(n) !== -1) return false;
+    const p = pisahAlamatDanTelepon(alamatGabungan);
+    customerList.push({ nama: n, alamat: p.alamat, telepon: p.telepon });
+    saveCustomers();
+    return true;
+}
+
+function customerExportRows() {
+    return [...customerList]
+        .sort((a, b) => String(a.nama).localeCompare(String(b.nama), 'id', { sensitivity: 'base' }))
+        .map((c, i) => ({
+            "No": i + 1,
+            "Nama Customer": String(c.nama || '').toUpperCase(),
+            "Alamat": c.alamat || '-',
+            "No Telp / HP": c.telepon || '-'
+        }));
+}
+
+function importCustomerRows(rows) {
+    let jumlah = 0;
+    (rows || []).forEach(row => {
+        const nama = String(row["Nama Customer"] || row["Customer"] || row["nama"] || "").trim().toUpperCase();
+        if (!nama || nama === '-') return;
+        let alamat = String(row["Alamat"] || row["Alamat Customer"] || row["alamat"] || "").trim();
+        let telepon = String(row["No Telp / HP"] || row["No Telp"] || row["No Telepon"] || row["Telepon"] || row["HP"] || row["telepon"] || "").trim();
+        if (alamat === '-') alamat = '';
+        if (telepon === '-') telepon = '';
+        if (alamat && !telepon) {
+            const p = pisahAlamatDanTelepon(alamat);
+            alamat = p.alamat;
+            telepon = p.telepon;
+        }
+        const idx = cariCustomerIndex(nama);
+        if (idx === -1) {
+            customerList.push({ nama, alamat, telepon });
+        } else {
+            if (alamat) customerList[idx].alamat = alamat;
+            if (telepon) customerList[idx].telepon = telepon;
+        }
+        jumlah++;
+    });
+    if (jumlah > 0) saveCustomers();
+    return jumlah;
+}
+
+function renderCustomer() {
+    const tbody = document.getElementById('customerBody');
+    if (!tbody) return;
+    const query = (document.getElementById('searchCustomer').value || '').toLowerCase().trim();
+
+    const hitung = {};
+    transaksi.forEach(item => {
+        if (item.jenis !== 'keluar') return;
+        const n = String(item.customer || '').trim().toUpperCase();
+        if (!n || n === '-') return;
+        if (!hitung[n]) hitung[n] = new Set();
+        hitung[n].add(`${item.tanggal}___${item.jam}`);
+    });
+
+    const totalEl = document.getElementById('displayTotalCustomer');
+    if (totalEl) totalEl.innerHTML = `Total Customer <strong>${formatAngka(customerList.length)}</strong>`;
+
+    const rows = customerList
+        .map((c, index) => ({ c, index }))
+        .filter(({ c }) => !query || [c.nama, c.alamat, c.telepon].some(v => String(v || '').toLowerCase().includes(query)))
+        .sort((a, b) => String(a.c.nama).localeCompare(String(b.c.nama), 'id', { sensitivity: 'base' }));
+
+    tbody.innerHTML = '';
+    if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="empty"><strong>${customerList.length ? 'Tidak ada customer yang cocok.' : 'Belum ada data customer.'}</strong></td></tr>`;
+        return;
+    }
+
+    rows.forEach(({ c, index }, no) => {
+        const namaKey = String(c.nama || '').trim().toUpperCase();
+        const jmlTrx = hitung[namaKey] ? hitung[namaKey].size : 0;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="text-center">${no + 1}</td>
+            <td><strong>${escapeHTML(c.nama)}</strong></td>
+            <td class="cust-alamat">${escapeHTML(c.alamat || '-')}</td>
+            <td>${escapeHTML(c.telepon || '-')}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function resetFormCustomer() {
+    ['custNama', 'custAlamat', 'custTelp'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+}
+
+function simpanCustomer() {
+    const nama = document.getElementById('custNama').value.trim().toUpperCase();
+    const gabungan = document.getElementById('custAlamat').value.trim();
+
+    if (!nama || nama === '-') {
+        alert("Mohon isi Nama Customer!");
+        return;
+    }
+    const p = pisahAlamatDanTelepon(gabungan);
+    if (!p.alamat) {
+        alert("Mohon isi Alamat Customer terlebih dahulu (klik kolom Alamat Customer)!");
+        return;
+    }
+    if (cariCustomerIndex(nama) !== -1) {
+        alert(`Customer "${nama}" sudah terdaftar!`);
+        return;
+    }
+
+    customerList.push({ nama, alamat: p.alamat, telepon: p.telepon });
+    saveCustomers();
+    resetFormCustomer();
+    updateApp();
+    showCustomPopup('success', 'Data Customer Disimpan');
+}
+
+
+
+
+
+function exportCustomerExcel() {
+    if (customerList.length === 0) {
+        alert("Tidak ada data customer!");
+        return;
+    }
+    const worksheet = XLSX.utils.json_to_sheet(customerExportRows());
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data Customer");
+    XLSX.writeFile(workbook, `Data_Customer_${new Date().toISOString().slice(0, 10)}.xlsx`);
+}
+
+function importCustomerExcel(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheet = workbook.Sheets["Data Customer"] || workbook.Sheets[workbook.SheetNames[0]];
+            const jumlah = importCustomerRows(XLSX.utils.sheet_to_json(sheet));
+            updateApp();
+            if (jumlah > 0) showCustomPopup('success', `Berhasil Upload ${jumlah} Customer`);
+            else alert("Tidak ada data customer yang valid. Pastikan ada kolom \"Nama Customer\", \"Alamat\", dan \"No Telp / HP\".");
+        } catch (err) {
+            alert("Gagal membaca file Excel!");
+        }
+        event.target.value = '';
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+function renderCustomerData() {
+    const tbody = document.getElementById('customerDataBody');
+    if (!tbody) return;
+    const query = (document.getElementById('searchCustomerData').value || '').toLowerCase().trim();
+    const rows = customerList
+        .map((c, index) => ({ c, index }))
+        .filter(({ c }) => !query || [c.nama, c.alamat, c.telepon].some(v => String(v || '').toLowerCase().includes(query)))
+        .sort((a, b) => String(a.c.nama).localeCompare(String(b.c.nama), 'id', { sensitivity: 'base' }));
+
+    tbody.innerHTML = '';
+    if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="empty"><strong>${customerList.length ? 'Tidak ada customer yang cocok.' : 'Belum ada data customer.'}</strong></td></tr>`;
+        return;
+    }
+    rows.forEach(({ c, index }, no) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="text-center">${no + 1}</td>
+            <td><strong>${escapeHTML(c.nama)}</strong></td>
+            <td>${escapeHTML(c.alamat || '-')}</td>
+            <td>${escapeHTML(c.telepon || '-')}</td>
+            <td class="text-center transaksi-actions-cell">
+                <div class="transaksi-row-actions">
+                    <button class="btn-edit" onclick="bukaEditCustomerData(${index})">Edit</button>
+                    <button class="btn-delete" onclick="konfirmasiHapusCustomerData(${index})">Delete</button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function bukaEditCustomerData(index) {
+    const c = customerList[index];
+    if (!c) return;
+    editCustomerIndex = index;
+    document.getElementById('ceNama').value = String(c.nama || '').toUpperCase();
+    document.getElementById('ceAlamat').value = gabungAlamatDanTelepon(c.alamat, c.telepon);
+    document.getElementById('ceTelp').value = c.telepon || '';
+    document.getElementById('editCustomerModal').classList.add('active');
+}
+
+function tutupEditCustomerData() {
+    editCustomerIndex = null;
+    document.getElementById('editCustomerModal').classList.remove('active');
+}
+
+function simpanEditCustomerData() {
+    if (editCustomerIndex === null || !customerList[editCustomerIndex]) return;
+    const nama = document.getElementById('ceNama').value.trim().toUpperCase();
+    const p = pisahAlamatDanTelepon(document.getElementById('ceAlamat').value.trim());
+
+    if (!nama || nama === '-') {
+        alert("Mohon isi Nama Customer!");
+        return;
+    }
+    if (!p.alamat) {
+        alert("Mohon isi Alamat Customer terlebih dahulu (klik kolom Alamat Customer)!");
+        return;
+    }
+    const dupIdx = cariCustomerIndex(nama);
+    if (dupIdx !== -1 && dupIdx !== editCustomerIndex) {
+        alert(`Customer "${nama}" sudah terdaftar!`);
+        return;
+    }
+
+    const namaLama = String(customerList[editCustomerIndex].nama || '').trim().toUpperCase();
+    customerList[editCustomerIndex] = { nama, alamat: p.alamat, telepon: p.telepon };
+
+    // Samakan nama & alamat pada transaksi lama customer ini agar Surat Jalan dan Penjualan tetap konsisten.
+    const alamatGabung = gabungAlamatDanTelepon(p.alamat, p.telepon);
+    let berubah = false;
+    transaksi.forEach(item => {
+        if (item.jenis === 'keluar' && String(item.customer || '').trim().toUpperCase() === namaLama) {
+            item.customer = nama;
+            item.alamatCustomer = alamatGabung;
+            berubah = true;
+        }
+    });
+    if (berubah) saveData();
+    saveCustomers();
+    tutupEditCustomerData();
+    updateApp();
+    showCustomPopup('success', 'Perubahan Disimpan');
+}
+
+function konfirmasiHapusCustomerData(index) {
+    if (!customerList[index]) return;
+    deleteTargetIndex = { customerIndex: index };
+    const inputPin = document.getElementById('inputPinDelete');
+    if (inputPin) {
+        inputPin.value = '';
+        inputPin.type = 'password';
+    }
+    const eyeBtn = document.querySelector('#deletePinModal .toggle-password');
+    if (eyeBtn) eyeBtn.textContent = '👁';
+    document.getElementById('deletePinModal').classList.add('active');
+    setTimeout(() => { if (inputPin) inputPin.focus(); }, 100);
+}
+
+const SUB_PAGES = {
+    customer: { form: 'customerFormCard', data: 'customerTableCard', box: 'customerSubTabs' },
+    transaksi: { form: 'transaksiMainCard', data: 'customerDataCard', box: 'transaksiSubTabs' }
+};
+
+function switchSubPage(group, which) {
+    const cfg = SUB_PAGES[group];
+    if (!cfg) return;
+    ['form', 'data'].forEach(k => {
+        const el = document.getElementById(cfg[k]);
+        if (el) el.style.display = (k === which) ? '' : 'none';
+    });
+    document.querySelectorAll('#' + cfg.box + ' .sub-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.sub === which);
+    });
+    if (which === 'data') {
+        if (group === 'customer') renderCustomer();
+        else renderCustomerData();
+    }
+}
+
+function konfirmasiHapusSemuaCustomer() {
+    if (customerList.length === 0) {
+        alert("Data customer sudah kosong!");
+        return;
+    }
+    const inputPin = document.getElementById('inputPinClearCustomer');
+    if (inputPin) {
+        inputPin.value = '';
+        inputPin.type = 'password';
+    }
+    const eyeBtn = document.querySelector('#clearAllCustomerModal .toggle-password');
+    if (eyeBtn) eyeBtn.textContent = '👁';
+    document.getElementById('clearAllCustomerModal').classList.add('active');
+    setTimeout(() => { if (inputPin) inputPin.focus(); }, 100);
+}
+
+function tutupModalClearCustomer() {
+    document.getElementById('clearAllCustomerModal').classList.remove('active');
+}
+
+function eksekusiHapusSemuaCustomer() {
+    const inputPin = document.getElementById('inputPinClearCustomer').value;
+    if (inputPin === getStoredPin()) {
+        customerList = [];
+        editCustomerIndex = null;
+        saveCustomers();
+        tutupModalClearCustomer();
+        updateApp();
+        showCustomPopup('danger', 'Semua Customer Dihapus');
+    } else {
+        alert("Kode PIN salah!");
+        document.getElementById('inputPinClearCustomer').value = '';
+    }
+}
+
 function updateApp() {
     updateDashboard();
     populateFilterCustomerDropdown();
@@ -9376,6 +10014,7 @@ function updateApp() {
     if (document.getElementById('penjualanPage').classList.contains('active')) renderPenjualan();
     if (document.getElementById('stokPage').classList.contains('active')) renderStok();
     if (document.getElementById('transaksiPage').classList.contains('active')) renderTransaksi();
+    if (document.getElementById('customerPage').classList.contains('active')) renderCustomer();
    
     const jenis = document.getElementById('jenis') ? document.getElementById('jenis').value : 'masuk';
     if (jenis === 'keluar') {
@@ -9565,34 +10204,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-
-<script>
-/* Snake mini game: self-contained, does not alter inventory data or workflows. */
-(function(){
-  const canvas=document.getElementById('snakeCanvas'); if(!canvas) return;
-  const ctx=canvas.getContext('2d'), size=18, cell=20;
-  let snake=[], food={x:10,y:8}, dir={x:1,y:0}, nextDir={x:1,y:0}, score=0, timer=null, running=false, over=false;
-  const overlay=document.getElementById('snakeOverlay'), scoreEl=document.getElementById('snakeScore');
-  function placeFood(){ let p; do {p={x:Math.floor(Math.random()*size),y:Math.floor(Math.random()*size)}} while(snake.some(v=>v.x===p.x&&v.y===p.y)); food=p; }
-  function reset(){snake=[{x:8,y:9},{x:7,y:9},{x:6,y:9}];dir={x:1,y:0};nextDir={x:1,y:0};score=0;over=false;scoreEl.textContent='0';placeFood();drawSnakeBoard();}
-  function drawSnakeBoard(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#0b1220';ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.strokeStyle='rgba(148,163,184,.10)';ctx.lineWidth=1;for(let i=0;i<=size;i++){ctx.beginPath();ctx.moveTo(i*cell,0);ctx.lineTo(i*cell,canvas.height);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i*cell);ctx.lineTo(canvas.width,i*cell);ctx.stroke();}
-    if(!snake.length) return;
-    ctx.fillStyle='#fb5252';ctx.beginPath();ctx.arc(food.x*cell+cell/2,food.y*cell+cell/2,cell*.34,0,Math.PI*2);ctx.fill();ctx.fillStyle='rgba(251,82,82,.22)';ctx.beginPath();ctx.arc(food.x*cell+cell/2,food.y*cell+cell/2,cell*.48,0,Math.PI*2);ctx.fill();
-    snake.forEach((p,i)=>{ctx.fillStyle=i===0?'#86efac':'#22c55e';const r=i===0?5:4;ctx.beginPath();ctx.roundRect(p.x*cell+2,p.y*cell+2,cell-4,cell-4,r);ctx.fill();if(i===0){ctx.fillStyle='#052e16';ctx.beginPath();ctx.arc(p.x*cell+7,p.y*cell+7,1.6,0,Math.PI*2);ctx.arc(p.x*cell+13,p.y*cell+7,1.6,0,Math.PI*2);ctx.fill();}});
-  }
-  function tick(){if(!running)return;dir=nextDir;const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};const eating=head.x===food.x&&head.y===food.y;const body=eating?snake:snake.slice(0,-1);if(head.x<0||head.y<0||head.x>=size||head.y>=size||body.some(p=>p.x===head.x&&p.y===head.y)){endGame();return;}snake.unshift(head);if(eating){score+=10;scoreEl.textContent=String(score);placeFood();}else snake.pop();drawSnakeBoard();}
-  function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
-  function endGame(){running=false;over=true;stopTimer();document.getElementById('snakeOverlayTitle').textContent='Game Over!';document.getElementById('snakeOverlayText').textContent='Skor Anda '+score+'. Coba lagi dan pecahkan rekor skor Anda sendiri.';document.getElementById('snakeStartBtn').textContent='↻ Main Lagi';overlay.classList.remove('is-hidden');}
-  window.startSnakeGame=function(){stopTimer();reset();running=true;overlay.classList.add('is-hidden');timer=setInterval(tick,125);};
-  window.pauseSnakeGame=function(){if(running){running=false;stopTimer();document.getElementById('snakeOverlayTitle').textContent='Game Dijeda';document.getElementById('snakeOverlayText').textContent='Tekan Lanjutkan dengan tombol Mulai Game untuk bermain lagi dari awal.';document.getElementById('snakeStartBtn').textContent='▶ Lanjutkan / Mulai';overlay.classList.remove('is-hidden');}};
-  window.setSnakeDirection=function(d){const map={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};const n=map[d];if(n&&!(n.x===-dir.x&&n.y===-dir.y)){nextDir=n;}};
-  document.addEventListener('keydown',function(e){const page=document.getElementById('gamePage');if(!page||!page.classList.contains('active'))return;const keys={ArrowUp:'up',w:'up',W:'up',ArrowDown:'down',s:'down',S:'down',ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right'};if(keys[e.key]){e.preventDefault();window.setSnakeDirection(keys[e.key]);}});
-  window.drawSnakeBoard=drawSnakeBoard;reset();
-})();
-
-</script>
 <script>
 (function(){
   const modal = document.getElementById('allHistoryModal');
@@ -9628,7 +10239,7 @@ document.addEventListener('keydown', function(event) {
 (function(){
   try{
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var SEL = '.card, .btn-save, .btn-reset, .btn-excel, .btn-upload, .btn-print, .btn-backup, .btn-edit, .btn-delete, .btn-clear-all, .btn-lock, .btn-surat-jalan, .btn-logout, .btn-primary, .snake-primary-btn, .snake-secondary-btn';
+    var SEL = '.card, .btn-save, .btn-reset, .btn-excel, .btn-upload, .btn-print, .btn-backup, .btn-edit, .btn-delete, .btn-clear-all, .btn-lock, .btn-surat-jalan, .btn-logout, .btn-primary';
     var RIP = SEL.replace('.card, ','');
     var raf = null, lastEv = null;
     document.addEventListener('pointermove', function(e){
