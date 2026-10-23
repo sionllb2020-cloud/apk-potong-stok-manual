@@ -2453,6 +2453,16 @@ body.theme-dark .edit-profile-cancel:hover{background:#475569 !important}
     #transaksiPage .table-wrapper td { padding: 7px 8px !important; font-size: 11px !important; }
 }
 
+
+/* Perbaikan khusus: kolom NAMA SALES pada tabel pemilihan customer selalu hitam */
+#floatingCustomerPicker .picker-sales,
+#floatingCustomerPicker .picker-heading .picker-sales,
+#floatingCustomerPicker .picker-row .picker-sales {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    opacity: 1 !important;
+}
+
 </style>
 <style>
 
@@ -2595,6 +2605,13 @@ body.theme-dark .tab-btn.active {
 .floating-barang-picker .picker-row:focus-visible {
     background: var(--primary-light, #e0f2fe);
     outline: none;
+}
+/* Seluruh isi tabel pilihan barang dibuat bold untuk kedua mode input */
+.floating-barang-picker .picker-row,
+.floating-barang-picker .picker-row > span,
+.floating-barang-picker .picker-row strong,
+.floating-barang-picker .picker-row small {
+    font-weight: 700 !important;
 }
 .floating-barang-picker .picker-code { font-weight: 800; overflow-wrap: anywhere; }
 .floating-barang-picker .picker-name { overflow-wrap: anywhere; }
@@ -6182,16 +6199,32 @@ function formatAngka(num) {
     return Number(num || 0).toLocaleString("id-ID");
 }
 
-// Format nilai yard untuk tabel: bilangan bulat dalam kurung, desimal memakai angka superscript.
-// Contoh: 100 menjadi (100), 134 menjadi (134), dan 100.5 menjadi 100⁵.
+// Format yard per roll: selalu dalam kurung; angka desimal tetap superscript.
+// Contoh: 100 menjadi (100), sedangkan 100.5 menjadi (100⁵).
 function formatYardValueHtml(value) {
     const number = Number(value);
     if (!Number.isFinite(number)) return '(0)';
     const fixed = String(Math.round(number * 100) / 100);
     const parts = fixed.split('.');
-    const whole = escapeHTML(parts[0]);
+    const whole = Number(parts[0]).toLocaleString('id-ID');
     const fraction = parts[1] ? parts[1].replace(/0+$/, '') : '';
-    return fraction ? `${whole}<sup style="font-size:0.72em; line-height:0; vertical-align:super;">${escapeHTML(fraction)}</sup>` : `(${whole})`;
+    return fraction
+        ? `(${escapeHTML(whole)}<sup style="font-size:0.72em; line-height:0; vertical-align:super;">${escapeHTML(fraction)}</sup>)`
+        : `(${escapeHTML(whole)})`;
+}
+
+// Format total keseluruhan: pemisah ribuan Indonesia, angka desimal langsung superscript tanpa koma.
+// Contoh: 485.2 menjadi 485² dan 1485.2 menjadi 1.485².
+function formatYardTotalHtml(value) {
+    const number = Number(value || 0);
+    if (!Number.isFinite(number)) return '0';
+    const fixed = String(Math.round((number + Number.EPSILON) * 100) / 100);
+    const parts = fixed.split('.');
+    const whole = Number(parts[0]).toLocaleString('id-ID', { maximumFractionDigits: 0, useGrouping: true });
+    const fraction = parts[1] ? parts[1].replace(/0+$/, '') : '';
+    const superscriptDigits = { '0':'⁰', '1':'¹', '2':'²', '3':'³', '4':'⁴', '5':'⁵', '6':'⁶', '7':'⁷', '8':'⁸', '9':'⁹' };
+    const superscript = fraction.split('').map(digit => superscriptDigits[digit] || '').join('');
+    return escapeHTML(whole) + (superscript ? `<sup>${superscript}</sup>` : '');
 }
 
 function formatYardListHtml(values, separator = ', ') {
@@ -6375,7 +6408,7 @@ function printSuratJalan(tanggal, customer, jam) {
         totalYardBarang += itTotalYard;
 
         const rincianYardStr = itYards.length > 0 ? `<span class="yard-list-inline">${formatYardListHtml(itYards, ', ')}</span>` : '-';
-        const totalYardStr = itTotalYard > 0 ? `${itTotalYard} Yard` : '-';
+        const totalYardStr = itTotalYard > 0 ? `${formatYardTotalHtml(itTotalYard)} Yard` : '-';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -6394,7 +6427,7 @@ function printSuratJalan(tanggal, customer, jam) {
     trTotal.innerHTML = `
         <td colspan="3" class="sj-total-label">Total Pembelian</td>
         <td class="sj-total-yard">${formatAngka(totalJumlahBarang)} Roll</td>
-        <td colspan="2" class="sj-total-yard sj-grand-yard">${totalYardBarang > 0 ? totalYardBarang + ' Yard' : '—'}</td>
+        <td colspan="2" class="sj-total-yard sj-grand-yard">${totalYardBarang > 0 ? formatYardTotalHtml(totalYardBarang) + ' Yard' : '—'}</td>
     `;
     tbody.appendChild(trTotal);
 
@@ -6568,7 +6601,7 @@ function eksekusiCetakAllSuratJalan() {
                         <tr class="sj-total-row">
                             <td colspan="3" class="sj-total-label">Total Pembelian</td>
                             <td class="sj-total-yard">${formatAngka(totalQty)} Roll</td>
-                            <td colspan="2" class="sj-total-yard sj-grand-yard">${totalGroupYard > 0 ? totalGroupYard + ' Yd' : '—'}</td>
+                            <td colspan="2" class="sj-total-yard sj-grand-yard">${totalGroupYard > 0 ? formatYardTotalHtml(totalGroupYard) + ' Yd' : '—'}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -7713,7 +7746,7 @@ function renderPenjualan() {
             subTableHtml += `
                 <tr>
                     <td style="font-size: 11px; font-weight: 800; color: var(--primary);">Total Pembelian</td>
-                    <td style="text-align: right; font-size: 11px; font-weight: 800; color: var(--primary); white-space: nowrap;">${formatAngka(totalGroupRoll)} Roll → ${totalGroupYard} Yard</td>
+                    <td style="text-align: right; font-size: 11px; font-weight: 800; color: var(--primary); white-space: nowrap;">${formatAngka(totalGroupRoll)} Roll → ${formatYardTotalHtml(totalGroupYard)} Yard</td>
                 </tr>
             `;
         }
@@ -8631,9 +8664,18 @@ function hitungTotalYardModal() {
             total += val;
         }
     });
-    const rounded = Math.round(total * 100) / 100;
+    const rounded = Math.round((total + Number.EPSILON) * 100) / 100;
     const disp = document.getElementById('displayModalTotalYard');
-    if (disp) disp.textContent = rounded;
+    // Format ribuan dengan titik; bagian desimal ditampilkan sebagai superscript tanpa koma.
+    // Contoh: 1234 -> 1.234, sedangkan 1234.5 -> 1.234⁵ (angka desimal superscript).
+    if (disp) {
+        const parts = rounded.toFixed(2).replace(/0+$/, '').replace(/\.$/, '').split('.');
+        const whole = Number(parts[0]).toLocaleString('id-ID', { maximumFractionDigits: 0, useGrouping: true });
+        const decimal = parts[1] || '';
+        const superscriptDigits = { '0':'⁰', '1':'¹', '2':'²', '3':'³', '4':'⁴', '5':'⁵', '6':'⁶', '7':'⁷', '8':'⁸', '9':'⁹' };
+        const superscript = decimal.split('').map(digit => superscriptDigits[digit] || '').join('');
+        disp.innerHTML = whole + (superscript ? `<sup>${superscript}</sup>` : '');
+    }
     return rounded;
 }
 
