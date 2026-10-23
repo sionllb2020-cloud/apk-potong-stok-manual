@@ -6227,6 +6227,14 @@ function formatYardTotalHtml(value) {
     return escapeHTML(whole) + (superscript ? `<sup>${superscript}</sup>` : '');
 }
 
+// Format angka yard normal khusus Surat Jalan/hasil cetak: tanpa superscript atau tag HTML.
+// Contoh: 2500.5 menjadi 2.500,5 dan 2500 menjadi 2.500.
+function formatYardNormal(value) {
+    const number = Number(value || 0);
+    if (!Number.isFinite(number)) return '0';
+    return number.toLocaleString('id-ID', { maximumFractionDigits: 2, useGrouping: true });
+}
+
 function formatYardListHtml(values, separator = ', ') {
     return values.map(value => formatYardValueHtml(value)).join(separator);
 }
@@ -6408,7 +6416,7 @@ function printSuratJalan(tanggal, customer, jam) {
         totalYardBarang += itTotalYard;
 
         const rincianYardStr = itYards.length > 0 ? `<span class="yard-list-inline">${formatYardListHtml(itYards, ', ')}</span>` : '-';
-        const totalYardStr = itTotalYard > 0 ? `${formatYardTotalHtml(itTotalYard)} Yard` : '-';
+        const totalYardStr = itTotalYard > 0 ? `${formatYardNormal(itTotalYard)} Yard` : '-';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -6427,7 +6435,7 @@ function printSuratJalan(tanggal, customer, jam) {
     trTotal.innerHTML = `
         <td colspan="3" class="sj-total-label">Total Pembelian</td>
         <td class="sj-total-yard">${formatAngka(totalJumlahBarang)} Roll</td>
-        <td colspan="2" class="sj-total-yard sj-grand-yard">${totalYardBarang > 0 ? formatYardTotalHtml(totalYardBarang) + ' Yard' : '—'}</td>
+        <td colspan="2" class="sj-total-yard sj-grand-yard">${totalYardBarang > 0 ? formatYardNormal(totalYardBarang) + ' Yard' : '—'}</td>
     `;
     tbody.appendChild(trTotal);
 
@@ -6541,7 +6549,7 @@ function eksekusiCetakAllSuratJalan() {
             totalGroupYard += itTotalYard;
 
             const rincianYardStr = itYards.length > 0 ? `<span class="yard-list-inline">${formatYardListHtml(itYards, ', ')}</span>` : '-';
-            const totalYardStr = itTotalYard > 0 ? `${itTotalYard} Yd` : '-';
+            const totalYardStr = itTotalYard > 0 ? `${formatYardNormal(itTotalYard)} Yd` : '-';
 
             rowsHtml += `
                 <tr>
@@ -6601,7 +6609,7 @@ function eksekusiCetakAllSuratJalan() {
                         <tr class="sj-total-row">
                             <td colspan="3" class="sj-total-label">Total Pembelian</td>
                             <td class="sj-total-yard">${formatAngka(totalQty)} Roll</td>
-                            <td colspan="2" class="sj-total-yard sj-grand-yard">${totalGroupYard > 0 ? formatYardTotalHtml(totalGroupYard) + ' Yd' : '—'}</td>
+                            <td colspan="2" class="sj-total-yard sj-grand-yard">${totalGroupYard > 0 ? formatYardNormal(totalGroupYard) + ' Yd' : '—'}</td>
                         </tr>
                     </tbody>
                 </table>
