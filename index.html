@@ -3526,7 +3526,7 @@ html { overflow-x: hidden; }
     grid-template-columns: minmax(110px, 1fr) minmax(0, 2.2fr) minmax(100px, 1.1fr) 96px !important;
 }
 #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
-    grid-template-columns: minmax(130px, 1.2fr) minmax(0, 2fr) minmax(110px, 1fr) !important;
+    grid-template-columns: minmax(130px, 1.2fr) minmax(0, 2fr) minmax(110px, 1fr) minmax(90px, .9fr) !important;
 }
 #floatingBarangPicker .picker-heading, #floatingBarangPicker .picker-row,
 #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
@@ -3563,6 +3563,7 @@ html { overflow-x: hidden; }
 #floatingBarangPicker .picker-stock { color: var(--primary); font-weight: 800; }
 #floatingCustomerPicker .picker-count { font-weight: 800; color: var(--primary); }
 #floatingCustomerPicker .picker-phone { font-weight: 700; font-variant-numeric: tabular-nums; }
+#floatingCustomerPicker .picker-sales { font-weight: 800; color: var(--primary); }
 #floatingCustomerPicker .picker-edit-btn {
     min-width: 44px; height: 26px; padding: 2px 8px;
     border: 1px solid var(--primary); border-radius: 7px;
@@ -3586,7 +3587,7 @@ body.theme-dark #floatingCustomerPicker .picker-edit-btn:hover {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr) 60px !important;
     }
     #floatingCustomerPicker .picker-heading, #floatingCustomerPicker .picker-row {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1fr) !important;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .9fr) !important;
     }
     #floatingBarangPicker .picker-heading > span, #floatingCustomerPicker .picker-heading > span { padding: 9px 7px; font-size: 9.5px; }
     #floatingBarangPicker .picker-row > span, #floatingCustomerPicker .picker-row > span { padding: 10px 7px; font-size: 11px; }
@@ -4468,6 +4469,14 @@ body.theme-dark #pinModal .password-wrapper input, body.theme-dark #deletePinMod
 body.theme-dark #clearAllModal .password-wrapper input, body.theme-dark #clearAllCustomerModal .password-wrapper input,
 body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !important; color: #ffffff !important; border-color: #64748b !important; }
 </style>
+<style id="customer-sales-style">
+/* SALES PADA REPORT CUSTOMER: popup pilihan (position:fixed) tidak boleh terpotong / bergeser oleh efek kartu */
+#customerPage .card, #customerPage .card:hover { transform: none !important; overflow: visible !important; }
+#alamatCustomer.alamat-baru-aktif { cursor: pointer !important; }
+/* Form Input: tanda panah ke bawah pada kolom Sales dihilangkan */
+#containerSales .picker-toggle-btn { display: none !important; }
+#containerSales .picker-field > input { padding-right: 14px !important; }
+</style>
 </head>
 
 <body>
@@ -4799,22 +4808,19 @@ body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !imp
                 <div class="form-group" id="containerCustomer" style="display:none;">
                     <label>Nama Customer</label>
                     <div class="picker-field"><input type="text" id="customer" placeholder="Pilih Customer" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanCustomer()" onclick="bukaPilihanCustomer()" oninput="this.value = this.value.toUpperCase(); filterPilihanCustomer(this.value)" onkeydown="navigasiPilihanCustomer(event)"><button type="button" class="picker-toggle-btn" onclick="togglePilihan('customer')" aria-label="Pilih customer" title="Pilih customer"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingCustomerPicker" class="floating-barang-picker floating-customer-picker" role="listbox" aria-label="Daftar customer" hidden></div></div>
-                    <div class="form-help">Pilih customer dari daftar. Customer baru ditambahkan di menu Report Customer</div>
                 </div>
 
                 <div class="form-group" id="containerAlamatCustomer" style="display:none;">
                     <label for="alamatCustomer">Alamat Customer</label>
                     <div style="position: relative; display: flex; align-items: center; width: 100%;">
-                        <input type="text" id="alamatCustomer" placeholder="Alamat terisi otomatis dari data customer" autocomplete="off" readonly style="cursor: not-allowed; background: var(--readonly-bg); color: var(--text-muted); font-weight: 600;" title="Alamat diambil otomatis dari Report Customer">
+                        <input type="text" id="alamatCustomer" placeholder="Alamat terisi otomatis dari data customer" autocomplete="off" readonly style="cursor: not-allowed; background: var(--readonly-bg); color: var(--text-muted); font-weight: 600;" title="Alamat diambil otomatis dari Report Customer" onclick="klikAlamatFormCustomerBaru()">
                         
                     </div>
-                    <div class="form-help" style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Alamat & No Telp/HP terisi otomatis dari data customer</div>
                 </div>
 
                 <div class="form-group" id="containerSales" style="display:none;">
-                    <label for="salesCustomer">Nama Sales (Opsional)</label>
-                    <div class="picker-field sales-field"><input type="text" id="salesCustomer" placeholder="Pilih Sales / ketik nama sales" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanSales('form', true)" onclick="bukaPilihanSales('form', true)" oninput="this.value = this.value.toUpperCase(); filterPilihanSales('form')" onkeydown="navigasiPilihanSales(event,'form')"><button type="button" class="picker-toggle-btn" onclick="togglePilihanSales('form')" aria-label="Pilih sales" title="Pilih sales"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingSalesPicker" class="floating-barang-picker floating-sales-picker" role="listbox" aria-label="Daftar sales" hidden></div></div>
-                    <div class="form-help">Opsional, boleh dikosongkan. Pilih dari daftar atau ketik nama lain. Tampil di hasil print Surat Jalan</div>
+                    <label for="salesCustomer">Nama Sales</label>
+                    <div class="picker-field sales-field"><input type="text" id="salesCustomer" placeholder="Sales terisi otomatis dari data customer" readonly style="cursor: not-allowed; background: var(--readonly-bg); color: var(--text-muted); font-weight: 600;" title="Sales diambil otomatis dari Report Customer" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanSales('form', true)" onclick="bukaPilihanSales('form', true)" oninput="this.value = this.value.toUpperCase(); filterPilihanSales('form')" onkeydown="navigasiPilihanSales(event,'form')"><button type="button" class="picker-toggle-btn" onclick="togglePilihanSales('form')" aria-label="Pilih sales" title="Pilih sales"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingSalesPicker" class="floating-barang-picker floating-sales-picker" role="listbox" aria-label="Daftar sales" hidden></div></div>
                 </div>
 
                 <div class="form-group pilih-stok-highlight" id="containerPilihStok">
@@ -4975,7 +4981,6 @@ body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !imp
         <div class="card" id="customerFormCard">
             <div class="card-title">
                 <span>Report Customer</span>
-                <div class="badge-total-stok" id="displayTotalCustomer">Total Customer <strong>0</strong></div>
             </div>
 
             <div class="form-grid">
@@ -4995,6 +5000,11 @@ body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !imp
                     <label for="custTelp">No Telp / HP</label>
                     <input type="text" id="custTelp" placeholder="Terisi dari form alamat" readonly style="cursor: not-allowed;">
                 </div>
+                <div class="form-group">
+                    <label for="custSales">Nama Sales (Opsional)</label>
+                    <div class="picker-field sales-field"><input type="text" id="custSales" placeholder="Pilih Sales / ketik nama sales" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanSales('cust', true)" onclick="bukaPilihanSales('cust', true)" oninput="this.value = this.value.toUpperCase(); filterPilihanSales('cust')" onkeydown="navigasiPilihanSales(event,'cust')"><button type="button" class="picker-toggle-btn" onclick="togglePilihanSales('cust')" aria-label="Pilih sales" title="Pilih sales"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingSalesPickerCust" class="floating-barang-picker floating-sales-picker" role="listbox" aria-label="Daftar sales" hidden></div></div>
+                    <div class="form-help">Boleh dikosongkan. Sales otomatis terisi di Form Input saat customer dipilih</div>
+                </div>
             </div>
 
             <div class="button-area">
@@ -5006,6 +5016,7 @@ body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !imp
         <div class="card" id="customerTableCard" style="display:none;">
             <div class="card-title">
                 <span>Data Customer</span>
+                <div class="badge-total-stok" id="displayTotalCustomer">Total Customer <strong>0</strong></div>
             </div>
 
             <div class="toolbar">
@@ -5019,9 +5030,10 @@ body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !imp
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 5%;">No</th>
-                            <th style="width: 28%;">Nama Customer</th>
-                            <th style="width: 45%;">Alamat</th>
-                            <th style="width: 22%;">No Telp / HP</th>
+                            <th style="width: 22%;">Nama Customer</th>
+                            <th style="width: 36%;">Alamat</th>
+                            <th style="width: 20%;">No Telp / HP</th>
+                            <th style="width: 17%;">Nama Sales</th>
                         </tr>
                     </thead>
                     <tbody id="customerBody"></tbody>
@@ -5116,9 +5128,10 @@ body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !imp
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 6%;">No</th>
-                            <th style="width: 24%;">Nama Customer</th>
-                            <th style="width: 34%;">Alamat</th>
-                            <th style="width: 18%;">No Telp / HP</th>
+                            <th style="width: 20%;">Nama Customer</th>
+                            <th style="width: 28%;">Alamat</th>
+                            <th style="width: 15%;">No Telp / HP</th>
+                            <th style="width: 14%;">Nama Sales</th>
                             <th class="text-center" style="width: 18%;">Edit / Delete</th>
                         </tr>
                     </thead>
@@ -5404,6 +5417,10 @@ body.theme-dark #ubahPinModal .password-wrapper input { background: #0f172a !imp
             <div class="form-group">
                 <label for="ceTelp">No Telp / HP</label>
                 <input type="text" id="ceTelp" readonly style="cursor: not-allowed;" placeholder="Terisi dari form alamat">
+            </div>
+            <div class="form-group" style="margin-top: 14px;">
+                <label for="ceSales">Nama Sales (Opsional)</label>
+                <div class="picker-field sales-field"><input type="text" id="ceSales" placeholder="Pilih Sales / ketik nama sales" autocomplete="off" aria-haspopup="listbox" aria-expanded="false" onfocus="bukaPilihanSales('custEdit', true)" onclick="bukaPilihanSales('custEdit', true)" oninput="this.value = this.value.toUpperCase(); filterPilihanSales('custEdit')" onkeydown="navigasiPilihanSales(event,'custEdit')"><button type="button" class="picker-toggle-btn" onclick="togglePilihanSales('custEdit')" aria-label="Pilih sales" title="Pilih sales"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></button><div id="floatingSalesPickerCustEdit" class="floating-barang-picker floating-sales-picker" role="listbox" aria-label="Daftar sales" hidden></div></div>
             </div>
         </div>
         <div class="modal-footer">
@@ -6929,7 +6946,7 @@ function daftarPilihanCustomer() {
             return {
                 nama,
                 alamat: gabungAlamatDanTelepon(c.alamat, c.telepon),
-                sales: salesMap[nama] || '',
+                sales: String(c.sales || '').trim().toUpperCase() || salesMap[nama] || '',
                 alamatTampil: c.alamat || '',
                 telepon: c.telepon || '',
                 jumlahTransaksi: hitung[nama] ? hitung[nama].size : 0
@@ -6955,6 +6972,14 @@ function filterPilihanCustomer(query) {
 }
 
 // Alamat & sales di Form Input selalu mengikuti data customer yang cocok persis dengan nama yang dipilih/diketik.
+function klikAlamatFormCustomerBaru() {
+    const namaInput = document.getElementById('customer');
+    const nama = namaInput ? namaInput.value.trim().toUpperCase() : '';
+    if (!nama) { alert("Isi Nama Customer terlebih dahulu."); return; }
+    if (daftarPilihanCustomer().some(c => c.nama === nama)) return; // customer lama: alamat otomatis dari Data Customer
+    bukaModalAlamatCustomer('form');
+}
+
 function sinkronAlamatCustomerForm() {
     const input = document.getElementById('customer');
     const alamat = document.getElementById('alamatCustomer');
@@ -6962,11 +6987,42 @@ function sinkronAlamatCustomerForm() {
     const nama = input.value.trim().toUpperCase();
     const cocok = nama ? daftarPilihanCustomer().find(c => c.nama === nama) : null;
     alamat.value = cocok ? cocok.alamat : '';
+    const customerBaruDiketik = !!nama && !cocok;
+    alamat.classList.toggle('alamat-baru-aktif', customerBaruDiketik);
+    alamat.placeholder = customerBaruDiketik ? 'Customer baru: klik untuk isi Alamat & No Telp (opsional)' : 'Alamat terisi otomatis dari data customer';
     alamatOtomatis = alamat.value;
     const salesInput = document.getElementById('salesCustomer');
-    if (salesInput && (!salesInput.value || salesInput.value === salesOtomatis)) {
-        salesInput.value = cocok ? cocok.sales : '';
+    if (salesInput) {
+        // Sales terkunci seperti Alamat Customer: terisi otomatis dari data customer.
+        // Hanya customer baru (belum ada di Data Customer) yang boleh mengisi sales.
+        const sebelumnyaTerkunci = salesInput.readOnly;
+        if (cocok) salesInput.value = cocok.sales || '';
+        else if (!nama || sebelumnyaTerkunci) salesInput.value = '';
+        kunciSalesForm(!customerBaruDiketik);
         salesOtomatis = salesInput.value;
+    }
+}
+
+function kunciSalesForm(kunci) {
+    const salesInput = document.getElementById('salesCustomer');
+    if (!salesInput) return;
+    if (kunci) {
+        tutupPilihanSales('form');
+        salesInput.readOnly = true;
+        salesInput.style.cursor = 'not-allowed';
+        salesInput.style.background = 'var(--readonly-bg)';
+        salesInput.style.color = 'var(--text-muted)';
+        salesInput.style.fontWeight = '600';
+        salesInput.placeholder = 'Sales terisi otomatis dari data customer';
+        salesInput.title = 'Sales diambil otomatis dari Report Customer';
+    } else {
+        salesInput.readOnly = false;
+        salesInput.style.cursor = '';
+        salesInput.style.background = '';
+        salesInput.style.color = '';
+        salesInput.style.fontWeight = '';
+        salesInput.placeholder = 'Customer baru: pilih Sales / ketik nama sales (opsional)';
+        salesInput.title = '';
     }
 }
 
@@ -6994,7 +7050,7 @@ function pastikanShellPilihanCustomer(popup) {
     wrap.appendChild(si);
     const heading = document.createElement('div');
     heading.className = 'picker-heading';
-    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT</span><span>NO TELP / HP</span>';
+    heading.innerHTML = '<span>NAMA CUSTOMER</span><span>ALAMAT</span><span>NO TELP / HP</span><span>NAMA SALES</span>';
     sticky.append(wrap, heading);
     const list = document.createElement('div');
     list.id = 'pickerCustomerListBody';
@@ -7012,7 +7068,7 @@ function renderPilihanCustomer(query) {
     const list = document.getElementById('pickerCustomerListBody');
     const q = qRaw.toLocaleLowerCase('id');
     const found = floatingCustomerItems.filter(c =>
-        [c.nama, c.alamatTampil, c.telepon].some(v => String(v || '').toLocaleLowerCase('id').includes(q))
+        [c.nama, c.alamatTampil, c.telepon, c.sales].some(v => String(v || '').toLocaleLowerCase('id').includes(q))
     );
     list.innerHTML = '';
 
@@ -7020,8 +7076,8 @@ function renderPilihanCustomer(query) {
         const empty = document.createElement('div');
         empty.className = 'picker-empty';
         empty.textContent = qRaw
-            ? 'Customer tidak ditemukan. Tambahkan customer baru di menu Report Customer.'
-            : 'Belum ada customer. Tambahkan customer di menu Report Customer.';
+            ? 'Customer belum ada di daftar. Isi form lalu SAVE FORM, customer baru otomatis masuk Data Customer.'
+            : 'Belum ada customer. Ketik nama customer baru, otomatis masuk Data Customer saat SAVE FORM.';
         list.appendChild(empty);
     } else {
         found.forEach(item => {
@@ -7032,7 +7088,8 @@ function renderPilihanCustomer(query) {
             const nama = document.createElement('span'); nama.className = 'picker-code'; nama.textContent = item.nama;
             const alamat = document.createElement('span'); alamat.className = 'picker-address'; alamat.textContent = item.alamatTampil || '-';
             const telp = document.createElement('span'); telp.className = 'picker-phone'; telp.textContent = item.telepon || '-';
-            row.append(nama, alamat, telp);
+            const salesCol = document.createElement('span'); salesCol.className = 'picker-sales'; salesCol.textContent = item.sales || '-';
+            row.append(nama, alamat, telp, salesCol);
             row.addEventListener('mousedown', e => e.preventDefault());
             row.addEventListener('click', () => pilihCustomerDariTabel(item));
             list.appendChild(row);
@@ -7056,6 +7113,7 @@ function pilihCustomerDariTabel(item) {
     const salesInput = document.getElementById('salesCustomer');
     if (salesInput) salesInput.value = item.sales || '';
     salesOtomatis = item.sales || '';
+    sinkronAlamatCustomerForm();
     tutupPilihanCustomer();
 }
 
@@ -7339,7 +7397,7 @@ function simpanTransaksi() {
     if (jenis === 'keluar') {
         const customer = document.getElementById('customer') ? document.getElementById('customer').value.trim().toUpperCase() : '';
         const customerMaster = customer ? daftarPilihanCustomer().find(c => c.nama === customer) : null;
-        const alamatCustomer = customerMaster ? customerMaster.alamat : '';
+        let alamatCustomer = customerMaster ? customerMaster.alamat : '';
         const sales = document.getElementById('salesCustomer') ? document.getElementById('salesCustomer').value.trim().toUpperCase() : '';
         if (!customer) {
             alert("Mohon isi Nama Customer terlebih dahulu!");
@@ -7351,8 +7409,20 @@ function simpanTransaksi() {
         }
 
         if (!customerMaster) {
-            alert("Customer belum terdaftar! Pilih customer dari daftar atau tambahkan dulu di menu Report Customer.");
-            return;
+            // Customer baru: langsung didaftarkan ke Data Customer (beserta sales opsional)
+            if (customer === '-') { alert("Nama customer tidak valid!"); return; }
+            const alamatForm = document.getElementById('alamatCustomer') ? document.getElementById('alamatCustomer').value.trim() : '';
+            const pecahBaru = pisahAlamatDanTelepon(alamatForm);
+            customerList.push({ nama: customer, alamat: pecahBaru.alamat, telepon: pecahBaru.telepon, sales: sales });
+            saveCustomers();
+            alamatCustomer = gabungAlamatDanTelepon(pecahBaru.alamat, pecahBaru.telepon);
+        } else if (sales) {
+            // Customer lama: sales terbaru disinkronkan ke Data Customer
+            const idxCust = cariCustomerIndex(customer);
+            if (idxCust !== -1 && String(customerList[idxCust].sales || '').trim().toUpperCase() !== sales) {
+                customerList[idxCust].sales = sales;
+                saveCustomers();
+            }
         }
 
         keranjangBelanja.forEach(item => {
@@ -7421,6 +7491,7 @@ function resetFormInput() {
     if (document.getElementById('alamatCustomer')) document.getElementById('alamatCustomer').value = '';
     if (document.getElementById('salesCustomer')) document.getElementById('salesCustomer').value = '';
     salesOtomatis = '';
+    if (typeof sinkronAlamatCustomerForm === 'function') sinkronAlamatCustomerForm();
    
     const inputKode = document.getElementById('kode');
     const inputNama = document.getElementById('nama');
@@ -7948,7 +8019,7 @@ function renderTransaksi() {
                 <td style="white-space: nowrap;"><span class="badge badge-keluar">Barang Keluar</span></td>
                 <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px;" title="${escapeHTML(rowObj.noSuratJalan || '-')}">${escapeHTML(rowObj.noSuratJalan || '-')}</td>
                 <td style="padding: 4px 8px; white-space: normal;">${subTableHtml}</td>
-                <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px;" title="${escapeHTML(rowObj.customer)}"><strong>${escapeHTML(rowObj.customer)}</strong></td>
+                <td style="white-space: normal; word-break: break-word;" title="${escapeHTML(rowObj.customer)}"><strong>${escapeHTML(rowObj.customer)}</strong>${(() => { const sg = rowObj.items.find(it => it.sales && String(it.sales).trim() && String(it.sales).trim() !== '-'); return sg ? `<div style="font-size: 11px; font-weight: 700; color: var(--primary); margin-top: 2px;">Sales: ${escapeHTML(String(sg.sales).trim().toUpperCase())}</div>` : ''; })()}</td>
                 <td class="text-center transaksi-actions-cell">
                     <div class="transaksi-row-actions">
                         <button class="btn-edit" onclick="bukaEditGroup('${safeGroupKey}')">Edit</button>
@@ -8355,12 +8426,13 @@ function simpanEdit() {
             const idxLama = oldCustomerName ? cariCustomerIndex(oldCustomerName) : -1;
             const idxBaru = cariCustomerIndex(customer);
             if (idxLama !== -1 && (idxBaru === -1 || idxBaru === idxLama)) {
-                customerList[idxLama] = { nama: customer, alamat: pecah.alamat, telepon: pecah.telepon };
+                customerList[idxLama] = { nama: customer, alamat: pecah.alamat, telepon: pecah.telepon, sales: sales || String(customerList[idxLama].sales || '') };
             } else if (idxBaru !== -1) {
                 if (pecah.alamat) customerList[idxBaru].alamat = pecah.alamat;
                 if (pecah.telepon) customerList[idxBaru].telepon = pecah.telepon;
+                if (sales) customerList[idxBaru].sales = sales;
             } else {
-                customerList.push({ nama: customer, alamat: pecah.alamat, telepon: pecah.telepon });
+                customerList.push({ nama: customer, alamat: pecah.alamat, telepon: pecah.telepon, sales: sales });
             }
             saveCustomers();
         }
@@ -8726,7 +8798,7 @@ function hapusSalesPermanen(nama, key) {
     }
 
     // 3. Jika input saat ini sedang memilih sales ini, kosongkan
-    ['form', 'edit'].forEach(k => {
+    Object.keys(SALES_PICKER_CFG).forEach(k => {
         const inputId = SALES_PICKER_CFG[k]?.input;
         const input = document.getElementById(inputId);
         if (input && input.value.trim().toUpperCase() === namaUpper) {
@@ -8748,7 +8820,9 @@ function tambahSalesDariBar(key) {
 }
 const SALES_PICKER_CFG = {
     form: { input: 'salesCustomer', popup: 'floatingSalesPicker' },
-    edit: { input: 'editSales', popup: 'floatingSalesPickerEdit' }
+    edit: { input: 'editSales', popup: 'floatingSalesPickerEdit' },
+    cust: { input: 'custSales', popup: 'floatingSalesPickerCust' },
+    custEdit: { input: 'ceSales', popup: 'floatingSalesPickerCustEdit' }
 };
 let salesPickerIndex = -1;
 
@@ -9583,7 +9657,7 @@ function importExcel(event) {
                         yards: yards.length > 0 ? yards : [],
                         totalYard: totalYard || 0
                     });
-                    if (jenis === 'keluar') tambahCustomerOtomatis(customer, alamatCustomer);
+                    if (jenis === 'keluar') tambahCustomerOtomatis(customer, alamatCustomer, sales);
                     counter++;
                 }
             });
@@ -9685,7 +9759,10 @@ function loadCustomers() {
             seen[nama].terisi = true;
         }
     });
-    customerList = Object.values(seen).map(c => ({ nama: c.nama, alamat: c.alamat, telepon: c.telepon }));
+    customerList = Object.values(seen).map(c => {
+        const trxSales = transaksi.find(t => t.jenis === 'keluar' && String(t.customer || '').trim().toUpperCase() === c.nama && t.sales && String(t.sales).trim() && String(t.sales).trim() !== '-');
+        return { nama: c.nama, alamat: c.alamat, telepon: c.telepon, sales: trxSales ? String(trxSales.sales).trim().toUpperCase() : '' };
+    });
     saveCustomers();
 }
 
@@ -9694,11 +9771,11 @@ function cariCustomerIndex(nama) {
     return customerList.findIndex(c => String(c.nama || '').trim().toUpperCase() === n);
 }
 
-function tambahCustomerOtomatis(nama, alamatGabungan) {
+function tambahCustomerOtomatis(nama, alamatGabungan, sales) {
     const n = String(nama || '').trim().toUpperCase();
     if (!n || n === '-' || cariCustomerIndex(n) !== -1) return false;
     const p = pisahAlamatDanTelepon(alamatGabungan);
-    customerList.push({ nama: n, alamat: p.alamat, telepon: p.telepon });
+    customerList.push({ nama: n, alamat: p.alamat, telepon: p.telepon, sales: (String(sales || '').trim().toUpperCase() === '-') ? '' : String(sales || '').trim().toUpperCase() });
     saveCustomers();
     return true;
 }
@@ -9710,7 +9787,8 @@ function customerExportRows() {
             "No": i + 1,
             "Nama Customer": String(c.nama || '').toUpperCase(),
             "Alamat": c.alamat || '-',
-            "No Telp / HP": c.telepon || '-'
+            "No Telp / HP": c.telepon || '-',
+            "Nama Sales": c.sales || '-'
         }));
 }
 
@@ -9723,6 +9801,8 @@ function importCustomerRows(rows) {
         let telepon = String(row["No Telp / HP"] || row["No Telp"] || row["No Telepon"] || row["Telepon"] || row["HP"] || row["telepon"] || "").trim();
         if (alamat === '-') alamat = '';
         if (telepon === '-') telepon = '';
+        let sales = String(row["Nama Sales"] || row["Sales"] || row["sales"] || "").trim().toUpperCase();
+        if (sales === '-') sales = '';
         if (alamat && !telepon) {
             const p = pisahAlamatDanTelepon(alamat);
             alamat = p.alamat;
@@ -9730,10 +9810,11 @@ function importCustomerRows(rows) {
         }
         const idx = cariCustomerIndex(nama);
         if (idx === -1) {
-            customerList.push({ nama, alamat, telepon });
+            customerList.push({ nama, alamat, telepon, sales });
         } else {
             if (alamat) customerList[idx].alamat = alamat;
             if (telepon) customerList[idx].telepon = telepon;
+            if (sales) customerList[idx].sales = sales;
         }
         jumlah++;
     });
@@ -9760,12 +9841,12 @@ function renderCustomer() {
 
     const rows = customerList
         .map((c, index) => ({ c, index }))
-        .filter(({ c }) => !query || [c.nama, c.alamat, c.telepon].some(v => String(v || '').toLowerCase().includes(query)))
+        .filter(({ c }) => !query || [c.nama, c.alamat, c.telepon, c.sales].some(v => String(v || '').toLowerCase().includes(query)))
         .sort((a, b) => String(a.c.nama).localeCompare(String(b.c.nama), 'id', { sensitivity: 'base' }));
 
     tbody.innerHTML = '';
     if (rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="empty"><strong>${customerList.length ? 'Tidak ada customer yang cocok.' : 'Belum ada data customer.'}</strong></td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="empty"><strong>${customerList.length ? 'Tidak ada customer yang cocok.' : 'Belum ada data customer.'}</strong></td></tr>`;
         return;
     }
 
@@ -9778,13 +9859,15 @@ function renderCustomer() {
             <td><strong>${escapeHTML(c.nama)}</strong></td>
             <td class="cust-alamat">${escapeHTML(c.alamat || '-')}</td>
             <td>${escapeHTML(c.telepon || '-')}</td>
+            <td><strong>${escapeHTML(c.sales || '-')}</strong></td>
         `;
         tbody.appendChild(tr);
     });
 }
 
 function resetFormCustomer() {
-    ['custNama', 'custAlamat', 'custTelp'].forEach(id => {
+    if (typeof tutupPilihanSales === 'function') tutupPilihanSales('cust');
+    ['custNama', 'custAlamat', 'custTelp', 'custSales'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
@@ -9808,7 +9891,7 @@ function simpanCustomer() {
         return;
     }
 
-    customerList.push({ nama, alamat: p.alamat, telepon: p.telepon });
+    customerList.push({ nama, alamat: p.alamat, telepon: p.telepon, sales: (document.getElementById('custSales') ? document.getElementById('custSales').value.trim().toUpperCase() : '') });
     saveCustomers();
     resetFormCustomer();
     updateApp();
@@ -9857,12 +9940,12 @@ function renderCustomerData() {
     const query = (document.getElementById('searchCustomerData').value || '').toLowerCase().trim();
     const rows = customerList
         .map((c, index) => ({ c, index }))
-        .filter(({ c }) => !query || [c.nama, c.alamat, c.telepon].some(v => String(v || '').toLowerCase().includes(query)))
+        .filter(({ c }) => !query || [c.nama, c.alamat, c.telepon, c.sales].some(v => String(v || '').toLowerCase().includes(query)))
         .sort((a, b) => String(a.c.nama).localeCompare(String(b.c.nama), 'id', { sensitivity: 'base' }));
 
     tbody.innerHTML = '';
     if (rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty"><strong>${customerList.length ? 'Tidak ada customer yang cocok.' : 'Belum ada data customer.'}</strong></td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="empty"><strong>${customerList.length ? 'Tidak ada customer yang cocok.' : 'Belum ada data customer.'}</strong></td></tr>`;
         return;
     }
     rows.forEach(({ c, index }, no) => {
@@ -9872,6 +9955,7 @@ function renderCustomerData() {
             <td><strong>${escapeHTML(c.nama)}</strong></td>
             <td>${escapeHTML(c.alamat || '-')}</td>
             <td>${escapeHTML(c.telepon || '-')}</td>
+            <td><strong>${escapeHTML(c.sales || '-')}</strong></td>
             <td class="text-center transaksi-actions-cell">
                 <div class="transaksi-row-actions">
                     <button class="btn-edit" onclick="bukaEditCustomerData(${index})">Edit</button>
@@ -9890,10 +9974,12 @@ function bukaEditCustomerData(index) {
     document.getElementById('ceNama').value = String(c.nama || '').toUpperCase();
     document.getElementById('ceAlamat').value = gabungAlamatDanTelepon(c.alamat, c.telepon);
     document.getElementById('ceTelp').value = c.telepon || '';
+    document.getElementById('ceSales').value = String(c.sales || '').toUpperCase();
     document.getElementById('editCustomerModal').classList.add('active');
 }
 
 function tutupEditCustomerData() {
+    if (typeof tutupPilihanSales === 'function') tutupPilihanSales('custEdit');
     editCustomerIndex = null;
     document.getElementById('editCustomerModal').classList.remove('active');
 }
@@ -9918,7 +10004,9 @@ function simpanEditCustomerData() {
     }
 
     const namaLama = String(customerList[editCustomerIndex].nama || '').trim().toUpperCase();
-    customerList[editCustomerIndex] = { nama, alamat: p.alamat, telepon: p.telepon };
+    const salesLamaCust = String(customerList[editCustomerIndex].sales || '').trim().toUpperCase();
+    const salesBaruCust = document.getElementById('ceSales') ? document.getElementById('ceSales').value.trim().toUpperCase() : '';
+    customerList[editCustomerIndex] = { nama, alamat: p.alamat, telepon: p.telepon, sales: salesBaruCust };
 
     // Samakan nama & alamat pada transaksi lama customer ini agar Surat Jalan dan Penjualan tetap konsisten.
     const alamatGabung = gabungAlamatDanTelepon(p.alamat, p.telepon);
@@ -9927,6 +10015,7 @@ function simpanEditCustomerData() {
         if (item.jenis === 'keluar' && String(item.customer || '').trim().toUpperCase() === namaLama) {
             item.customer = nama;
             item.alamatCustomer = alamatGabung;
+            if (salesBaruCust !== salesLamaCust) item.sales = salesBaruCust;
             berubah = true;
         }
     });
